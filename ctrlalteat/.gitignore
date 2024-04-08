@@ -192,6 +192,7 @@ Temporary Items
 .apdisk
 
 #maven
-!/ctrlalteat/HELP.md
-!/ctrlalteat/mvnw
-!/ctrlalteat/mvnw.cmd
+/HELP.md
+/ctrlalteat/mvnw
+/ctrlalteat/mvnw.cmd
+
