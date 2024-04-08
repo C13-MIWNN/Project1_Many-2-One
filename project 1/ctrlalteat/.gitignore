@@ -191,3 +191,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# personal ignore directories
+OOP/
+intermediate/
+programming/
