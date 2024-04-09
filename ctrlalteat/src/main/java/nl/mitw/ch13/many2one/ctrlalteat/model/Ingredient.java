@@ -18,18 +18,18 @@ public class Ingredient {
     private double gramFat;
     private String description;
     private String allergens;
-    private String dietairyClassifications;
+    private String dietaryClassifications;
 
 
     public Ingredient(String name, double gramProtein, double gramCarbohydrate, double gramFat, String description,
-                      String allergens, String dietairyClassifications) {
+                      String allergens, String dietaryClassifications) {
         this.name = name;
         this.gramProtein = gramProtein;
         this.gramCarbohydrate = gramCarbohydrate;
         this.gramFat = gramFat;
         this.description = description;
         this.allergens = allergens;
-        this.dietairyClassifications = dietairyClassifications;
+        this.dietaryClassifications = dietaryClassifications;
     }
 
     public Ingredient() {
@@ -91,19 +91,19 @@ public class Ingredient {
         this.allergens = allergens;
     }
 
-    public String getDietairyClassifications() {
-        return dietairyClassifications;
-    }
-
-    public void setDietairyClassifications(String dietairyClassifications) {
-        this.dietairyClassifications = dietairyClassifications;
-    }
-
     public void setId(Long id) {
         this.IngredientId = id;
     }
 
     public Long getId() {
         return IngredientId;
+    }
+
+    public String getDietaryClassifications() {
+        return dietaryClassifications;
+    }
+
+    public void setDietaryClassifications(String dietaryClassifications) {
+        this.dietaryClassifications = dietaryClassifications;
     }
 }

@@ -2,25 +2,26 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:fragment="baseHeader(title)">
     <meta charset="UTF-8">
-    <title>## Title Here!!##</title>
+    <title th:replace="${title}"></title>
 
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" href="/css/ctrlalteat.css">
 </head>
 <body>
 
 <div th:fragment="navbar">
-    <ul>
-        <li>
-            <a th:href="@{/ingredent}">Ingredients</a>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/ingredient}">Ingredients</a>
         </li>
-        <li>
-            <a th:href="@{/recipe}">Recipes</a>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/recipe}">Recipes</a>
         </li>
     </ul>
 </div>
 
 <div th:fragment="footer">
-    <footer><p class="text-center text-muted">Many-2-One;CtrlAltEat</p></footer>
+    <footer><p class="text-center text-muted">Many-2-One CtrlAltEat</p></footer>
 </div>
 
 <div th:fragment="bottomScripts"></div>

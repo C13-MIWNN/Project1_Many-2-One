@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
+    <title>Ingredient overview</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+
+    <h1>Overview of all ingredients</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Allergens</th>
+            <th>DietaryClassifications</th>
+        </tr>
+        <tr th:each="ingredient : ${allIngredients}">
+            <td th:text="${ingredient.name}"></td>
+            <td th:text="${ingredient.description}"></td>
+            <td th:text="${ingredient.allergens}"></td>
+            <td th:text="${ingredient.dietaryClassifications}"></td>
+        </tr>
+    </table>
+
+
+<p>
+    <a href="/ingredient/new">Add a new ingredient</a>
+</p>
+
+
+
+
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+</body>
+</html>

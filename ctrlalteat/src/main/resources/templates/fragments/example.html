@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head th:fragment="baseHeader(title)">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
     <title>## Title Here!!##</title>
 </head>
 <body>
