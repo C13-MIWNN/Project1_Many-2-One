@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:fragment="baseHeader(title)">
+    <meta charset="UTF-8">
+    <title>## Title Here!!##</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/ctrlalteat.css">
+</head>
+<body>
+
+<div th:fragment="navbar">
+    <ul>
+        <li>
+            <a th:href="@{/ingredent}">Ingredients</a>
+        </li>
+        <li>
+            <a th:href="@{/recipe}">Recipes</a>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="footer">
+    <footer><p class="text-center text-muted">Many-2-One;CtrlAltEat</p></footer>
+</div>
+
+<div th:fragment="bottomScripts"></div>
+
+</body>
+</html>
