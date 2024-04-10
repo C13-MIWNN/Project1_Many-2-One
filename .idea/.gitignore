@@ -6,5 +6,12 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+<<<<<<< HEAD
 /misc.xml
 /uiDesigner.xml
+||||||| 6f867da
+!/misc.xml
+=======
+/misc.xml
+/uiDesigner.xml
+>>>>>>> 78958077155463fe241d7d56ff1997fc010da8a3

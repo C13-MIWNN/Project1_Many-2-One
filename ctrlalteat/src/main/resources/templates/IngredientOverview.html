@@ -15,30 +15,22 @@
             <tr>
                 <th><label for="nameField">Name</label></th>
                 <th><label for="descriptionField">Description</label></th>
-                <th><label for="allergensField">Allergens</label></th>
-                <th><label for="dietaryClassificationsField">Dietary classifications</label></th>
+                <th><label for="unitField">Unit</label></th>
                 <th></th>
-
             </tr>
             <tr>
                 <td><input type="text" id="nameField" th:field="*{name}"/></td>
                 <td><input type="text" id="descriptionField" th:field="*{description}"/></td>
-                <td><input type="text" id="allergensField" th:field="*{allergens}"/></td>
-                <td><input type="text" id="dietaryClassificationsField" th:field="*{dietaryClassifications}"/></td>
+                <td><input type="text" id="unitField" th:field="*{unit}"/></td>
                 <td><input type="submit" value="Add a new ingredient"></td>
             </tr>
             <tr th:each="ingredient : ${allIngredients}">
                 <td th:text="${ingredient.name}"></td>
                 <td th:text="${ingredient.description}"></td>
-                <td th:text="${ingredient.allergens}"></td>
-                <td th:text="${ingredient.dietaryClassifications}"></td>
+                <td th:text="${ingredient.unit}"></td>
             </tr>
         </table>
     </form>
-
-
-
-
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
