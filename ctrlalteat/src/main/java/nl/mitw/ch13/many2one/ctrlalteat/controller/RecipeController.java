@@ -1,9 +1,12 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
+import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 /**
  * @author Linda Munsterman
@@ -20,7 +23,6 @@ public class RecipeController {
 
     @GetMapping({"/", "/recipe"})
     private String showRecipeOverview(Model model) {
-
 
         model.addAttribute("allRecipes", recipeRepository.findAll());
 

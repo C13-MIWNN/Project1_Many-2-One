@@ -21,7 +21,13 @@
             <tr>
                 <td><input type="text" id="nameField" th:field="*{name}"/></td>
                 <td><input type="text" id="descriptionField" th:field="*{description}"/></td>
-                <td><input type="text" id="measurementUnitField" th:field="*{measurementUnit}"/></td>
+                <td> <select id="measurementUnitField" th:field="*{measurementUnit}">
+                    <option th:each="measurementunittype : ${measurementUnitTypes} "
+                        th:value="${measurementunittype}"
+                        th:text="${measurementunittype}">
+                    </option>
+                </select> </td>
+
                 <td><input type="submit" value="Add a new ingredient"></td>
             </tr>
             <tr th:each="ingredient : ${allIngredients}">
