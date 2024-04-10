@@ -11,7 +11,7 @@
 
     <h1>Create a new recipe</h1>
 
-    <form th:action="@{/recipe/new}" th:object="${recipe}">
+    <form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
         <input type="hidden" th:field="*{recipeId}">
         <table>
             <tr>
