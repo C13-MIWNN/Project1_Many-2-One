@@ -1,6 +1,7 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
+import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RecipeController {
     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
 
-    public RecipeController(RecipeRepository recipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @GetMapping({"/", "/recipe"})
@@ -31,6 +34,7 @@ public class RecipeController {
     @GetMapping("/recipe/new")
     private String showRecipeForm(Model model) {
         model.addAttribute("recipe", new Recipe());
+        model.addAttribute("allIngredients", ingredientRepository.findAll());
         return "recipeForm";
     }
 

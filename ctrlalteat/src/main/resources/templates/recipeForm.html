@@ -20,6 +20,7 @@
                 <td><label for="recipeservingSizeInPersons">Serving size in persons</label></td>
                 <td><label for="recipepreparationMethod">Preparation method</label></td>
                 <td><label for="recipetag">Tag</label></td>
+                <td><label for="ingredientField">Ingredients</label></td>
 
             </tr>
             <tr>
@@ -37,6 +38,14 @@
                 </td>
                 <td>
                     <input type="text" id="recipetag" th:field="*{tag}"/>
+                </td>
+                <td>
+                    <select id="ingredientField" th:field="*{ingredients}" multiple>
+                        <option th:each="ingredient : ${allIngredients}"
+                                th:text="${ingredient.name}"
+                                th:value="${ingredient.ingredientId}">
+                        </option>
+                    </select>
                 </td>
             </tr>
         </table>

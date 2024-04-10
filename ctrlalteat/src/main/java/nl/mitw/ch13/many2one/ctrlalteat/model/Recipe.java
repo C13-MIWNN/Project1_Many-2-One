@@ -1,10 +1,9 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Linda Munsterman
@@ -15,6 +14,9 @@ import java.util.Date;
 public class Recipe {
     @Id @GeneratedValue
     private Long recipeId;
+    @ManyToMany(cascade = CascadeType.DETACH)
+    private Set<Ingredient> ingredients;
+
     private String recipeName;
     private int preparationTimeInMinutes;
     private int servingSizeInPersons;
@@ -80,5 +82,13 @@ public class Recipe {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }

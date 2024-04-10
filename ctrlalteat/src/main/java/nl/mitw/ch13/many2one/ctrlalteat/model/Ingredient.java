@@ -1,8 +1,8 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 /**
  * @author Simon Hiemstra
@@ -12,6 +12,9 @@ import jakarta.persistence.Id;
 public class Ingredient {
     @Id @GeneratedValue
     private Long IngredientId;
+    @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.ALL)
+    private Set<Recipe> recipes;
+
     private String name;
     private String description;
     private String measurementUnit;
@@ -56,5 +59,10 @@ public class Ingredient {
 
     public void setMeasurementUnit(String measurementUnit) {
         this.measurementUnit = measurementUnit;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
