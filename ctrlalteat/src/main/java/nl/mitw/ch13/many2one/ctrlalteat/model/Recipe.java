@@ -18,13 +18,17 @@ public class Recipe {
     private String recipeName;
     private int preparationTimeInMinutes;
     private int servingSizeInPersons;
-    private String cuisine;
+    private String preparationMethod;
+    private String tag;
 
-    public Recipe(String recipeName, int preparationTimeInMinutes, int servingSizeInPersons, String cuisine) {
+
+    public Recipe(String recipeName, int preparationTimeInMinutes, int servingSizeInPersons,
+                  String preparationMethod, String tag) {
         this.recipeName = recipeName;
         this.preparationTimeInMinutes = preparationTimeInMinutes;
         this.servingSizeInPersons = servingSizeInPersons;
-        this.cuisine = cuisine;
+        this.preparationMethod = preparationMethod;
+        this.tag = tag;
     }
 
     public Recipe() {
@@ -62,11 +66,19 @@ public class Recipe {
         this.servingSizeInPersons = servingSizeInPersons;
     }
 
-    public String getCuisine() {
-        return cuisine;
+    public String getPreparationMethod() {
+        return preparationMethod;
     }
 
-    public void setCuisine(String cuisine) {
-        this.cuisine = cuisine;
+    public void setPreparationMethod(String preparationMethod) {
+        this.preparationMethod = preparationMethod;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }
