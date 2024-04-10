@@ -25,13 +25,8 @@ public class IngredientController {
     @GetMapping("/ingredient")
     private String showIngredientsOverview(Model model) {
         model.addAttribute("allIngredients", ingredientRepository.findAll());
+        model.addAttribute("newIngredient", new Ingredient());
         return "IngredientOverview";
-    }
-
-    @GetMapping("ingredient/new")
-    private String showNewIngredientForm(Model model) {
-        model.addAttribute("ingredient", new Ingredient());
-        return "IngredientForm";
     }
 
 

@@ -10,26 +10,31 @@
 <div class="container">
 
     <h1>Overview of all ingredients</h1>
+    <form th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
+        <table>
+            <tr>
+                <th><label for="nameField">Name</label></th>
+                <th><label for="descriptionField">Description</label></th>
+                <th><label for="allergensField">Allergens</label></th>
+                <th><label for="dietaryClassificationsField">Dietary classifications</label></th>
+                <th></th>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Allergens</th>
-            <th>DietaryClassifications</th>
-        </tr>
-        <tr th:each="ingredient : ${allIngredients}">
-            <td th:text="${ingredient.name}"></td>
-            <td th:text="${ingredient.description}"></td>
-            <td th:text="${ingredient.allergens}"></td>
-            <td th:text="${ingredient.dietaryClassifications}"></td>
-        </tr>
-    </table>
-
-
-<p>
-    <a href="/ingredient/new">Add a new ingredient</a>
-</p>
+            </tr>
+            <tr>
+                <td><input type="text" id="nameField" th:field="*{name}"/></td>
+                <td><input type="text" id="descriptionField" th:field="*{description}"/></td>
+                <td><input type="text" id="allergensField" th:field="*{allergens}"/></td>
+                <td><input type="text" id="dietaryClassificationsField" th:field="*{dietaryClassifications}"/></td>
+                <td><input type="submit" value="Add a new ingredient"></td>
+            </tr>
+            <tr th:each="ingredient : ${allIngredients}">
+                <td th:text="${ingredient.name}"></td>
+                <td th:text="${ingredient.description}"></td>
+                <td th:text="${ingredient.allergens}"></td>
+                <td th:text="${ingredient.dietaryClassifications}"></td>
+            </tr>
+        </table>
+    </form>
 
 
 

@@ -13,20 +13,20 @@ public class Ingredient {
     @Id @GeneratedValue
     private Long IngredientId;
     private String name;
-    private double gramProtein;
-    private double gramCarbohydrate;
-    private double gramFat;
+    private double percentageProtein;
+    private double percentageCarbohydrate;
+    private double percentageFat;
     private String description;
     private String allergens;
     private String dietaryClassifications;
 
 
-    public Ingredient(String name, double gramProtein, double gramCarbohydrate, double gramFat, String description,
+    public Ingredient(String name, double percentageProtein, double percentageCarbohydrate, double percentageFat, String description,
                       String allergens, String dietaryClassifications) {
         this.name = name;
-        this.gramProtein = gramProtein;
-        this.gramCarbohydrate = gramCarbohydrate;
-        this.gramFat = gramFat;
+        this.percentageProtein = percentageProtein;
+        this.percentageCarbohydrate = percentageCarbohydrate;
+        this.percentageFat = percentageFat;
         this.description = description;
         this.allergens = allergens;
         this.dietaryClassifications = dietaryClassifications;
@@ -51,28 +51,28 @@ public class Ingredient {
         this.name = name;
     }
 
-    public double getGramProtein() {
-        return gramProtein;
+    public double getPercentageProtein() {
+        return percentageProtein;
     }
 
-    public void setGramProtein(double gramProtein) {
-        this.gramProtein = gramProtein;
+    public void setPercentageProtein(double gramProtein) {
+        this.percentageProtein = gramProtein;
     }
 
-    public double getGramCarbohydrate() {
-        return gramCarbohydrate;
+    public double getPercentageCarbohydrate() {
+        return percentageCarbohydrate;
     }
 
-    public void setGramCarbohydrate(double gramCarbohydrate) {
-        this.gramCarbohydrate = gramCarbohydrate;
+    public void setPercentageCarbohydrate(double gramCarbohydrate) {
+        this.percentageCarbohydrate = gramCarbohydrate;
     }
 
-    public double getGramFat() {
-        return gramFat;
+    public double getPercentageFat() {
+        return percentageFat;
     }
 
-    public void setGramFat(double gramFat) {
-        this.gramFat = gramFat;
+    public void setPercentageFat(double gramFat) {
+        this.percentageFat = gramFat;
     }
 
     public String getDescription() {
@@ -106,4 +106,5 @@ public class Ingredient {
     public void setDietaryClassifications(String dietaryClassifications) {
         this.dietaryClassifications = dietaryClassifications;
     }
+
 }
