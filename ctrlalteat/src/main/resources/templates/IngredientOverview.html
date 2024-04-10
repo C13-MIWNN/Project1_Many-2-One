@@ -15,19 +15,19 @@
             <tr>
                 <th><label for="nameField">Name</label></th>
                 <th><label for="descriptionField">Description</label></th>
-                <th><label for="unitField">Unit</label></th>
+                <th><label for="measurementUnitField">Measurement unit</label></th>
                 <th></th>
             </tr>
             <tr>
                 <td><input type="text" id="nameField" th:field="*{name}"/></td>
                 <td><input type="text" id="descriptionField" th:field="*{description}"/></td>
-                <td><input type="text" id="unitField" th:field="*{unit}"/></td>
+                <td><input type="text" id="measurementUnitField" th:field="*{measurementUnit}"/></td>
                 <td><input type="submit" value="Add a new ingredient"></td>
             </tr>
             <tr th:each="ingredient : ${allIngredients}">
                 <td th:text="${ingredient.name}"></td>
                 <td th:text="${ingredient.description}"></td>
-                <td th:text="${ingredient.unit}"></td>
+                <td th:text="${ingredient.measurementUnit}"></td>
             </tr>
         </table>
     </form>

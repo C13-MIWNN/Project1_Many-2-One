@@ -14,13 +14,13 @@ public class Ingredient {
     private Long IngredientId;
     private String name;
     private String description;
-    private String unit;
+    private String measurementUnit;
 
-    public Ingredient(Long ingredientId, String name, String description, String unit) {
+    public Ingredient(Long ingredientId, String name, String description, String measurementUnit) {
         IngredientId = ingredientId;
         this.name = name;
         this.description = description;
-        this.unit = unit;
+        this.measurementUnit = measurementUnit;
     }
 
     public Ingredient() {
@@ -50,11 +50,11 @@ public class Ingredient {
         this.description = description;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getMeasurementUnit() {
+        return measurementUnit;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setMeasurementUnit(String measurementUnit) {
+        this.measurementUnit = measurementUnit;
     }
 }
