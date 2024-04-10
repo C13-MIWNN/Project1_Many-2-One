@@ -13,23 +13,14 @@ public class Ingredient {
     @Id @GeneratedValue
     private Long IngredientId;
     private String name;
-    private double percentageProtein;
-    private double percentageCarbohydrate;
-    private double percentageFat;
     private String description;
-    private String allergens;
-    private String dietaryClassifications;
+    private String measurementUnit;
 
-
-    public Ingredient(String name, double percentageProtein, double percentageCarbohydrate, double percentageFat, String description,
-                      String allergens, String dietaryClassifications) {
+    public Ingredient(Long ingredientId, String name, String description, String measurementUnit) {
+        IngredientId = ingredientId;
         this.name = name;
-        this.percentageProtein = percentageProtein;
-        this.percentageCarbohydrate = percentageCarbohydrate;
-        this.percentageFat = percentageFat;
         this.description = description;
-        this.allergens = allergens;
-        this.dietaryClassifications = dietaryClassifications;
+        this.measurementUnit = measurementUnit;
     }
 
     public Ingredient() {
@@ -51,30 +42,6 @@ public class Ingredient {
         this.name = name;
     }
 
-    public double getPercentageProtein() {
-        return percentageProtein;
-    }
-
-    public void setPercentageProtein(double gramProtein) {
-        this.percentageProtein = gramProtein;
-    }
-
-    public double getPercentageCarbohydrate() {
-        return percentageCarbohydrate;
-    }
-
-    public void setPercentageCarbohydrate(double gramCarbohydrate) {
-        this.percentageCarbohydrate = gramCarbohydrate;
-    }
-
-    public double getPercentageFat() {
-        return percentageFat;
-    }
-
-    public void setPercentageFat(double gramFat) {
-        this.percentageFat = gramFat;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -83,28 +50,11 @@ public class Ingredient {
         this.description = description;
     }
 
-    public String getAllergens() {
-        return allergens;
+    public String getMeasurementUnit() {
+        return measurementUnit;
     }
 
-    public void setAllergens(String allergens) {
-        this.allergens = allergens;
+    public void setMeasurementUnit(String measurementUnit) {
+        this.measurementUnit = measurementUnit;
     }
-
-    public void setId(Long id) {
-        this.IngredientId = id;
-    }
-
-    public Long getId() {
-        return IngredientId;
-    }
-
-    public String getDietaryClassifications() {
-        return dietaryClassifications;
-    }
-
-    public void setDietaryClassifications(String dietaryClassifications) {
-        this.dietaryClassifications = dietaryClassifications;
-    }
-
 }
