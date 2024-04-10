@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
+    <title>Create a new recipe</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+
+    <h1>Create a new recipe</h1>
+
+    <form th:action="@{/recipe/new}" th:object="${recipe}">
+        <input type="hidden" th:field="*{recipeId}">
+        <table>
+            <tr>
+                <td><label for="recipeNameField">Recipe Name</label></td>
+                <td><label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label></td>
+                <td><label for="recipeservingSizeInPersons">Serving size in persons</label></td>
+                <td><label for="recipepreparationMethod">Preparation method</label></td>
+                <td><label for="recipetag">Tag</label></td>
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
+                </td>
+                <td>
+                    <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
+                </td>
+                <td>
+                    <input type="text" id="recipeservingSizeInPersons" th:field="*{servingSizeInPersons}"/>
+                </td>
+                <td>
+                    <input type="text" id="recipepreparationMethod" th:field="*{preparationMethod}"/>
+                </td>
+                <td>
+                    <input type="text" id="recipetag" th:field="*{tag}"/>
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Save recipe"/>
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+</body>
+</html>
