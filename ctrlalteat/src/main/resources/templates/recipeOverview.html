@@ -15,14 +15,14 @@
         <tr>
             <th>Recipe Name</th>
             <th>Preparation time</th>
-            <th>Serving size in persons</th>
+            <th>Servings</th>
             <th>Tag</th>
             <th>Ingredients</th>
         </tr>
         <tr th:each="recipe : ${allRecipes}">
             <td th:text="${recipe.recipeName}"></td>
             <td th:text="${recipe.preparationTimeInMinutes}"></td>
-            <td th:text="${recipe.servingSizeInPersons}"></td>
+            <td th:text="${recipe.servings}"></td>
             <td th:text="${recipe.tag}"></td>
             <td th:text="${recipe.ingredients}"></td>
         </tr>

@@ -2,7 +2,6 @@ package nl.mitw.ch13.many2one.ctrlalteat.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -19,16 +18,16 @@ public class Recipe {
 
     private String recipeName;
     private int preparationTimeInMinutes;
-    private int servingSizeInPersons;
+    private int servings;
     private String preparationMethod;
     private String tag;
 
 
-    public Recipe(String recipeName, int preparationTimeInMinutes, int servingSizeInPersons,
+    public Recipe(String recipeName, int preparationTimeInMinutes, int servings,
                   String preparationMethod, String tag) {
         this.recipeName = recipeName;
         this.preparationTimeInMinutes = preparationTimeInMinutes;
-        this.servingSizeInPersons = servingSizeInPersons;
+        this.servings = servings;
         this.preparationMethod = preparationMethod;
         this.tag = tag;
     }
@@ -60,12 +59,12 @@ public class Recipe {
         this.preparationTimeInMinutes = preparationTimeInMinutes;
     }
 
-    public int getServingSizeInPersons() {
-        return servingSizeInPersons;
+    public int getServings() {
+        return servings;
     }
 
-    public void setServingSizeInPersons(int servingSizeInPersons) {
-        this.servingSizeInPersons = servingSizeInPersons;
+    public void setServings(int servingSizeInPersons) {
+        this.servings = servingSizeInPersons;
     }
 
     public String getPreparationMethod() {

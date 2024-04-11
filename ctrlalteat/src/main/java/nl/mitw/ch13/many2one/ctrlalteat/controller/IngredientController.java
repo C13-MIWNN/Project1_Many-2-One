@@ -32,7 +32,7 @@ public class IngredientController {
         model.addAttribute("allIngredients", ingredientRepository.findAll());
         model.addAttribute("newIngredient", new Ingredient());
         model.addAttribute("measurementUnitTypes", measurementUnitTypes);
-        return "IngredientOverview";
+        return "ingredientOverview";
     }
 
 
