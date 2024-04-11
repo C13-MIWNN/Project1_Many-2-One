@@ -18,14 +18,9 @@ public class Recipe {
 
     private String recipeName;
     private int preparationTimeInMinutes;
-<<<<<<< HEAD
     private int servings;
-||||||| cdec74b
-    private int servingSizeInPersons;
-=======
-    private int servingSizeInPersons;
+
     @Column(columnDefinition="TEXT")
->>>>>>> 10efaf015f7ac4ff6a4901ffed7d469ccbc50f70
     private String preparationMethod;
     private String tag;
 
