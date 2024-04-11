@@ -1,6 +1,7 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
 import jakarta.persistence.*;
+import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 
 import java.util.Set;
 
@@ -17,9 +18,9 @@ public class Ingredient {
 
     private String name;
     private String description;
-    private String measurementUnit;
+    private MeasurementUnitTypes measurementUnit;
 
-    public Ingredient(Long ingredientId, String name, String description, String measurementUnit) {
+    public Ingredient(Long ingredientId, String name, String description, MeasurementUnitTypes measurementUnit) {
         IngredientId = ingredientId;
         this.name = name;
         this.description = description;
@@ -53,11 +54,11 @@ public class Ingredient {
         this.description = description;
     }
 
-    public String getMeasurementUnit() {
+    public MeasurementUnitTypes getMeasurementUnit() {
         return measurementUnit;
     }
 
-    public void setMeasurementUnit(String measurementUnit) {
+    public void setMeasurementUnit(MeasurementUnitTypes measurementUnit) {
         this.measurementUnit = measurementUnit;
     }
 
