@@ -6,8 +6,11 @@ package nl.mitw.ch13.many2one.ctrlalteat.enums;
  **/
 public enum MeasurementUnitTypes {
 
-    Gram,
-    Milliliter,
+    // We chose to use all lowercase because, according to the UK Metric Association,
+    // Names of metric units, whether alone or combined with a prefix, always start with a lower case letter
+    gram,
+    milliliter,
     Teaspoon,
-    Tablespoon
+    Tablespoon,
+    Item
 }
