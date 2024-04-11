@@ -20,6 +20,7 @@ public class Recipe {
     private String recipeName;
     private int preparationTimeInMinutes;
     private int servingSizeInPersons;
+    @Column(columnDefinition="TEXT")
     private String preparationMethod;
     private String tag;
 
