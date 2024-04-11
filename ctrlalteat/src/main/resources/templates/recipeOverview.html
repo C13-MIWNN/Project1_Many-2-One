@@ -20,7 +20,7 @@
             <th>Ingredients</th>
         </tr>
         <tr th:each="recipe : ${allRecipes}">
-            <td th:text="${recipe.recipeName}"></td>
+            <td><a th:href="@{/recipe/detail/{recipeName}(recipeName = ${recipe.recipeName})}" th:text="${recipe.recipeName}"></a></td>
             <td th:text="${recipe.preparationTimeInMinutes}"></td>
             <td th:text="${recipe.servings}"></td>
             <td th:text="${recipe.tag}"></td>
