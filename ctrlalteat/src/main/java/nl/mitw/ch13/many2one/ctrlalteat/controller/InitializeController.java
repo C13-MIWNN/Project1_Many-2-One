@@ -60,42 +60,49 @@ public class InitializeController {
         Ingredient water = makeIngredient("Water",
                 "Universal solvent vital for hydration and culinary balance in recipes.",
                 MeasurementUnitTypes.milliliter);
+        Ingredient longIngredient = makeIngredient("Ingredient With a very long name, which is very long",
+                "An ingredient for testing purposes which has a very long name and but also a quit long description. Definitely without any filler words, only functional ones. Ok I think this is long enough. ",
+                MeasurementUnitTypes.Tablespoon);
+        Ingredient shortIngredient = makeIngredient("S",
+                "Short",
+                MeasurementUnitTypes.milliliter);
 
 
-        Set<Ingredient> cpIngredients = new HashSet<>(Arrays.asList(onion, garlic, oliveOil, pasta, salt, pepper));
         Recipe classicPasta = makeRecipe("Classic Tomato and Onion Pasta",
                 30,
                 2,
                 "Saute chopped onion and garlic in olive oil. Add diced tomatoes, salt, and pepper. Simmer. Toss with cooked pasta.",
-                cpIngredients);
+                makeSetIngredients(onion, garlic, oliveOil, pasta, salt, pepper));
 
-        Set<Ingredient> rcIngredients = new HashSet<>(Arrays.asList(chicken, garlic, oliveOil, salt, pepper));
         Recipe roastedChicken = makeRecipe("Garlic and Herb Roasted Chicken",
                 60,
                 4,
                 "Rub chicken with minced garlic, olive oil, salt, and pepper. Roast until golden brown and cooked through.",
-                rcIngredients);
+                makeSetIngredients(chicken, garlic, oliveOil, salt, pepper));
 
-        Set<Ingredient> vcIngredients = new HashSet<>(Arrays.asList(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg));
         Recipe friedRice = makeRecipe("Vegetable Fried Rice",
                 20,
                 6,
                 "Saute onion and garlic. Add cooked rice, diced tomatoes, salt, and pepper. Stir in scrambled eggs.",
-                vcIngredients);
+                makeSetIngredients(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg));
 
-        Set<Ingredient> tsIngredients = new HashSet<>(Arrays.asList(onion, garlic, tomato, oliveOil, salt, pepper));
         Recipe tomatoSauce = makeRecipe("Homemade Tomato Sauce",
                 60,
                 3,
                 "Saute onion and garlic. Add diced tomatoes, salt, and pepper. Simmer until thickened. Blend for a smoother texture if desired.",
-                tsIngredients);
+                makeSetIngredients(onion, garlic, tomato, oliveOil, salt, pepper));
 
-        Set<Ingredient> fbIngredients = new HashSet<>(Arrays.asList(flour, garlic, oliveOil, salt, pepper, yeast, water));
         Recipe focacciaBread = makeRecipe("Garlic and Herb Focaccia Bread",
                 90,
                 4,
                 "Mix flour, yeast, water, salt, and olive oil. Knead until smooth. Press dough into a pan. Top with minced garlic, olive oil, salt, and pepper. Bake until golden brown.",
-                fbIngredients);
+                makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water));
+
+        Recipe shortLong = makeRecipe("Bread",
+                120,
+                4,
+                "Mix. Bake.",
+                makeSetIngredients(flour, shortIngredient, longIngredient, salt, yeast, water));
         return "redirect:/";
     }
 
@@ -120,6 +127,10 @@ public class InitializeController {
 
         recipeRepository.save(recipe);
         return recipe;
+    }
+
+    private Set<Ingredient> makeSetIngredients(Ingredient... ingredients) {
+        return new HashSet<>(Arrays.asList(ingredients));
     }
 
 }
