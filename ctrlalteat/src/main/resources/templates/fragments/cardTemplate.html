@@ -10,21 +10,19 @@
 <div th:fragment="cardFragment(recipe)">
     <div class="recipeCard">
         <div class="card text-center" style="width: 25rem; height: 10rem;">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${recipe.recipeName}"></h5>
-                <table>
-                    <tr>
-                        <td>Preparation time:&emsp;</td>
-                        <td class="card-text" th:text="${recipe.preparationTimeInMinutes}"></td>
-                    </tr>
-                    <tr>
-                        <td>Servings:</td>
-                        <td class="card-text" th:text="${recipe.servings}"></td>
-                    </tr>
-                </table>
+            <img th:src="@{'/recipe/image/' + ${recipe.recipeId}}" class="card-img-top" alt="">
+            <div class="card-img-overlay">
+                <h4 class="card-title" th:text="${recipe.recipeName}"></h4>
                 <a th:href="@{/recipe/detail/{recipeName}(recipeName = ${recipe.recipeName})}"></a>
-
             </div>
+            <table>
+                <tr>
+                    <td>Preparation time in minutes:</td>
+                    <td class="card-text" th:text="${recipe.preparationTimeInMinutes}"></td>
+                    <td>Servings:</td>
+                    <td class="card-text" th:text="${recipe.servings}"></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
