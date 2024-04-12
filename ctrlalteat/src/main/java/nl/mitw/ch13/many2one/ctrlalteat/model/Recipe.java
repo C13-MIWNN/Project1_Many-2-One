@@ -24,14 +24,18 @@ public class Recipe {
     private String preparationMethod;
     private String tag;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] imageData;
 
     public Recipe(String recipeName, int preparationTimeInMinutes, int servings,
-                  String preparationMethod, String tag) {
+                  String preparationMethod, String tag, byte[] imageData) {
         this.recipeName = recipeName;
         this.preparationTimeInMinutes = preparationTimeInMinutes;
         this.servings = servings;
         this.preparationMethod = preparationMethod;
         this.tag = tag;
+        this.imageData = imageData;
     }
 
     public Recipe() {
@@ -91,5 +95,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 }

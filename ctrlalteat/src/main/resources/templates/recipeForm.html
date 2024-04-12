@@ -11,7 +11,7 @@
 
     <h1>Create a new recipe</h1>
 
-    <form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
+    <form th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
         <input type="hidden" th:field="*{recipeId}">
         <table>
             <tr>
@@ -21,8 +21,10 @@
                 <td><label for="recipetag">Tag</label></td>
                 <td><label for="ingredientField">Ingredients</label></td>
                 <td><label for="recipepreparationMethod">Preparation method</label></td>
-
+                <td><label for="customFile">Upload image:</label>
+                    <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" /></td>
             </tr>
+
             <tr>
                 <td>
                     <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
@@ -47,6 +49,7 @@
                 <td>
                     <textarea id="recipepreparationMethod" name="preparationMethod" rows="4" cols="50"></textarea>
                 </td>
+
             </tr>
         </table>
 
