@@ -8,34 +8,14 @@
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-
+    <h1>Overview of all recipes</h1>
     <div class="d-flex flex-wrap">
         <div th:each="recipe : ${allRecipes}">
-            <div th:replace="~{fragments/cardTemplate :: cardFragment(${recipe.getRecipeName()}, ${recipe.preparationTimeInMinutes}, ${recipe.servings})}"></div>
+            <div th:replace="~{fragments/cardTemplate :: cardFragment(${recipe})}"></div>
 
         </div>
     </div>
 
-
-
-    <h1>Overview of all recipes</h1>
-
-    <table>
-        <tr>
-            <th>Recipe Name</th>
-            <th>Preparation time</th>
-            <th>Servings</th>
-            <th>Tag</th>
-            <th>Ingredients</th>
-        </tr>
-        <tr th:each="recipe : ${allRecipes}">
-            <td><a th:href="@{/recipe/detail/{recipeName}(recipeName = ${recipe.recipeName})}" th:text="${recipe.recipeName}"></a></td>
-            <td th:text="${recipe.preparationTimeInMinutes}"></td>
-            <td th:text="${recipe.servings}"></td>
-            <td th:text="${recipe.tag}"></td>
-            <td th:text="${recipe.ingredients}"></td>
-        </tr>
-    </table>
 
     <p>
         <a th:href="@{/recipe/new}">Add a new recipe</a>
