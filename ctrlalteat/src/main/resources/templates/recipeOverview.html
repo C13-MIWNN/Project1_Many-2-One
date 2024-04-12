@@ -9,6 +9,15 @@
 
 <div class="container">
 
+    <div class="d-flex flex-wrap">
+        <div th:each="recipe : ${allRecipes}">
+            <div th:replace="~{fragments/cardTemplate :: cardFragment(${recipe.getRecipeName()}, ${recipe.preparationTimeInMinutes}, ${recipe.servings})}"></div>
+
+        </div>
+    </div>
+
+
+
     <h1>Overview of all recipes</h1>
 
     <table>

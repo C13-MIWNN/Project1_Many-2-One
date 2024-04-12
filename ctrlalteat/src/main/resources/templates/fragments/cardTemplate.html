@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:fragment="baseHeader(title)">
+    <meta charset="UTF-8">
+    <title th:replace="${title}"></title>
+</head>
+<body>
+
+
+<div th:fragment="cardFragment(cardTitle, cardTime, cardServings)">
+    <div class="card text-center" style="width: 30rem; height: 10rem;">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${cardTitle}"></h5>
+            <table>
+                <tr>
+                    <td>Preparation time: </td>
+                    <td class="card-text" th:text="${cardTime}"></td>
+                </tr>
+                <tr>
+                    <td>Servings: </td>
+                    <td class="card-text" th:text="${cardServings}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
