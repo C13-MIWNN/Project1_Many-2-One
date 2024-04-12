@@ -6,11 +6,10 @@ import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -42,23 +41,38 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/new")
-    private String saveRecipe(@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
-        if (!result.hasErrors()) {
-            recipeRepository.save(recipeToBeSaved);
+    private String saveRecipe(@ModelAttribute("recipe") Recipe recipeToBeSaved,
+                              @RequestParam("imageFile") MultipartFile imageFile,
+                              BindingResult result,
+                              Model model) throws IOException {
+
+        if (result.hasErrors()) {
+            return "recipeForm";
         }
+
+        if (!imageFile.isEmpty()) {
+            recipeToBeSaved.setImageData(imageFile.getBytes());
+        }
+
+        recipeRepository.save(recipeToBeSaved);
+
         return "redirect:/";
     }
 
     @GetMapping("/recipe/detail/{recipeName}")
-    private String showRecipeDetails(@PathVariable("recipeName") String recipeName, Model model) {
-        Optional<Recipe> recipe = recipeRepository.findByRecipeName(recipeName);
+    public String showRecipeDetails(@PathVariable("recipeName") String recipeName, Model model) {
+        Optional<Recipe> recipeOptional = recipeRepository.findByRecipeName(recipeName);
 
-        if (recipe.isEmpty()) {
+        if (recipeOptional.isEmpty()) {
             return "redirect:/recipe";
         }
 
-        model.addAttribute("recipeToBeShown", recipe.get());
+        Recipe recipe = recipeOptional.get();
+        byte[] imageData = recipe.getImageData();
+
+        model.addAttribute("recipeToBeShown", recipe);
+        model.addAttribute("recipeImageData", imageData);
+
         return "recipeDetails";
     }
-
 }

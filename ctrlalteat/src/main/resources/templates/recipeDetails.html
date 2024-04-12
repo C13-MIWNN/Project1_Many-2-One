@@ -2,29 +2,17 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
     <title>Details of recipe</title>
+
 </head>
 <body>
 
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-
     <h1>Recipe details</h1>
 
-    <ul>
-        <li th:each="recipe : ${recipeToBeShown.recipeName}"></li>
-    </ul>
+    <img th:src="@{'/recipe/image/' + ${recipeToBeShown.recipeId}}" alt="Recipe Image"/>
 
-    <table>
-
-        <ul> Recipe Name </ul>
-        <ul> Preparation time </ul>
-        <ul> Servings </ul>
-        <ul> Tag </ul>
-        <ul> Ingredients </ul>
-        <ul> Preparation method </ul>
-
-    </table>
     </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
