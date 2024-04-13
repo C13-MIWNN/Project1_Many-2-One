@@ -9,6 +9,9 @@ import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +25,7 @@ import java.util.Set;
 public class InitializeController {
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
+    byte[] image;
 
     public InitializeController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
         this.ingredientRepository = ingredientRepository;
@@ -68,41 +72,48 @@ public class InitializeController {
                 MeasurementUnitTypes.milliliter);
 
 
-        Recipe classicPasta = makeRecipe("Classic Tomato and Onion Pasta",
+
+        createImage("classic_pasta.jpg");
+        Recipe classicPasta = makeRecipeWithImage("Classic Tomato and Onion Pasta",
                 30,
                 2,
                 "Saute chopped onion and garlic in olive oil. Add diced tomatoes, salt, and pepper. Simmer. Toss with cooked pasta.",
-                makeSetIngredients(onion, garlic, oliveOil, pasta, salt, pepper));
+                makeSetIngredients(onion, garlic, oliveOil, pasta, salt, pepper), image);
 
-        Recipe roastedChicken = makeRecipe("Garlic and Herb Roasted Chicken",
+        createImage("roasted_chicken.jpg");
+        Recipe roastedChicken = makeRecipeWithImage("Garlic and Herb Roasted Chicken",
                 60,
                 4,
                 "Rub chicken with minced garlic, olive oil, salt, and pepper. Roast until golden brown and cooked through.",
-                makeSetIngredients(chicken, garlic, oliveOil, salt, pepper));
+                makeSetIngredients(chicken, garlic, oliveOil, salt, pepper), image);
 
-        Recipe friedRice = makeRecipe("Vegetable Fried Rice",
+        createImage("fried_rice.jpg");
+        Recipe friedRice = makeRecipeWithImage("Vegetable Fried Rice",
                 20,
                 6,
                 "Saute onion and garlic. Add cooked rice, diced tomatoes, salt, and pepper. Stir in scrambled eggs.",
-                makeSetIngredients(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg));
+                makeSetIngredients(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg), image);
 
-        Recipe tomatoSauce = makeRecipe("Homemade Tomato Sauce",
+        createImage("Tomato_sauce.jpg");
+        Recipe tomatoSauce = makeRecipeWithImage("Homemade Tomato Sauce",
                 60,
                 3,
                 "Saute onion and garlic. Add diced tomatoes, salt, and pepper. Simmer until thickened. Blend for a smoother texture if desired.",
-                makeSetIngredients(onion, garlic, tomato, oliveOil, salt, pepper));
+                makeSetIngredients(onion, garlic, tomato, oliveOil, salt, pepper), image);
 
-        Recipe focacciaBread = makeRecipe("Garlic and Herb Focaccia Bread",
+        createImage("focaccia_bread.jpg");
+        Recipe focacciaBread = makeRecipeWithImage("Garlic and Herb Focaccia Bread",
                 90,
                 4,
                 "Mix flour, yeast, water, salt, and olive oil. Knead until smooth. Press dough into a pan. Top with minced garlic, olive oil, salt, and pepper. Bake until golden brown.",
-                makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water));
+                makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water), image);
 
-        Recipe shortLong = makeRecipe("Bread",
+        Recipe shortLong = makeRecipeWithoutImage("Bread",
                 120,
                 4,
                 "Mix. Bake.",
                 makeSetIngredients(flour, shortIngredient, longIngredient, salt, yeast, water));
+
         return "redirect:/";
     }
 
@@ -116,16 +127,31 @@ public class InitializeController {
         return ingredient;
     }
 
-    private Recipe makeRecipe(String recipeName, int preparationTimeInMinutes, int servings,
-                              String preparationMethod, Set<Ingredient> ingredients) {
+    private Recipe makeRecipeWithImage(String recipeName, int preparationTimeInMinutes, int servings,
+                                       String preparationMethod, Set<Ingredient> ingredients, byte[] image) {
+        Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
+                preparationMethod, ingredients);
+        recipe.setImageData(image);
+        recipeRepository.save(recipe);
+        return recipe;
+    }
+
+    private Recipe makeRecipeWithoutImage(String recipeName, int preparationTimeInMinutes, int servings,
+                                          String preparationMethod, Set<Ingredient> ingredients){
+        Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
+                preparationMethod, ingredients);
+        recipeRepository.save(recipe);
+        return recipe;
+    }
+
+    private Recipe setRecipeVariables(String recipeName, int preparationTimeInMinutes, int servings,
+                                      String preparationMethod, Set<Ingredient> ingredients) {
         Recipe recipe = new Recipe();
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTimeInMinutes(preparationTimeInMinutes);
         recipe.setServings(servings);
         recipe.setPreparationMethod(preparationMethod);
         recipe.setIngredients(ingredients);
-
-        recipeRepository.save(recipe);
         return recipe;
     }
 
@@ -133,4 +159,15 @@ public class InitializeController {
         return new HashSet<>(Arrays.asList(ingredients));
     }
 
+    private byte[] makeImageByteArray(String filename) throws IOException {
+        File file = new File("ctrlalteat/src/main/projectDocuments/many2oneimages/" + filename);
+        return Files.readAllBytes(file.toPath());
+    }
+    private void createImage(String filename){
+        try {
+            this.image = makeImageByteArray(filename);
+        } catch (IOException e) {
+            throw new RuntimeException("couldn't read image", e);
+        }
+    }
 }
