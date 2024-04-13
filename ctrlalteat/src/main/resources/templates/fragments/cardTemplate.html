@@ -27,5 +27,14 @@
     </div>
 </div>
 
+<div th:fragment="cardRecipeHeader(recipe)">
+    <div class="recipeHeaderCard">
+        <div class="card text-center" style="width: 50rem; height: 12rem;">
+            <img th:src="@{'/recipe/image/' + ${recipe.recipeId}}" class="card-img-top rounded-0" alt="">
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

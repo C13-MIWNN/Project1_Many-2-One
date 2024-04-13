@@ -10,10 +10,22 @@
 
 <div class="container">
     <h1 th:text="${recipeToBeShown.recipeName}"></h1>
-
-    <img th:src="@{'/recipe/image/' + ${recipeToBeShown.recipeId}}" alt="Recipe Image"/>
-
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+        <div th:replace="~{fragments/cardTemplate :: cardRecipeHeader(${recipeToBeShown})}"></div>
     </div>
+
+    <div class="recipeIngredientWrapper" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+        <div class="scrollable">
+            <div class="ingredientWindow"> Ingredients
+                <ul>
+                    <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient}"></li>
+                </ul>
+            </div>
+            <div class="recipeWindow" th:text="${recipeToBeShown.preparationMethod}"></div>
+        </div>
+    </div>
+
+</div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
