@@ -9,7 +9,7 @@
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-    <h1 th:text="${recipeToBeShown.recipeName}"></h1>
+    <h1 class="recipeDetailTitle" th:text="${recipeToBeShown.recipeName}"></h1>
     <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
         <div th:replace="~{fragments/cardTemplate :: cardRecipeHeader(${recipeToBeShown})}"></div>
     </div>

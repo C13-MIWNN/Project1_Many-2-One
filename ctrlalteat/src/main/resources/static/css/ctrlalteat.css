@@ -24,17 +24,22 @@
     font-weight: bold;
 }
 
-div.recipeIngredientWrapper {
-    overflow: hidden;
+.recipeDetailTitle {
+  text-align: center;
 }
 
+#recipeOverviewHeader {
+    text-align: center;
+}
+
+
 div.ingredientWindow {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     float: left;
     padding: 10px;
     border: 1px solid #000;
-    width: 20vh;
+    width: 30vh;
+    max-height: 50vh;
 }
 
 div.recipeWindow {
@@ -43,5 +48,7 @@ div.recipeWindow {
     float: right;
     padding: 10px;
     border: 1px solid #000;
-    width: 40vh;
+    width: 60vh;
+    max-height: 50vh;
+    white-space: pre-wrap;
 }

@@ -122,19 +122,19 @@ public class InitializeController {
                 30,
                 4,
                 "Prepare Garlic: Peel and finely mince the garlic cloves. Set aside.\n\n" +
-                        "    Dice Tomatoes: Wash and dice the tomatoes into small, uniform pieces. Set aside.\n\n" +
-                        "    Sauté Garlic: In a skillet, heat a tablespoon of olive oil over medium heat. " +
+                        "Dice Tomatoes: Wash and dice the tomatoes into small, uniform pieces. Set aside.\n\n" +
+                        "Sauté Garlic: In a skillet, heat a tablespoon of olive oil over medium heat. " +
                         "Add the minced garlic and sauté until fragrant and lightly golden, being careful not to " +
                         "burn it.\n\n" +
-                        "    Add Tomatoes: Once the garlic is fragrant, add the diced tomatoes to the skillet. " +
+                        "Add Tomatoes: Once the garlic is fragrant, add the diced tomatoes to the skillet. " +
                         "Season with salt and pepper to taste.\n\n" +
-                        "    Simmer Mixture: Allow the garlic and tomatoes to simmer together for about 5-7 minutes, " +
+                        "Simmer Mixture: Allow the garlic and tomatoes to simmer together for about 5-7 minutes, " +
                         "or until the tomatoes soften and release their juices, creating a flavorful sauce.\n\n" +
-                        "    Prepare Bread: While the tomato mixture simmers, slice the bread into thin slices. " +
+                        "Prepare Bread: While the tomato mixture simmers, slice the bread into thin slices. " +
                         "Optionally, you can toast the bread slices for added crunch.\n\n" +
-                        "    Assemble Bruschetta: Spoon the garlic tomato mixture generously onto each slice of bread, " +
+                        "Assemble Bruschetta: Spoon the garlic tomato mixture generously onto each slice of bread, " +
                         "ensuring that the flavors are evenly distributed.\n\n" +
-                        "    Serve: Arrange the assembled bruschetta on a serving platter and garnish with a drizzle of " +
+                        "Serve: Arrange the assembled bruschetta on a serving platter and garnish with a drizzle of " +
                         "olive oil and fresh herbs if desired. Serve immediately and enjoy the vibrant flavors of " +
                         "this classic Italian appetizer.",
                 makeSetIngredients(garlic, tomato, oliveOil, salt, pepper, bread));
