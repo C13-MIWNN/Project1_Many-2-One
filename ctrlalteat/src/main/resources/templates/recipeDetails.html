@@ -21,7 +21,7 @@
                     <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient}"></li>
                 </ul>
             </div>
-            <div class="recipeWindow" th:text="${recipeToBeShown.preparationMethod}"></div>
+            <div class="recipeWindow" th:text="${recipeToBeShown.preparationMethodSteps}"></div>
         </div>
     </div>
 

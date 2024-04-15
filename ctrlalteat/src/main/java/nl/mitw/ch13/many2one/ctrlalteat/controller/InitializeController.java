@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Simon Hiemstra
@@ -175,9 +173,20 @@ public class InitializeController {
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTimeInMinutes(preparationTimeInMinutes);
         recipe.setServings(servings);
-        recipe.setPreparationMethod(preparationMethod);
+        recipe.setPreparationMethodSteps(preparationMethodSteps());
         recipe.setIngredients(ingredients);
         return recipe;
+    }
+
+    private List<String> preparationMethodSteps() {
+        List<String> steps = new ArrayList<>();
+        steps.add("Step 1");
+        steps.add("Step 2");
+        steps.add("Step 3");
+        steps.add("Step 4");
+        steps.add("Step 5");
+
+        return steps;
     }
 
     private Set<Ingredient> makeSetIngredients(Ingredient... ingredients) {

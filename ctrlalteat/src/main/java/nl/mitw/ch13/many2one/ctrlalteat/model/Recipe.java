@@ -2,6 +2,8 @@ package nl.mitw.ch13.many2one.ctrlalteat.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,8 +22,9 @@ public class Recipe {
     private int preparationTimeInMinutes;
     private int servings;
 
-    @Column(columnDefinition="TEXT")
-    private String preparationMethod;
+    @ElementCollection @OrderColumn
+    private List<String> preparationMethodSteps = new ArrayList<>();
+
     private String tag;
 
     @Lob
@@ -29,11 +32,10 @@ public class Recipe {
     private byte[] imageData;
 
     public Recipe(String recipeName, int preparationTimeInMinutes, int servings,
-                  String preparationMethod, String tag, byte[] imageData) {
+                  String tag, byte[] imageData) {
         this.recipeName = recipeName;
         this.preparationTimeInMinutes = preparationTimeInMinutes;
         this.servings = servings;
-        this.preparationMethod = preparationMethod;
         this.tag = tag;
         this.imageData = imageData;
     }
@@ -73,12 +75,12 @@ public class Recipe {
         this.servings = servingSizeInPersons;
     }
 
-    public String getPreparationMethod() {
-        return preparationMethod;
+    public List<String> getPreparationMethodSteps() {
+        return preparationMethodSteps;
     }
 
-    public void setPreparationMethod(String preparationMethod) {
-        this.preparationMethod = preparationMethod;
+    public void setPreparationMethodSteps(List<String> preparationMethodSteps) {
+        this.preparationMethodSteps = preparationMethodSteps;
     }
 
     public String getTag() {
