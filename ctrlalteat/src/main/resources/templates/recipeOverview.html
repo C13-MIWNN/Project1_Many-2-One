@@ -3,6 +3,12 @@
 <head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
     <title>recipe overview</title>
 </head>
+
+<form action="/search" method="GET">
+    <input type="text" name="keyword" placeholder="Search recipes">
+    <button type="submit">Search</button>
+</form>
+
 <body>
 
 <div th:replace="~{fragments/general :: navbar}"></div>
@@ -15,11 +21,9 @@
         </div>
     </div>
 
-
     <p>
         <a th:href="@{/recipe/new}">Add a new recipe</a>
     </p>
-
 
 </div>
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:fragment="baseHeader(title)">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Default Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="/css/ctrlalteat.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+    <h1>Search Results</h1>
+
+    <form action="/search" method="GET">
+        <input type="text" name="keyword" placeholder="Search recipes">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="d-flex flex-wrap">
+        <div th:each="recipe : ${recipeList}">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${recipe.recipeName}"></h5>
+                    <p class="card-text">Ingredients: <span th:text="${recipe.ingredients}"></span></p>
+                    <p class="card-text">Tags: <span th:text="${recipe.tag}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="footer">
+    <footer><p class="text-center text-muted">Many-2-One CtrlAltEat</p></footer>
+</div>
+
+<div th:fragment="bottomScripts"></div>
+
+</body>
+</html>
