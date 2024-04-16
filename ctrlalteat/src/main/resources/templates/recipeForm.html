@@ -11,99 +11,103 @@
 
     <div class="recipeForm">
 
-    <h1>Create a new recipe</h1>
+        <h1>Create a new recipe</h1>
 
-    <form th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{recipeId}">
+        <form th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{recipeId}">
 
-        <div id="recipeFormTopRow">
-            <div>
-                <label for="recipeNameField">Recipe Name</label>
+            <div id="recipeFormTopRow">
+                <div>
+                    <label for="recipeNameField">Recipe Name</label>
+                </div>
+                <div>
+                    <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
+                </div>
             </div>
-            <div>
-                <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
-            </div>
-        </div>
-        <div id="recipeFormSecondRow">
-            <div>
-                <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label>
-            </div>
-            <div>
-                <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
-            </div>
-            <div>
-                <label for="recipeServings">Servings</label>
-            </div>
-            <div>
-                <input type="text" id="recipeServings" th:field="*{servings}"/>
-            </div>
-            <div>
-                <label for="customFile">Upload image:</label>
-            </div>
-            <div>
-                <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
-            </div>
-
-
-        </div>
-        <div id="recipeFormThirdRow">
-            <div>
-                <label for="ingredientField">Ingredients</label>
-            </div>
-            <div>
-                <select id="ingredientField" th:field="*{ingredients}" multiple>
-                    <option th:each="ingredient : ${allIngredients}"
-                            th:text="${ingredient.name}"
-                            th:value="${ingredient.ingredientId}">
-                    </option>
-                </select>
-            </div>
-
-            <table id="stepsTable">
-                <tr>
-                    <td><label for="preparationMethodSteps">Preparation method:</label></td>
-                </tr>
-                <tr th:each="step, index : *{preparationMethodSteps}">
-                    <td>
-                        <input type="text" id="preparationMethodSteps"
-                           th:field="*{preparationMethodSteps[__${index.index}__]}" size="77" />
-                    </td>
-                </tr>
-            </table>
-
-            <div id="preparationMethodStepButton">
-                <button type="button" onclick="addStep()">Add step</button>
-            </div>
-            <div>
-                <label for="recipetag">Tag</label>
-            </div>
-            <div>
-                <input type="text" id="recipetag" th:field="*{tag}"/>
-            </div>
-
-        </div>
+            <div id="recipeFormSecondRow">
+                <div>
+                    <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label>
+                </div>
+                <div>
+                    <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
+                </div>
+                <div>
+                    <label for="recipeServings">Servings</label>
+                </div>
+                <div>
+                    <input type="text" id="recipeServings" th:field="*{servings}"/>
+                </div>
+                <div>
+                    <label for="customFile">Upload image:</label>
+                </div>
+                <div>
+                    <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
+                </div>
 
 
-        <div id="saveRecipeButton">
-            <input type="submit" value="Save recipe"/>
-        </div>
+            </div>
+            <div id="recipeFormThirdRow">
+                <div>
+                    <label for="ingredientField">Ingredients</label>
+                </div>
+                <div>
+                    <select id="ingredientField" th:field="*{ingredients}" multiple>
+                        <option th:each="ingredient : ${allIngredients}"
+                                th:text="${ingredient.name}"
+                                th:value="${ingredient.ingredientId}">
+                        </option>
+                    </select>
+                </div>
 
-    </form>
+                <table id="stepsTable">
+                    <tr>
+                        <td><label for="preparationMethodSteps">Preparation method:</label></td>
+                    </tr>
+                    <tr th:each="step, index : *{preparationMethodSteps}">
+                        <td>
+                            <input type="text" id="preparationMethodSteps"
+                                   th:field="*{preparationMethodSteps[__${index.index}__]}" size="77" />
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="preparationMethodStepButton">
+                    <button type="button" onclick="addStep()">Add step</button>
+                </div>
+                <div>
+                    <label for="recipetag">Tag</label>
+                </div>
+                <div>
+                    <input type="text" id="recipetag" th:field="*{tag}"/>
+                </div>
+
+            </div>
+
+
+            <div id="saveRecipeButton">
+                <input type="submit" value="Save recipe"/>
+            </div>
+
+        </form>
 
 
 
-    <script th:inline="javascript">
-        function addStep() {
-            var stepsTable = document.getElementById('stepsTable');
-            var newRow = stepsTable.insertRow(-1);
-            var cell = newRow.insertCell(0);
-            var newInput = document.createElement('input');
-            newInput.setAttribute('type', 'text');
-            newInput.setAttribute('name', 'preparationMethodSteps');
-            newInput.setAttribute('size', '77')
-            cell.appendChild(newInput);
-        }
-    </script>
+        <script th:inline="javascript">
+            function addStep() {
+                var stepsTable = document.getElementById('stepsTable');
+                var newRow = stepsTable.insertRow(-1);
+                var cell = newRow.insertCell(0);
+                var newInput = document.createElement('input');
+                newInput.setAttribute('type', 'text');
+                newInput.setAttribute('name', 'preparationMethodSteps');
+                newInput.setAttribute('size', '77')
+                cell.appendChild(newInput);
+            }
+
+            window.onload = function () {
+                addStep()
+            };
+        </script>
     </div>
 
 </div>
