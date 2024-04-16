@@ -31,10 +31,14 @@ public class CategoryController {
     }
 
     @PostMapping("category/new")
-    private String saveIngredient(@ModelAttribute("category") Category categoryToBeSaved, BindingResult result) {
+    private String saveCategory(@ModelAttribute("category") Category categoryToBeSaved, BindingResult result) {
         if (!result.hasErrors()) {
             categoryRepository.save(categoryToBeSaved);
         }
         return "redirect:/category";
+    }
+
+    public void saveCategoryFromRecipe(Category categoryToBeSaved) {
+        categoryRepository.save(categoryToBeSaved);
     }
 }

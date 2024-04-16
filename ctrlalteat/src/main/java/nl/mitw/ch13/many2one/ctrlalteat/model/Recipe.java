@@ -120,4 +120,12 @@ public class Recipe {
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
     }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 }
