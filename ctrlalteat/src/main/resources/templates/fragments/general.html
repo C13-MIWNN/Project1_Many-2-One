@@ -9,7 +9,10 @@
 </head>
 <body>
 
-<div th:fragment="navbar">
+<div class="navbar" th:fragment="navbar">
+    <button class="homeButton" type="button" onclick="window.location.replace('/');">
+        <img class="homeLogoImage" th:src="@{/logo_ctrlAltEat.png}" alt="CtrlAltEat Logo" />
+    </button>
     <ul class="nav justify-content-center">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/ingredient}">Ingredients</a>
@@ -17,7 +20,6 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/recipe}">Recipes</a>
         </li>
-
     </ul>
 </div>
 

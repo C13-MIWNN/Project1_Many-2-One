@@ -1,3 +1,25 @@
+.homeButton {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    float: left;
+}
+
+.homeLogoImage {
+    margin: auto -5px;
+    height: 135%;
+    width: 110%;
+    object-fit: cover;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100vh;
+}
+
 .recipeCard {
     position: relative;
 }
@@ -33,6 +55,12 @@
     text-align: center;
 }
 
+.recipeIngredientWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
 div.ingredientWindow {
     overflow-y: scroll;
