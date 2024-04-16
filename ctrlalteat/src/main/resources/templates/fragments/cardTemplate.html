@@ -13,7 +13,7 @@
             <h5 class="card-title" th:text="${recipe.recipeName}"></h5>
             <img th:src="@{'/recipe/image/' + ${recipe.recipeId}}" class="card-img-top rounded-0" alt="">
             <div class="card-img-overlay">
-                <a th:href="@{/recipe/detail/{recipeName}(recipeName = ${recipe.recipeName})}"></a>
+                <a th:href="@{/recipe/detail/{recipeId}(recipeId=${recipe.recipeId})}"></a>
             </div>
             <table>
                 <tr>

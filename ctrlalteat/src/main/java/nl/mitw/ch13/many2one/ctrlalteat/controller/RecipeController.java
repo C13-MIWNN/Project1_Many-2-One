@@ -60,9 +60,9 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    @GetMapping("/recipe/detail/{recipeName}")
-    public String showRecipeDetails(@PathVariable("recipeName") String recipeName, Model model) {
-        Optional<Recipe> recipeOptional = recipeRepository.findByRecipeName(recipeName);
+    @GetMapping("/recipe/detail/{recipeId}")
+    public String showRecipeDetails(@PathVariable("recipeId") Long recipeId, Model model) {
+        Optional<Recipe> recipeOptional = recipeRepository.findByRecipeId(recipeId);
 
         if (recipeOptional.isEmpty()) {
             return "redirect:/recipe";
