@@ -17,6 +17,8 @@ public class Recipe {
     private Long recipeId;
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Ingredient> ingredients;
+    @ManyToMany(cascade = CascadeType.DETACH)
+    private Set<Category> categories;
 
     private String recipeName;
     private int preparationTimeInMinutes;
