@@ -1,3 +1,7 @@
+h1{
+    text-align: center;
+}
+
 .homeButton {
     width: 100px;
     height: 100px;
@@ -80,4 +84,39 @@ div.recipeWindow {
     width: 60vh;
     max-height: 50vh;
     white-space: pre-wrap;
+}
+
+div.recipeName {
+    text-align: center;
+}
+
+.recipeTimeServingsImageWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+div.recipePreparationTime {
+    float: left;
+    padding: 10px;
+    border: 1px solid #000;
+    width: 30vh;
+    max-height: 50vh;
+}
+
+div.recipeServings {
+    float: left;
+    padding: 10px;
+    border: 1px solid #000;
+    width: 30vh;
+    max-height: 50vh;
+}
+
+div.recipeImage {
+    float: left;
+    padding: 10px;
+    border: 1px solid #000;
+    width: 30vh;
+    max-height: 50vh;
 }
