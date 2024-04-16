@@ -77,41 +77,52 @@ public class InitializeController {
         Recipe classicPasta = makeRecipeWithImage("Classic Tomato and Onion Pasta",
                 30,
                 2,
-                "Saute chopped onion and garlic in olive oil. Add diced tomatoes, salt, and pepper. Simmer. Toss with cooked pasta.",
+                new String[] {"Saute chopped onion and garlic in olive oil.",
+                        "Add diced tomatoes, salt, and pepper.",
+                        "Simmer. Toss with cooked pasta."},
                 makeSetIngredients(onion, garlic, oliveOil, pasta, salt, pepper), image);
 
         createImage("roasted_chicken.jpg");
         Recipe roastedChicken = makeRecipeWithImage("Garlic and Herb Roasted Chicken",
                 60,
                 4,
-                "Rub chicken with minced garlic, olive oil, salt, and pepper. Roast until golden brown and cooked through.",
+                new String[] {"Rub chicken with minced garlic, olive oil, salt, and pepper.",
+                        "Roast until golden brown and cooked through."},
                 makeSetIngredients(chicken, garlic, oliveOil, salt, pepper), image);
 
         createImage("fried_rice.jpg");
         Recipe friedRice = makeRecipeWithImage("Vegetable Fried Rice",
                 20,
                 6,
-                "Saute onion and garlic. Add cooked rice, diced tomatoes, salt, and pepper. Stir in scrambled eggs.",
+                new String[] {"Saute onion and garlic.",
+                        "Add cooked rice, diced tomatoes, salt, and pepper. ",
+                        "Stir in scrambled eggs."},
                 makeSetIngredients(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg), image);
 
         createImage("Tomato_sauce.jpg");
         Recipe tomatoSauce = makeRecipeWithImage("Homemade Tomato Sauce",
                 60,
                 3,
-                "Saute onion and garlic. Add diced tomatoes, salt, and pepper. Simmer until thickened. Blend for a smoother texture if desired.",
+                new String[] {"Saute onion and garlic.",
+                        "Add diced tomatoes, salt, and pepper. Simmer until thickened.",
+                        "Blend for a smoother texture if desired."},
                 makeSetIngredients(onion, garlic, tomato, oliveOil, salt, pepper), image);
 
         createImage("focaccia_bread.jpg");
         Recipe focacciaBread = makeRecipeWithImage("Garlic and Herb Focaccia Bread",
                 90,
                 4,
-                "Mix flour, yeast, water, salt, and olive oil. Knead until smooth. Press dough into a pan. Top with minced garlic, olive oil, salt, and pepper. Bake until golden brown.",
+                new String[] {"Mix flour, yeast, water, salt, and olive oil.",
+                        "Knead until smooth.",
+                        "Press dough into a pan. Top with minced garlic, olive oil, salt, and pepper.",
+                        "Bake until golden brown."},
                 makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water), image);
 
         Recipe shortLong = makeRecipeWithoutImage("Bread",
                 120,
                 4,
-                "Mix. Bake.",
+                new String[] {"Mix.",
+                        "Bake"},
                 makeSetIngredients(flour, shortIngredient, longIngredient, salt, yeast, water,
                         flour, shortIngredient, longIngredient, salt, yeast, water,
                         flour, shortIngredient, longIngredient, salt, yeast, water,
@@ -119,22 +130,32 @@ public class InitializeController {
         Recipe bruschetta = makeRecipeWithoutImage("Sautéed Garlic Tomato Bruschetta",
                 30,
                 4,
-                "Prepare Garlic: Peel and finely mince the garlic cloves. Set aside.\n\n" +
-                        "Dice Tomatoes: Wash and dice the tomatoes into small, uniform pieces. Set aside.\n\n" +
-                        "Sauté Garlic: In a skillet, heat a tablespoon of olive oil over medium heat. " +
-                        "Add the minced garlic and sauté until fragrant and lightly golden, being careful not to " +
-                        "burn it.\n\n" +
-                        "Add Tomatoes: Once the garlic is fragrant, add the diced tomatoes to the skillet. " +
-                        "Season with salt and pepper to taste.\n\n" +
-                        "Simmer Mixture: Allow the garlic and tomatoes to simmer together for about 5-7 minutes, " +
-                        "or until the tomatoes soften and release their juices, creating a flavorful sauce.\n\n" +
-                        "Prepare Bread: While the tomato mixture simmers, slice the bread into thin slices. " +
-                        "Optionally, you can toast the bread slices for added crunch.\n\n" +
-                        "Assemble Bruschetta: Spoon the garlic tomato mixture generously onto each slice of bread, " +
-                        "ensuring that the flavors are evenly distributed.\n\n" +
-                        "Serve: Arrange the assembled bruschetta on a serving platter and garnish with a drizzle of " +
-                        "olive oil and fresh herbs if desired. Serve immediately and enjoy the vibrant flavors of " +
-                        "this classic Italian appetizer.",
+                new String[]{
+                        """
+Prepare Garlic: Peel and finely mince the garlic cloves. Set aside.""",
+                        """
+Dice Tomatoes: Wash and dice the tomatoes into small, uniform pieces. Set aside.""",
+                        """
+Sauté Garlic: In a skillet, heat a tablespoon of olive oil over medium heat. \
+Add the minced garlic and sauté until fragrant and lightly golden, being careful not to \
+burn it.""",
+                        """
+Add Tomatoes: Once the garlic is fragrant, add the diced tomatoes to the skillet. \
+Season with salt and pepper to taste.""",
+                        """
+Simmer Mixture: Allow the garlic and tomatoes to simmer together for about 5-7 minutes, \
+or until the tomatoes soften and release their juices, creating a flavorful sauce.""",
+                        """
+Prepare Bread: While the tomato mixture simmers, slice the bread into thin slices. \
+Optionally, you can toast the bread slices for added crunch.""",
+                        """
+Assemble Bruschetta: Spoon the garlic tomato mixture generously onto each slice of bread, \
+ensuring that the flavors are evenly distributed.""",
+                        """
+Serve: Arrange the assembled bruschetta on a serving platter and garnish with a drizzle of  \
+olive oil and fresh herbs if desired. Serve immediately and enjoy the vibrant flavors of  \
+this classic Italian appetizer."""
+                        },
                 makeSetIngredients(garlic, tomato, oliveOil, salt, pepper, bread));
 
         return "redirect:/";
@@ -151,42 +172,31 @@ public class InitializeController {
     }
 
     private Recipe makeRecipeWithImage(String recipeName, int preparationTimeInMinutes, int servings,
-                                       String preparationMethod, Set<Ingredient> ingredients, byte[] image) {
+                                       String[] preparationMethodSteps, Set<Ingredient> ingredients, byte[] image) {
         Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
-                preparationMethod, ingredients);
+                preparationMethodSteps, ingredients);
         recipe.setImageData(image);
         recipeRepository.save(recipe);
         return recipe;
     }
 
     private Recipe makeRecipeWithoutImage(String recipeName, int preparationTimeInMinutes, int servings,
-                                          String preparationMethod, Set<Ingredient> ingredients){
+                                          String[] preparationMethodSteps, Set<Ingredient> ingredients){
         Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
-                preparationMethod, ingredients);
+                preparationMethodSteps, ingredients);
         recipeRepository.save(recipe);
         return recipe;
     }
 
     private Recipe setRecipeVariables(String recipeName, int preparationTimeInMinutes, int servings,
-                                      String preparationMethod, Set<Ingredient> ingredients) {
+                                      String[] preparationMethodSteps, Set<Ingredient> ingredients) {
         Recipe recipe = new Recipe();
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTimeInMinutes(preparationTimeInMinutes);
         recipe.setServings(servings);
-        recipe.setPreparationMethodSteps(preparationMethodSteps());
+        recipe.setPreparationMethodSteps(List.of(preparationMethodSteps));
         recipe.setIngredients(ingredients);
         return recipe;
-    }
-
-    private List<String> preparationMethodSteps() {
-        List<String> steps = new ArrayList<>();
-        steps.add("Step 1");
-        steps.add("Step 2");
-        steps.add("Step 3");
-        steps.add("Step 4");
-        steps.add("Step 5");
-
-        return steps;
     }
 
     private Set<Ingredient> makeSetIngredients(Ingredient... ingredients) {

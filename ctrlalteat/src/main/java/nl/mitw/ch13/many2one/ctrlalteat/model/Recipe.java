@@ -24,6 +24,7 @@ public class Recipe {
 
     @ElementCollection @OrderColumn
     private List<String> preparationMethodSteps = new ArrayList<>();
+    private String preparationMethod;
 
     private String tag;
 
@@ -41,6 +42,17 @@ public class Recipe {
     }
 
     public Recipe() {
+    }
+
+
+    public String buildRecipePreparationMethodString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(preparationMethodSteps.get(0));
+        for (int i = 1; i < preparationMethodSteps.size(); i++) {
+            stringBuilder.append("\n\n");
+            stringBuilder.append(preparationMethodSteps.get(i));
+        }
+        return stringBuilder.toString();
     }
 
     public Long getRecipeId() {
