@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @author Simon Hiemstra
- * Purpose:
+ * Purpose: Lets HTML and model.Ingredient communicate
  **/
 @Controller
 public class IngredientController {

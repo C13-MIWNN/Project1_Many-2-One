@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * @author Simon Hiemstra
- * Purpose:
+ * Purpose: Reprisents an ingredient that can be saved in the database and used in recipes.
  **/
 @Entity
 public class Ingredient {
