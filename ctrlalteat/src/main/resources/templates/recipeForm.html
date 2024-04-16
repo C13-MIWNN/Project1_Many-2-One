@@ -9,56 +9,40 @@
 
 <div class="container">
 
-    <div class="recipeForm">
+    <h1>Create a new recipe</h1>
 
-        <h1>Create a new recipe</h1>
+    <form class="recipeForm" th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{recipeId}">
 
-        <form th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
-            <input type="hidden" th:field="*{recipeId}">
-
-            <div id="recipeFormTopRow">
-                <div>
-                    <label for="recipeNameField">Recipe Name</label>
-                </div>
-                <div>
-                    <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
-                </div>
+        <div class="recipeName">
+            <label for="recipeNameField">Recipe Name</label><br>
+            <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
+        </div>
+        <div class="recipeTimeServingsImageWrapper">
+            <div class="recipePreparationTime">
+                <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label><br>
+                <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
             </div>
-            <div id="recipeFormSecondRow">
-                <div>
-                    <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label>
-                </div>
-                <div>
-                    <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
-                </div>
-                <div>
-                    <label for="recipeServings">Servings</label>
-                </div>
-                <div>
-                    <input type="text" id="recipeServings" th:field="*{servings}"/>
-                </div>
-                <div>
-                    <label for="customFile">Upload image:</label>
-                </div>
-                <div>
-                    <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
-                </div>
-
-
+            <div class="recipeServings">
+                <label for="recipeServings">Servings</label><br>
+                <input type="text" id="recipeServings" th:field="*{servings}"/>
             </div>
-            <div id="recipeFormThirdRow">
-                <div>
-                    <label for="ingredientField">Ingredients</label>
-                </div>
-                <div>
-                    <select id="ingredientField" th:field="*{ingredients}" multiple>
+            <div class="recipeImage">
+                <label for="customFile">Upload image:</label><br>
+                <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
+            </div>
+        </div>
+        <div class="recipeIngredientPreparationMethodWrapper">
+            <div class="recipeIngredients">
+                <label for="ingredientField">Ingredients</label><br>
+                <select id="ingredientField" th:field="*{ingredients}" multiple>
                         <option th:each="ingredient : ${allIngredients}"
                                 th:text="${ingredient.name}"
                                 th:value="${ingredient.ingredientId}">
                         </option>
-                    </select>
-                </div>
-
+                </select>
+            </div>
+            <div class="recipeSteps">
                 <table id="stepsTable">
                     <tr>
                         <td><label for="preparationMethodSteps">Preparation method:</label></td>
@@ -70,46 +54,36 @@
                         </td>
                     </tr>
                 </table>
-
-                <div id="preparationMethodStepButton">
-                    <button type="button" onclick="addStep()">Add step</button>
-                </div>
-                <div>
-                    <label for="recipetag">Tag</label>
-                </div>
-                <div>
-                    <input type="text" id="recipetag" th:field="*{tag}"/>
-                </div>
-
             </div>
-
-
-            <div id="saveRecipeButton">
-                <input type="submit" value="Save recipe"/>
+            <div class="preparationMethodStepButton">
+                <button type="button" onclick="addStep()">Add step</button>
             </div>
+        </div>
+        <div class="recipeTag">
+            <label for="recipeTag">Tag</label><br>
+            <input type="text" id="recipeTag" th:field="*{tag}"/>
+        </div>
+        <div class="saveRecipeButton">
+            <input type="submit" value="Save recipe"/>
+        </div>
+    </form>
 
-        </form>
+    <script th:inline="javascript">
+        function addStep() {
+            var stepsTable = document.getElementById('stepsTable');
+            var newRow = stepsTable.insertRow(-1);
+            var cell = newRow.insertCell(0);
+            var newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('name', 'preparationMethodSteps');
+            newInput.setAttribute('size', '77')
+            cell.appendChild(newInput);
+        }
 
-
-
-        <script th:inline="javascript">
-            function addStep() {
-                var stepsTable = document.getElementById('stepsTable');
-                var newRow = stepsTable.insertRow(-1);
-                var cell = newRow.insertCell(0);
-                var newInput = document.createElement('input');
-                newInput.setAttribute('type', 'text');
-                newInput.setAttribute('name', 'preparationMethodSteps');
-                newInput.setAttribute('size', '77')
-                cell.appendChild(newInput);
-            }
-
-            window.onload = function () {
-                addStep()
-            };
-        </script>
-    </div>
-
+        window.onload = function () {
+            addStep()
+        };
+    </script>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
