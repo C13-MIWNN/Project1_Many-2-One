@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 /**
  * @author Simon Hiemstra
@@ -37,6 +40,20 @@ public class CategoryController {
         }
         return "redirect:/category";
     }
+
+    @GetMapping("/category/{categoryName}")
+    public String showCategoryRecipes(@PathVariable("categoryName") String categoryName, Model model) {
+        Optional<Category> categoryOptional = categoryRepository.findByCategoryName(categoryName);
+        if (categoryOptional.isEmpty()) {
+            return "redirect:/category";
+        }
+        Category category = categoryOptional.get();
+        model.addAttribute("category", category);
+        return "categoryDetail";
+    }
+
+
+
 
     public void saveCategoryFromRecipe(Category categoryToBeSaved) {
         categoryRepository.save(categoryToBeSaved);

@@ -37,6 +37,14 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    public Set<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
     @Override
     public String toString() {
         return categoryName;
