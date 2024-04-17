@@ -31,7 +31,7 @@ public class RecipeController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping({"/", "/recipe"})
+    @GetMapping("/recipe")
     private String showRecipeOverview(Model model) {
         model.addAttribute("allRecipes", recipeRepository.findAll());
 
@@ -103,7 +103,7 @@ public class RecipeController {
     private Category createNewCategory(String categoryName) {
         Category category = new Category();
         category.setCategoryName(categoryName);
-        CategoryController categoryController = new CategoryController(categoryRepository);
+        CategoryController categoryController = new CategoryController(categoryRepository, recipeRepository);
         categoryController.saveCategoryFromRecipe(category);
         return category;
     }

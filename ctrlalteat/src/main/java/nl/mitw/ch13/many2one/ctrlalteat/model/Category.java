@@ -14,6 +14,7 @@ public class Category {
 
     @Id @GeneratedValue
     private Long categoryId;
+
     private String categoryName;
     @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
     private Set<Recipe> recipes;
