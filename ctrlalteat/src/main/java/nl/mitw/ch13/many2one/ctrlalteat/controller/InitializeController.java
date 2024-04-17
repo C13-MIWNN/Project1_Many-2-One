@@ -2,10 +2,8 @@ package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
-import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
@@ -25,13 +23,11 @@ import java.util.*;
 public class InitializeController {
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
-    private final CategoryRepository categoryRepository;
     byte[] image;
 
-    public InitializeController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
+    public InitializeController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
-        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/initialize")
@@ -75,17 +71,6 @@ public class InitializeController {
         Ingredient bread = makeIngredient("Bread",
                 "Staple carbohydrate made from flour, water, yeast, and salt.", MeasurementUnitTypes.gram);
 
-        Category breakfastCat = makeCategory("Breakfast");
-        Category lunchCat = makeCategory("Lunch");
-        Category dinnerCat = makeCategory("Dinner");
-        Category appetizerCat = makeCategory("Appetizer");
-        Category mainCourseCat = makeCategory("Main course");
-        Category dessertCat = makeCategory("Dessert");
-        Category veganCat = makeCategory("Vegan");
-        Category pastaCat = makeCategory("Pasta");
-        Category chickenCat = makeCategory("Chicken");
-        Category stirFryCat = makeCategory("Stir fry");
-
 
 
         createImage("classic_pasta.jpg");
@@ -95,8 +80,7 @@ public class InitializeController {
                 new String[] {"Saute chopped onion and garlic in olive oil.",
                         "Add diced tomatoes, salt, and pepper.",
                         "Simmer. Toss with cooked pasta."},
-                makeSetIngredients(onion, garlic, oliveOil, pasta, salt, pepper),
-                makeSetCategories(pastaCat, dinnerCat, mainCourseCat, veganCat), image);
+                makeSetIngredients(onion, garlic, oliveOil, pasta, salt, pepper), image);
 
         createImage("roasted_chicken.jpg");
         Recipe roastedChicken = makeRecipeWithImage("Garlic and Herb Roasted Chicken",
@@ -104,8 +88,7 @@ public class InitializeController {
                 4,
                 new String[] {"Rub chicken with minced garlic, olive oil, salt, and pepper.",
                         "Roast until golden brown and cooked through."},
-                makeSetIngredients(chicken, garlic, oliveOil, salt, pepper),
-                makeSetCategories(chickenCat, dinnerCat), image);
+                makeSetIngredients(chicken, garlic, oliveOil, salt, pepper), image);
 
         createImage("fried_rice.jpg");
         Recipe friedRice = makeRecipeWithImage("Vegetable Fried Rice",
@@ -114,8 +97,7 @@ public class InitializeController {
                 new String[] {"Saute onion and garlic.",
                         "Add cooked rice, diced tomatoes, salt, and pepper. ",
                         "Stir in scrambled eggs."},
-                makeSetIngredients(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg),
-                makeSetCategories(stirFryCat, dinnerCat, mainCourseCat), image);
+                makeSetIngredients(onion, garlic, tomato, rice, oliveOil, salt, pepper, egg), image);
 
         createImage("Tomato_sauce.jpg");
         Recipe tomatoSauce = makeRecipeWithImage("Homemade Tomato Sauce",
@@ -124,8 +106,7 @@ public class InitializeController {
                 new String[] {"Saute onion and garlic.",
                         "Add diced tomatoes, salt, and pepper. Simmer until thickened.",
                         "Blend for a smoother texture if desired."},
-                makeSetIngredients(onion, garlic, tomato, oliveOil, salt, pepper),
-                makeSetCategories(pastaCat, dinnerCat, lunchCat), image);
+                makeSetIngredients(onion, garlic, tomato, oliveOil, salt, pepper), image);
 
         createImage("focaccia_bread.jpg");
         Recipe focacciaBread = makeRecipeWithImage("Garlic and Herb Focaccia Bread",
@@ -135,8 +116,7 @@ public class InitializeController {
                         "Knead until smooth.",
                         "Press dough into a pan. Top with minced garlic, olive oil, salt, and pepper.",
                         "Bake until golden brown."},
-                makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water),
-                makeSetCategories(breakfastCat, lunchCat, appetizerCat, veganCat), image);
+                makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water), image);
 
         Recipe shortLong = makeRecipeWithoutImage("Bread",
                 120,
@@ -146,8 +126,7 @@ public class InitializeController {
                 makeSetIngredients(flour, shortIngredient, longIngredient, salt, yeast, water,
                         flour, shortIngredient, longIngredient, salt, yeast, water,
                         flour, shortIngredient, longIngredient, salt, yeast, water,
-                        flour, shortIngredient, longIngredient, salt, yeast, water),
-                makeSetCategories(breakfastCat, lunchCat, dinnerCat, appetizerCat, mainCourseCat, dessertCat));
+                        flour, shortIngredient, longIngredient, salt, yeast, water));
         Recipe bruschetta = makeRecipeWithoutImage("Sautéed Garlic Tomato Bruschetta",
                 30,
                 4,
@@ -177,8 +156,7 @@ Serve: Arrange the assembled bruschetta on a serving platter and garnish with a 
 olive oil and fresh herbs if desired. Serve immediately and enjoy the vibrant flavors of  \
 this classic Italian appetizer."""
                         },
-                makeSetIngredients(garlic, tomato, oliveOil, salt, pepper, bread),
-                        makeSetCategories(appetizerCat, lunchCat, veganCat));
+                makeSetIngredients(garlic, tomato, oliveOil, salt, pepper, bread));
 
         return "redirect:/";
     }
@@ -193,49 +171,36 @@ this classic Italian appetizer."""
         return ingredient;
     }
 
-    private Category makeCategory(String categoryName) {
-        Category category = new Category();
-        category.setCategoryName(categoryName);
-        categoryRepository.save(category);
-        return category;
-    }
-
     private Recipe makeRecipeWithImage(String recipeName, int preparationTimeInMinutes, int servings,
-                                       String[] preparationMethodSteps, Set<Ingredient> ingredients,
-                                       Set<Category> categories, byte[] image) {
+                                       String[] preparationMethodSteps, Set<Ingredient> ingredients, byte[] image) {
         Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
-                preparationMethodSteps, ingredients, categories);
+                preparationMethodSteps, ingredients);
         recipe.setImageData(image);
         recipeRepository.save(recipe);
         return recipe;
     }
 
     private Recipe makeRecipeWithoutImage(String recipeName, int preparationTimeInMinutes, int servings,
-                                          String[] preparationMethodSteps, Set<Ingredient> ingredients, Set<Category> categories){
+                                          String[] preparationMethodSteps, Set<Ingredient> ingredients){
         Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
-                preparationMethodSteps, ingredients, categories);
+                preparationMethodSteps, ingredients);
         recipeRepository.save(recipe);
         return recipe;
     }
 
     private Recipe setRecipeVariables(String recipeName, int preparationTimeInMinutes, int servings,
-                                      String[] preparationMethodSteps, Set<Ingredient> ingredients, Set<Category> categories) {
+                                      String[] preparationMethodSteps, Set<Ingredient> ingredients) {
         Recipe recipe = new Recipe();
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTimeInMinutes(preparationTimeInMinutes);
         recipe.setServings(servings);
         recipe.setPreparationMethodSteps(List.of(preparationMethodSteps));
         recipe.setIngredients(ingredients);
-        recipe.setCategories(categories);
         return recipe;
     }
 
     private Set<Ingredient> makeSetIngredients(Ingredient... ingredients) {
         return new HashSet<>(Arrays.asList(ingredients));
-    }
-
-    private Set<Category> makeSetCategories(Category... categories) {
-        return new HashSet<>(Arrays.asList(categories));
     }
 
     private byte[] makeImageByteArray(String filename) throws IOException {
