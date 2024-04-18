@@ -1,6 +1,4 @@
-.homePageContent {
-    margin: auto;
-}
+
 
 body {
     font-family: Verdana, Arial, sans-serif;
@@ -14,7 +12,7 @@ h1{
 .container {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 80%;
     background-color: #F2F1EB;
 }
 

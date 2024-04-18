@@ -17,20 +17,20 @@
         <div class="recipeName">
             <label for="recipeNameField">Recipe Name</label><br>
             <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
-        </div>
+        </div><br>
         <div class="recipeTimeServingsImageWrapper">
             <div class="recipePreparationTime">
                 <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label><br>
                 <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
-            </div>
+            </div><br>
             <div class="recipeServings">
                 <label for="recipeServings">Servings</label><br>
                 <input type="text" id="recipeServings" th:field="*{servings}"/>
-            </div>
+            </div><br>
             <div class="recipeImage">
                 <label for="customFile">Upload image:</label><br>
                 <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
-            </div>
+            </div><br>
         </div>
         <div class="recipeIngredientPreparationMethodWrapper">
             <div class="recipeIngredients">
@@ -41,7 +41,7 @@
                             th:value="${ingredient.ingredientId}">
                     </option>
                 </select>
-            </div>
+            </div><br>
             <div class="recipeSteps">
                 <table id="stepsTable">
                     <tr>
@@ -58,11 +58,11 @@
             <div class="preparationMethodStepButton">
                 <button type="button" onclick="addStep()">Add step</button>
             </div>
-        </div>
+        </div><br>
         <div class="recipeTag">
             <label for="recipeTag">Tag</label><br>
             <input type="text" id="recipeTag" th:field="*{tag}"/>
-        </div>
+        </div><br>
         <div class="saveRecipeButton">
             <input type="submit" value="Save recipe"/>
         </div>
