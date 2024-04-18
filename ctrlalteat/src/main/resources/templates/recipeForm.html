@@ -36,10 +36,10 @@
             <div class="recipeIngredients">
                 <label for="ingredientField">Ingredients</label><br>
                 <select id="ingredientField" th:field="*{ingredients}" multiple>
-                        <option th:each="ingredient : ${allIngredients}"
-                                th:text="${ingredient.name}"
-                                th:value="${ingredient.ingredientId}">
-                        </option>
+                    <option th:each="ingredient : ${allIngredients}"
+                            th:text="${ingredient.name}"
+                            th:value="${ingredient.ingredientId}">
+                    </option>
                 </select>
             </div>
             <div class="recipeSteps">
@@ -50,7 +50,7 @@
                     <tr th:each="step, index : *{preparationMethodSteps}">
                         <td>
                             <input type="text" id="preparationMethodSteps"
-                                   th:field="*{preparationMethodSteps[__${index.index}__]}" size="77" />
+                                   th:field="*{preparationMethodSteps[__${index.index}__]}"/>
                         </td>
                     </tr>
                 </table>
