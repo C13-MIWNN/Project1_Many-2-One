@@ -1,6 +1,5 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
-import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.SearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

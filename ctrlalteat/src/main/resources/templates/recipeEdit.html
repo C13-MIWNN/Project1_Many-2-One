@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
+    <title>Edit Recipe</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+
+    <h1>Edit Recipe</h1>
+
+    <form th:action="@{'/recipe/detail/edit/' + ${recipeId}}" method="post" th:object="${recipe}" enctype="multipart/form-data">
+
+        <input type="hidden" th:field="*{recipeId}">
+
+        <div class="recipeName">
+            <label for="recipeNameField">Recipe Name</label><br>
+            <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
+        </div>
+        <div class="recipeTimeServingsImageWrapper">
+            <div class="recipePreparationTime">
+                <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label><br>
+                <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
+            </div>
+            <div class="recipeServings">
+                <label for="recipeServings">Servings</label><br>
+                <input type="text" id="recipeServings" th:field="*{servings}"/>
+            </div>
+            <div class="recipeImage">
+                <label for="customFile">Upload image:</label><br>
+                <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
+            </div>
+        </div>
+        <div class="recipeIngredientPreparationMethodWrapper">
+            <div class="recipeIngredients">
+                <label for="ingredientField">Ingredients</label><br>
+                <select id="ingredientField" th:field="*{ingredients}" multiple>
+                    <option th:each="ingredient : ${allIngredients}"
+                            th:text="${ingredient.name}"
+                            th:value="${ingredient.ingredientId}">
+                    </option>
+                </select>
+            </div>
+            <div class="recipeSteps">
+                <table id="stepsTable">
+                    <tr>
+                        <td><label for="preparationMethodSteps">Preparation method:</label></td>
+                    </tr>
+                    <tr th:each="step, index : *{preparationMethodSteps}">
+                        <td>
+                            <input type="text" id="preparationMethodSteps"
+                                   th:field="*{preparationMethodSteps[__${index.index}__]}" size="77" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="preparationMethodStepButton">
+                <button type="button" onclick="addStep()">Add step</button>
+            </div>
+        </div>
+        <div class="recipeTag">
+            <label for="recipeTag">Tag</label><br>
+            <input type="text" id="recipeTag" th:field="*{tag}"/>
+        </div>
+        <div class="saveRecipeButton">
+            <input type="submit" value="Save recipe"/>
+        </div>
+    </form>
+
+    <script th:inline="javascript">
+        function addStep() {
+            var stepsTable = document.getElementById('stepsTable');
+            var newRow = stepsTable.insertRow(-1);
+            var cell = newRow.insertCell(0);
+            var newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('name', 'preparationMethodSteps');
+            newInput.setAttribute('size', '77')
+            cell.appendChild(newInput);
+        }
+
+        window.onload = function () {
+            addStep()
+        };
+    </script>
+
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
+import nl.mitw.ch13.many2one.ctrlalteat.model.RecipeService;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.*;
@@ -125,5 +127,47 @@ public class RecipeController {
         return "recipeDetails";
     }
 
+    @GetMapping("/recipe/detail/edit/{recipeId}")
+    public String showEditRecipe(@PathVariable("recipeId") Long recipeId, Model model) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
+        if (recipeOptional.isEmpty()) {
+            return "redirect:/recipe";
+        }
+
+        model.addAttribute("recipe", recipeOptional.get());
+        model.addAttribute("allIngredients", ingredientRepository.findAll());
+
+        return "recipeEdit";
+    }
+
+    @PostMapping("/recipe/detail/edit/{recipeId}")
+    public String updateRecipe(@PathVariable("recipeId") Long recipeId,
+                               @ModelAttribute("recipe") Recipe updatedRecipe,
+                               @RequestParam("imageFile") MultipartFile imageFile,
+                               BindingResult result) throws IOException {
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (recipeOptional.isEmpty()) {
+            return "redirect:/recipe";
+        }
+
+        Recipe existingRecipe = recipeOptional.get();
+
+        existingRecipe.setRecipeName(updatedRecipe.getRecipeName());
+        existingRecipe.setPreparationTimeInMinutes(updatedRecipe.getPreparationTimeInMinutes());
+        existingRecipe.setServings(updatedRecipe.getServings());
+        existingRecipe.setTag(updatedRecipe.getTag());
+        existingRecipe.setPreparationMethodSteps(updatedRecipe.getPreparationMethodSteps());
+        existingRecipe.setIngredients(updatedRecipe.getIngredients());
+
+        if (!imageFile.isEmpty()) {
+            existingRecipe.setImageData(imageFile.getBytes());
+        }
+
+        recipeRepository.save(existingRecipe);
+
+        return "redirect:/recipe/detail/" + recipeId;
+    }
 }
