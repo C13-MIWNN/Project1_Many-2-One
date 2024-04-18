@@ -12,7 +12,7 @@ h1{
 .container {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 80%;
     background-color: #F2F1EB;
 }
 
@@ -105,69 +105,6 @@ div.recipeWindow {
     white-space: pre-wrap;
 }
 
-.recipeName {
-    width: 100%;
-    text-align: center;
-}
-
-.recipeTimeServingsImageWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-div.recipePreparationTime {
-    overflow-x: hidden;
-    overflow-y: auto;
-    float: right;
-    padding: 10px;
-    width: 33%;
-    white-space: pre-wrap;
-}
-
-div.recipeServings {
-    overflow-x: hidden;
-    overflow-y: auto;
-    float: right;
-    padding: 10px;
-    width: 33%;
-    white-space: pre-wrap;
-}
-
-div.recipeImage {
-    overflow-x: hidden;
-    overflow-y: auto;
-    float: right;
-    padding: 10px;
-    width: 33%;
-    white-space: pre-wrap;
-}
-
-.recipeIngredientPreparationMethodWrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-div.recipeIngredients {
-    overflow-y: scroll;
-    float: left;
-    padding: 10px;
-    width: 30vh;
-    max-height: 50vh;
-}
-
-div.recipeSteps {
-    overflow-x: hidden;
-    overflow-y: auto;
-    float: right;
-    padding: 10px;
-    width: 60vh;
-    max-height: 50vh;
-    white-space: pre-wrap;
-}
 
 
 
