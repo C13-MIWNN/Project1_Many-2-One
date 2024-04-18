@@ -1,7 +1,6 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -13,12 +13,12 @@ import java.util.List;
  **/
 
 @Service
-public class RecipeService {
+public class Search {
 
     private SearchRepository searchRepository;
 
     @Autowired
-    public RecipeService(SearchRepository searchRepository) {
+    public Search(SearchRepository searchRepository) {
         this.searchRepository = searchRepository;
     }
     public List<Recipe> searchRecipes(String keyword) {

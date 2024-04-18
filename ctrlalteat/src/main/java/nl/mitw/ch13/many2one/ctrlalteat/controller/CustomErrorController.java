@@ -7,6 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author Arjan Cnossen
+ * Purpose: Give the user either a 404 error page or a general error page upon errors.
+ **/
+
 @Controller
 public class CustomErrorController implements ErrorController {
 

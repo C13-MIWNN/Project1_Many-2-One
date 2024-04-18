@@ -21,7 +21,6 @@ public class HomePageController {
         this.categoryRepository = categoryRepository;
     }
 
-
     @GetMapping("/")
     private String showRecipeOverview(Model model) {
         model.addAttribute("categoriesSubSet", getCategories());

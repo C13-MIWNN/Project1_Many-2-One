@@ -35,7 +35,6 @@ public class IngredientController {
         return "ingredientOverview";
     }
 
-
     @PostMapping("ingredient/new")
     private String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredientToBeSaved, BindingResult result) {
         if (!result.hasErrors()) {

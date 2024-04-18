@@ -2,7 +2,6 @@ package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
-import nl.mitw.ch13.many2one.ctrlalteat.model.RecipeService;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.*;

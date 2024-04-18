@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
+/**
+ * @author Arjan Cnossen
+ * Purpose: Handle the uploading of images to recipes to the database
+ **/
+
 @Controller
 public class ImageController {
 
