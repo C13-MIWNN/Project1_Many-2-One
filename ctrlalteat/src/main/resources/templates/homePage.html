@@ -9,21 +9,22 @@
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-    <h1>Ctrl Alt Eat</h1>
-    <h3>Some Categories</h3>
-    <div class="d-flex flex-wrap">
-        <div th:each="category : ${categoriesSubSet}">
-            <div th:replace="~{fragments/cardTemplate :: cardCategory(${category})}"></div>
+    <div class="homePageContent">
+        <h1>Ctrl Alt Eat</h1>
+        <h3>Some Categories</h3>
+        <div class="d-flex flex-wrap">
+            <div th:each="category : ${categoriesSubSet}">
+                <div th:replace="~{fragments/cardTemplate :: cardCategory(${category})}"></div>
+            </div>
+        </div>
+
+        <h3>Some Recipes</h3>
+        <div class="d-flex flex-wrap">
+            <div th:each="recipe : ${recipesSubSet}">
+                <div th:replace="~{fragments/cardTemplate :: cardFragment(${recipe})}"></div>
+            </div>
         </div>
     </div>
-
-    <h3>Some Recipes</h3>
-    <div class="d-flex flex-wrap">
-        <div th:each="recipe : ${recipesSubSet}">
-            <div th:replace="~{fragments/cardTemplate :: cardFragment(${recipe})}"></div>
-        </div>
-    </div>
-
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
