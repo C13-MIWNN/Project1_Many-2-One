@@ -10,80 +10,112 @@
 <div class="container">
 
     <h1>Create a new recipe</h1>
+    <form th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
+        <div class="RecipeFormGroup">
+            <input type="hidden" th:field="*{recipeId}">
 
-    <form class="recipeForm" th:action="@{/recipe/new}" method="post" th:object="${recipe}" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{recipeId}">
+            <div class="recipeDetailPageTop">
+                <div class="recipeLabelAndInputTop" id="recipeNameInput">
+                    <div class="recipeFormDivTop">
+                        <label class="recipeFormLabel" for="recipeNameField">Recipe name</label>
+                    </div>
+                    <div class="recipeFormDivTop">
+                        <input class="recipeFormInputTop" type="text" id="recipeNameField" th:field="*{recipeName}">
+                    </div>
+                </div>
+                <div class="recipeLabelAndInputTop" id="recipeServingsInput">
+                    <div class="recipeFormDivTop">
+                        <label class="recipeFormLabel" for="recipeServingsField">Servings</label>
+                    </div>
+                    <div class="recipeFormDivTop">
+                        <input class="recipeFormInputTop" type="text" id="recipeServingsField" th:field="*{servings}">
+                    </div>
+                </div>
+                <div class="recipeLabelAndInputTop" id="recipePreparationTimeInput">
+                    <div class="recipeFormDivTop">
+                        <label class="recipeFormLabel" for="recipePreparationTimeField">Preparation time in minutes</label>
+                    </div>
+                    <div class="recipeFormDivTop">
+                        <input class="recipeFormInputTop" type="text" id="recipePreparationTimeField" th:field="*{preparationTimeInMinutes}">
+                    </div>
+                </div>
+                <div class="recipeLabelAndInputTop" id="recipeImageInput">
+                    <div class="recipeFormDivTop">
+                        <label class="recipeFormLabel" for="customFile">Upload image:</label>
+                    </div>
+                    <div class="recipeFormDivTop">
+                        <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
+                    </div>
+                </div>
+            </div>
 
-        <div class="recipeName">
-            <label for="recipeNameField">Recipe Name</label><br>
-            <input type="text" id="recipeNameField" th:field="*{recipeName}"/>
-        </div><br>
-        <div class="recipeTimeServingsImageWrapper">
-            <div class="recipePreparationTime">
-                <label for="recipepreparationTimeInMinutesField">Preparation time in minutes</label><br>
-                <input type="text" id="recipepreparationTimeInMinutesField" th:field="*{preparationTimeInMinutes}"/>
-            </div><br>
-            <div class="recipeServings">
-                <label for="recipeServings">Servings</label><br>
-                <input type="text" id="recipeServings" th:field="*{servings}"/>
-            </div><br>
-            <div class="recipeImage">
-                <label for="customFile">Upload image:</label><br>
-                <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
-            </div><br>
+            <div class="recipeDetailPageMiddle">
+                <div class="recipeLabelAndInputMiddle" id="recipeIngredientsInput">
+                    <div class="recipeFormDivMiddle">
+                        <label for="ingredientField">Ingredients</label>
+                    </div>
+                    <div class="recipeFormDivMiddle">
+                        <select multiple class="recipeFormLabel" id="ingredientField" th:field="*{ingredients}">
+                            <option th:each="ingredient : ${allIngredients}"
+                                    th:text="${ingredient.name}"
+                                    th:value="${ingredient.ingredientId}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="recipeLabelAndInputMiddle" id="recipePrepStepsInput">
+                    <div class="recipeFormDivMiddle">
+                        <label for="prepMethodSteps">Preparation method</label>
+                    </div>
+
+                    <div>
+                        <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
+                    </div>
+                    <div id="inputFields"></div>
+                    <div>
+                        <button type="button" onclick="addStep()" id="addFieldButton" class="input-field">Add input field</button>
+                    </div>
+                </div>
+
+                <div class="recipeTag">
+                    <div>
+                        <label for="recipeTag">Category</label>
+                    </div>
+                    <div>
+                        <input type="text" id="recipeTag" th:field="*{tag}"/>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="recipeIngredientPreparationMethodWrapper">
-            <div class="recipeIngredients">
-                <label for="ingredientField">Ingredients</label><br>
-                <select id="ingredientField" th:field="*{ingredients}" multiple>
-                    <option th:each="ingredient : ${allIngredients}"
-                            th:text="${ingredient.name}"
-                            th:value="${ingredient.ingredientId}">
-                    </option>
-                </select>
-            </div><br>
-            <div class="recipeSteps">
-                <table id="stepsTable">
-                    <tr>
-                        <td><label for="preparationMethodSteps">Preparation method:</label></td>
-                    </tr>
-                    <tr th:each="step, index : *{preparationMethodSteps}">
-                        <td>
-                            <input type="text" id="preparationMethodSteps"
-                                   th:field="*{preparationMethodSteps[__${index.index}__]}"/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="preparationMethodStepButton">
-                <button type="button" onclick="addStep()">Add step</button>
-            </div>
-        </div><br>
-        <div class="recipeTag">
-            <label for="recipeTag">Tag</label><br>
-            <input type="text" id="recipeTag" th:field="*{tag}"/>
-        </div><br>
         <div class="saveRecipeButton">
             <input type="submit" value="Save recipe"/>
         </div>
     </form>
 
-    <script th:inline="javascript">
+
+    <script>
         function addStep() {
-            var stepsTable = document.getElementById('stepsTable');
-            var newRow = stepsTable.insertRow(-1);
-            var cell = newRow.insertCell(0);
-            var newInput = document.createElement('input');
-            newInput.setAttribute('type', 'text');
-            newInput.setAttribute('name', 'preparationMethodSteps');
-            newInput.setAttribute('size', '77')
-            cell.appendChild(newInput);
+            const divElement = document.getElementById("inputFields");
+            var inputFields= `
+            <div>
+                <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
+                <button type="button" onclick="addStep()" class="input-field">Add input field</button>
+            </div>
+            `;
+            divElement.insertAdjacentHTML("beforeend", inputFields)
+            const lastAddedButton = divElement.lastElementChild.querySelector('button');
+            lastAddedButton.textContent = 'Remove Step';
+            lastAddedButton.setAttribute('onclick', 'removeStep(this)')
         }
 
-        window.onload = function () {
-            addStep()
-        };
+        function removeStep(button) {
+            const divElement = document.getElementById("inputFields");
+            divElement.removeChild(button.parentElement);
+        }
     </script>
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

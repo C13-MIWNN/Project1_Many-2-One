@@ -137,3 +137,60 @@ div.recipeWindow {
     white-space: pre-wrap;
 }
 
+/*recipeForm css*/
+.recipeDetailPageTop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.recipeFormLabel {
+    padding-right: 10px;
+}
+
+.recipeFormDivTop {
+    margin: 0 auto;
+    padding-right: 10px;
+}
+
+#recipeNameField {
+    width: 300px;
+}
+
+#recipeServingsField {
+    width: 30px;
+}
+
+#recipePreparationTimeField {
+    width: 50px;
+}
+
+.recipeFormDivTop {
+    height: 2rem;
+    padding: 5px;
+}
+
+.recipeLabelAndInputTop {
+    text-align: center;
+}
+
+.recipeLabelAndInputBottom {
+    text-align: center;
+}
+
+#ingredientField {
+    width: 300px;
+}
+
+#prepMethodWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+}
+
+.recipeDetailPageMiddle {
+    display: flex;
+    flex-direction: row;
+}
