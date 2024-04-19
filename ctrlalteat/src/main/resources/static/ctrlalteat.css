@@ -212,6 +212,30 @@ div.recipeWindow {
 
 
 #recipeRemoveButton {
-        transform: translateY(-100%);
-        padding-left: 3px;
+    transform: translateY(-100%);
+    padding-left: 3px;
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
 }
+
+#recipeRemoveCategoryButton {
+    transform: translateY(-25%);
+    padding-left: 3px;
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
+}
+
+.recipeDynamicallyAddedCategoryInput {
+    padding-top: 3px;
+}
+
+.categoryInputsDiv {
+    padding: 3px;
+}
+
+#addCategoryFieldButtonDiv {
+    padding-top: 10px;
+}
+
