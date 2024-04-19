@@ -194,3 +194,21 @@ div.recipeWindow {
     display: flex;
     flex-direction: row;
 }
+
+.recipeLabelAndInputMiddle {
+    padding-right: 10px;
+}
+
+.recipeDynamicallyAddedPrepInput {
+    padding-bottom: 3px;
+}
+
+#prepMethodStepsDiv {
+    padding-bottom: 10px;
+}
+
+
+#recipeRemoveButton {
+        transform: translateY(-100%);
+        padding-left: 3px;
+}

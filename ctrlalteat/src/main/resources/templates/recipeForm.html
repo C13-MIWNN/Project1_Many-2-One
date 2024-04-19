@@ -44,7 +44,7 @@
                         <label class="recipeFormLabel" for="customFile">Upload image:</label>
                     </div>
                     <div class="recipeFormDivTop">
-                        <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png" />
+                        <input type="file" id="customFile" name="imageFile" accept=".jpg,.gif,.png"/>
                     </div>
                 </div>
             </div>
@@ -69,16 +69,16 @@
                         <label for="prepMethodSteps">Preparation method</label>
                     </div>
 
-                    <div>
+                    <div id="prepMethodStepsDiv">
                         <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
                     </div>
                     <div id="inputFields"></div>
                     <div>
-                        <button type="button" onclick="addStep()" id="addFieldButton" class="input-field">Add input field</button>
+                        <button type="button" onclick="addStep()" id="addFieldButton" class="btn btn-secondary">Add input field</button>
                     </div>
                 </div>
 
-                <div class="recipeTag">
+                <div class="recipeLabelAndInputMiddle" id="recipeCategoryInput">
                     <div>
                         <label for="recipeTag">Category</label>
                     </div>
@@ -90,7 +90,7 @@
 
         </div>
         <div class="saveRecipeButton">
-            <input type="submit" value="Save recipe"/>
+            <input type="submit" class="btn btn-primary" value="Save recipe"/>
         </div>
     </form>
 
@@ -99,15 +99,12 @@
         function addStep() {
             const divElement = document.getElementById("inputFields");
             var inputFields= `
-            <div>
+            <div class="recipeDynamicallyAddedPrepInput">
                 <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
-                <button type="button" onclick="addStep()" class="input-field">Add input field</button>
+                <button type="button" onclick="removeStep(this)" class="btn btn-secondary" id="recipeRemoveButton">Remove</button>
             </div>
             `;
             divElement.insertAdjacentHTML("beforeend", inputFields)
-            const lastAddedButton = divElement.lastElementChild.querySelector('button');
-            lastAddedButton.textContent = 'Remove Step';
-            lastAddedButton.setAttribute('onclick', 'removeStep(this)')
         }
 
         function removeStep(button) {
