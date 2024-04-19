@@ -33,10 +33,12 @@
                 </div>
                 <div class="recipeLabelAndInputTop" id="recipePreparationTimeInput">
                     <div class="recipeFormDivTop">
-                        <label class="recipeFormLabel" for="recipePreparationTimeField">Preparation time in minutes</label>
+                        <label class="recipeFormLabel" for="recipePreparationTimeField">Preparation time in
+                            minutes</label>
                     </div>
                     <div class="recipeFormDivTop">
-                        <input class="recipeFormInputTop" type="text" id="recipePreparationTimeField" th:field="*{preparationTimeInMinutes}">
+                        <input class="recipeFormInputTop" type="text" id="recipePreparationTimeField"
+                               th:field="*{preparationTimeInMinutes}">
                     </div>
                 </div>
                 <div class="recipeLabelAndInputTop" id="recipeImageInput">
@@ -70,27 +72,38 @@
                     </div>
 
                     <div id="prepMethodStepsDiv">
-                        <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
+                        <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40"
+                                  rows="3"></textarea>
                     </div>
                     <div id="inputFields"></div>
                     <div>
-                        <button type="button" onclick="addStep()" id="addFieldButton" class="btn btn-secondary">Add input field</button>
+                        <button type="button" onclick="addStep()" id="addFieldButton" class="btn btn-secondary">Add
+                            input field
+                        </button>
                     </div>
                 </div>
 
                 <div class="recipeLabelAndInputMiddle" id="recipeCategoryInput">
-                    <div>
-                        <label for="recipeTag">Category</label>
+                    <div class="recipeFormDivMiddle">
+                        <label for="categoryInputs">Categories</label>
                     </div>
-                    <div>
-                        <input type="text" id="recipeTag" th:field="*{tag}"/>
+
+                    <div id="categoryInputsDiv">
+                        <input type="text" class="categoryInputFields" id="categoryInputs" name="tag">
+                    </div>
+                    <div id="categoryInputFields"></div>
+                    <div id="addCategoryFieldButtonDiv">
+                        <button type="button" onclick="addCategory()" id="addCategoryFieldButton"
+                                class="btn btn-secondary">Add category
+                        </button>
                     </div>
                 </div>
-            </div>
 
-        </div>
-        <div class="saveRecipeButton">
-            <input type="submit" class="btn btn-primary" value="Save recipe"/>
+
+            </div>
+            <div class="saveRecipeButton">
+                <input type="submit" class="btn btn-primary" value="Save recipe"/>
+            </div>
         </div>
     </form>
 
@@ -111,6 +124,23 @@
             const divElement = document.getElementById("inputFields");
             divElement.removeChild(button.parentElement);
         }
+
+        function addCategory() {
+            const divElement = document.getElementById("categoryInputFields");
+            var inputFields = `
+            <div class="recipeDynamicallyAddedCategoryInput">
+                <input type="text" class="categoryInputFields" id="categoryInputs" name="tag">
+                <button type="button" onclick="removeCategoryInputField(this)" class="btn btn-secondary" id="recipeRemoveCategoryButton">Remove</button>
+            </div>
+            `;
+            divElement.insertAdjacentHTML("beforeend", inputFields)
+        }
+
+        function removeCategoryInputField(button) {
+            const divElement = document.getElementById("categoryInputFields");
+            divElement.removeChild(button.parentElement);
+        }
+
     </script>
 
 </div>

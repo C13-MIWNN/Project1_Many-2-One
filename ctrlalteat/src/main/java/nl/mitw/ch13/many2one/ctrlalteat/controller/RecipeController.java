@@ -67,17 +67,23 @@ public class RecipeController {
     }
 
     private Set<Category> handleCategory(Recipe recipeToBeSaved) {
-        String tag = recipeToBeSaved.getTag();
+        String[] tags = unpackTags(recipeToBeSaved);
         List<Category> categories = categoryRepository.findAll();
         ArrayList<String> categoriesNames = new ArrayList<>();
         for (Category category : categories) {
             categoriesNames.add(category.getCategoryName());
         }
-        Category category = getCategory(categoriesNames, tag, categories);
         Set<Category> categorySet = new HashSet<>();
-        categorySet.add(category);
+        for (String tag : tags) {
+            categorySet.add(getCategory(categoriesNames, tag, categories));
+        }
         return categorySet;
+    }
 
+    private String[] unpackTags(Recipe recipeToBeSaved) {
+        String tag = recipeToBeSaved.getTag();
+        String[] tagListWithPossibleDuplicates = tag.split(",");
+        return Arrays.stream(tagListWithPossibleDuplicates).distinct().toArray(String[]::new);
     }
 
     private Category getCategory(ArrayList<String> categoriesNames, String tag, List<Category> categories) {
