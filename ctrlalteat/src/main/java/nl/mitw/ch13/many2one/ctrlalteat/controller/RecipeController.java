@@ -1,5 +1,6 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
+import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
@@ -24,11 +25,13 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
+    private final List<MeasurementUnitTypes> measurementUnitTypes;
 
     public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
+        this.measurementUnitTypes = Arrays.asList(MeasurementUnitTypes.values());
     }
 
     @GetMapping("/recipe")
@@ -42,6 +45,7 @@ public class RecipeController {
     private String showRecipeForm(Model model) {
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("allIngredients", ingredientRepository.findAll());
+        model.addAttribute("measurementUnitTypes", measurementUnitTypes);
         return "recipeForm";
     }
 

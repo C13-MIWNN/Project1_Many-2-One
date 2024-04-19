@@ -51,20 +51,55 @@
                 </div>
             </div>
 
-            <div class="recipeDetailPageMiddle">
-                <div class="recipeLabelAndInputMiddle" id="recipeIngredientsInput">
-                    <div class="recipeFormDivMiddle">
-                        <label for="ingredientField">Ingredients</label>
+            <div class="recipeLabelAndInputMiddle" id="recipeIngredientsInput">
+                <div class="recipeIngredientAmountUnitWrapper">
+                    <div class="ingredientName">
+                        <div class="recipeFormDivMiddle">
+                            <label for="ingredientField">Ingredients</label>
+                        </div>
+                        <div class="recipeFormDivMiddle">
+                            <select class="custom-select" data-live-search="true" id="ingredientField" name="ingredients">
+                                <option th:each="ingredient : ${allIngredients}"
+                                        th:text="${ingredient.name}"
+                                        th:value="${ingredient.ingredientId}">
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="recipeFormDivMiddle">
-                        <select multiple class="recipeFormLabel" id="ingredientField" th:field="*{ingredients}">
-                            <option th:each="ingredient : ${allIngredients}"
-                                    th:text="${ingredient.name}"
-                                    th:value="${ingredient.ingredientId}">
-                            </option>
-                        </select>
+                    <div class="ingredientAmount">
+                        <div class="recipeFormDivMiddle">
+                            <label for="ingredientAmountField">Amount</label>
+                        </div>
+                        <div class="recipeFormDivMiddle">
+                            <input type="text" class="ingredientAmountInputFields" id="ingredientAmountField">
+                        </div>
                     </div>
+                    <div class="ingredientUnit">
+                        <div class="recipeFormDivMiddle">
+                            <label for="ingredientUnitField">Measurement Unit</label>
+                        </div>
+                        <div class="recipeFormDivMiddle">
+                            <select class="custom-select" data-live-search="true" id="ingredientUnitField">
+                                <option th:each="unit : ${measurementUnitTypes}"
+                                        th:text="${unit}"
+                                        th:value="${unit}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
+                <div id="ingredientInputFields"></div>
+                <div id="addIngredientButtonDiv">
+                    <button type="button" onclick="addIngredient()" id="addIngredientButton" class="btn btn-secondary">Add
+                        ingredient
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="recipeDetailPageMiddle">
+
 
                 <div class="recipeLabelAndInputMiddle" id="recipePrepStepsInput">
                     <div class="recipeFormDivMiddle">
@@ -108,7 +143,42 @@
     </form>
 
 
-    <script>
+
+    <script th:inline="javascript">
+        function addIngredient() {
+            const divElement = document.getElementById("ingredientInputFields");
+            var allIngredients = /*[[${allIngredients}]]*/ [];
+            var allUnits = /*[[${measurementUnitTypes}]]*/ [];
+            var ingredientFields= '';
+
+            ingredientFields += '<div id="recipeDynamicallyAddedIngredientInput">';
+            ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientField" name="ingredients">';
+            for (let i = 0; i < allIngredients.length; i++) {
+                var ingredient = allIngredients[i];
+                ingredientFields += '<option value=' + ingredient.ingredientId + ' >' + ingredient.name + '</option>';
+            }
+            ingredientFields += '</select>';
+
+            ingredientFields += '<input type="text" class="ingredientAmountInputFields" id="ingredientAmountInputs">'
+
+            ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientUnitField">';
+            for (let i = 0; i < allUnits.length; i++) {
+                var unit = allUnits[i];
+                ingredientFields += '<option value=' + unit + ' >' + unit + '</option>';
+            }
+            ingredientFields += '</select>';
+
+            ingredientFields += '<button type="button" onclick="removeIngredient(this)" class="btn btn-secondary" id="recipeIngredientRemoveButton">Remove</button>';
+            ingredientFields += '</div>';
+
+            divElement.insertAdjacentHTML("beforeend", ingredientFields)
+        }
+
+        function removeIngredient(button) {
+            const divElement = document.getElementById("ingredientInputFields");
+            divElement.removeChild(button.parentElement);
+        }
+
         function addStep() {
             const divElement = document.getElementById("inputFields");
             var inputFields= `
@@ -140,7 +210,6 @@
             const divElement = document.getElementById("categoryInputFields");
             divElement.removeChild(button.parentElement);
         }
-
     </script>
 
 </div>

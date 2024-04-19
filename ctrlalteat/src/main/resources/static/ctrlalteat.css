@@ -171,13 +171,15 @@ div.recipeWindow {
     padding: 5px;
 }
 
+.recipeIngredientAmountUnitWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
 .recipeLabelAndInputTop {
     text-align: center;
 }
 
-.recipeLabelAndInputBottom {
-    text-align: center;
-}
 
 #ingredientField {
     width: 300px;
@@ -224,8 +226,18 @@ div.recipeWindow {
     --bs-btn-font-size: .75rem;
 }
 
+#recipeIngredientRemoveButton {
+    transform: translateY(-0%);
+    padding-left: 3px;
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
+}
+
 .recipeDynamicallyAddedCategoryInput {
     padding-top: 3px;
+    display: flex;
+    flex-direction: row;
 }
 
 .categoryInputsDiv {
@@ -235,4 +247,22 @@ div.recipeWindow {
 #addCategoryFieldButtonDiv {
     padding-top: 10px;
 }
+
+#recipeDynamicallyAddedIngredientInput {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+#addIngredientButtonDiv {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#ingredientPaddingDiv {
+    padding: 10px;
+}
+
+
 
