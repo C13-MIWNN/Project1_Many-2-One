@@ -136,8 +136,8 @@ public class InitializeController {
                         "Bake until golden brown."},
                 makeSetIngredients(flour, garlic, oliveOil, salt, pepper, yeast, water),
                 makeSetCategories(breakfastCat, lunchCat, appetizerCat, veganCat), image);
-
-        Recipe shortLong = makeRecipeWithoutImage("Bread",
+        createImage("bread.jpg");
+        Recipe shortLong = makeRecipeWithImage("Bread",
                 120,
                 4,
                 new String[] {"Mix.",
@@ -146,8 +146,9 @@ public class InitializeController {
                         flour, shortIngredient, longIngredient, salt, yeast, water,
                         flour, shortIngredient, longIngredient, salt, yeast, water,
                         flour, shortIngredient, longIngredient, salt, yeast, water),
-                makeSetCategories(breakfastCat, lunchCat, dinnerCat, appetizerCat, mainCourseCat, dessertCat));
-        Recipe bruschetta = makeRecipeWithoutImage("Sautéed Garlic Tomato Bruschetta",
+                makeSetCategories(breakfastCat, lunchCat, dinnerCat, appetizerCat, mainCourseCat, dessertCat), image);
+        createImage("bruschetta.jpg");
+        Recipe bruschetta = makeRecipeWithImage("Sautéed Garlic Tomato Bruschetta",
                 30,
                 4,
                 new String[]{
@@ -177,7 +178,7 @@ olive oil and fresh herbs if desired. Serve immediately and enjoy the vibrant fl
 this classic Italian appetizer."""
                         },
                 makeSetIngredients(garlic, tomato, oliveOil, salt, pepper, bread),
-                        makeSetCategories(appetizerCat, lunchCat, veganCat));
+                        makeSetCategories(appetizerCat, lunchCat, veganCat), image);
 
         return "redirect:/";
     }
