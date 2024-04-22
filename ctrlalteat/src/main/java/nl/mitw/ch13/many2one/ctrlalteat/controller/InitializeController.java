@@ -2,11 +2,15 @@ package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
+import nl.mitw.ch13.many2one.ctrlalteat.model.CtrlAltEatUser;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
+import nl.mitw.ch13.many2one.ctrlalteat.services.CtrlAltEatUserService;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -27,14 +31,26 @@ public class InitializeController {
     private final CategoryRepository categoryRepository;
     byte[] image;
 
-    public InitializeController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
+    private final CtrlAltEatUserService ctrlAltEatUserService;
+
+    public InitializeController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository, CategoryRepository categoryRepository, CtrlAltEatUserService ctrlAltEatUserService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
+        this.ctrlAltEatUserService = ctrlAltEatUserService;
+    }
+
+    @EventListener
+    private void seed(ContextRefreshedEvent event) {
+        if (ctrlAltEatUserService.isNotInitialised()) {
+            initializeDB();
+        }
     }
 
     @GetMapping("/initialize")
     private String initializeDB() {
+        makeUser("Eat", "Eat");
+
         Ingredient onion = makeIngredient("Onion",
                 "A versatile aromatic vegetable used in various cuisines.", MeasurementUnitTypes.Item);
         Ingredient garlic = makeIngredient("Garlic",
@@ -248,5 +264,13 @@ this classic Italian appetizer."""
         } catch (IOException e) {
             throw new RuntimeException("couldn't read image", e);
         }
+    }
+
+    private CtrlAltEatUser makeUser(String username, String password) {
+        CtrlAltEatUser user = new CtrlAltEatUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        ctrlAltEatUserService.saveUser(user);
+        return user;
     }
 }
