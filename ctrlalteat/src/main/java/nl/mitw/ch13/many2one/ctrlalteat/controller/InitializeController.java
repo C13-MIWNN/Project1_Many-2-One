@@ -239,7 +239,7 @@ this classic Italian appetizer."""
     }
 
     private byte[] makeImageByteArray(String filename) throws IOException {
-        File file = new File("ctrlalteat/src/main/projectDocuments/many2oneimages/" + filename);
+        File file = new File("ctrlalteat/src/main/resources/projectDocuments/many2oneimages/" + filename);
         return Files.readAllBytes(file.toPath());
     }
     private void createImage(String filename){
