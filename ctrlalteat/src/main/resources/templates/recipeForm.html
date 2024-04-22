@@ -72,7 +72,7 @@
                             <label for="ingredientAmountField">Amount</label>
                         </div>
                         <div class="recipeFormDivMiddle">
-                            <input type="text" class="ingredientAmountInputFields" id="ingredientAmountField">
+                            <input type="text" class="ingredientAmountInputFields" id="ingredientAmountField" name="ingredientAmountInput">
                         </div>
                     </div>
                     <div class="ingredientUnit">
@@ -80,7 +80,7 @@
                             <label for="ingredientUnitField">Measurement Unit</label>
                         </div>
                         <div class="recipeFormDivMiddle">
-                            <select class="custom-select" data-live-search="true" id="ingredientUnitField">
+                            <select class="custom-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">
                                 <option th:each="unit : ${measurementUnitTypes}"
                                         th:text="${unit}"
                                         th:value="${unit}">
@@ -144,81 +144,77 @@
     </form>
 
 
+</div>
 
-    <script th:inline="javascript">
-        // console.log(/);
+<script th:inline="javascript">
 
-        function addIngredient() {
-            const divElement = document.getElementById("ingredientInputFields");
-            // var allIngredients = [{ingredientId: 14, name: "salt"}, {ingredientId: 14, name: "salt"}];
-            let allIngredients = /*[[${allIngredients}]]*/ [];
+    function addIngredient() {
+        const divElement = document.getElementById("ingredientInputFields");
+        let allIngredients = /*[[${allIngredients}]]*/ [];
+        var allUnits = /*[[${measurementUnitTypes}]]*/ [];
+        var ingredientFields = '';
 
-            var allUnits = /*[[${measurementUnitTypes}]]*/ [];
-            var ingredientFields = '';
-
-            ingredientFields += '<div id="recipeDynamicallyAddedIngredientInput">';
-            ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientField" name="ingredients">';
-            ingredientFields += '<option value="" disabled selected>Select ingredient</option>'
-            for (let i = 0; i < allIngredients.length; i++) {
-                var ingredient = allIngredients[i];
-                ingredientFields += '<option value=' + ingredient.ingredientId + ' >' + ingredient.name + '</option>';
-            }
-            ingredientFields += '</select>';
-
-            ingredientFields += '<input type="text" class="ingredientAmountInputFields" id="ingredientAmountInputs">'
-
-            ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientUnitField">';
-            for (let i = 0; i < allUnits.length; i++) {
-                var unit = allUnits[i];
-                ingredientFields += '<option value=' + unit + ' >' + unit + '</option>';
-            }
-            ingredientFields += '</select>';
-
-            ingredientFields += '<button type="button" onclick="removeIngredient(this)" class="btn btn-secondary" id="recipeIngredientRemoveButton">Remove</button>';
-            ingredientFields += '</div>';
-
-            divElement.insertAdjacentHTML("beforeend", ingredientFields)
+        ingredientFields += '<div id="recipeDynamicallyAddedIngredientInput">';
+        ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientField" name="ingredients">';
+        ingredientFields += '<option value="" disabled selected>Select ingredient</option>'
+        for (let i = 0; i < allIngredients.length; i++) {
+            var ingredient = allIngredients[i];
+            ingredientFields += '<option value=' + ingredient.ingredientId + ' >' + ingredient.name + '</option>';
         }
+        ingredientFields += '</select>';
 
-        function removeIngredient(button) {
-            const divElement = document.getElementById("ingredientInputFields");
-            divElement.removeChild(button.parentElement);
+        ingredientFields += '<input type="text" class="ingredientAmountInputFields" id="ingredientAmountInputs" name="ingredientAmountInput">'
+
+        ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">';
+        for (let i = 0; i < allUnits.length; i++) {
+            var unit = allUnits[i];
+            ingredientFields += '<option value=' + unit + ' >' + unit + '</option>';
         }
+        ingredientFields += '</select>';
 
-        function addStep() {
-            const divElement = document.getElementById("inputFields");
-            var inputFields= `
+        ingredientFields += '<button type="button" onclick="removeIngredient(this)" class="btn btn-secondary" id="recipeIngredientRemoveButton">Remove</button>';
+        ingredientFields += '</div>';
+
+        divElement.insertAdjacentHTML("beforeend", ingredientFields)
+    }
+
+    function removeIngredient(button) {
+        const divElement = document.getElementById("ingredientInputFields");
+        divElement.removeChild(button.parentElement);
+    }
+
+    function addStep() {
+        const divElement = document.getElementById("inputFields");
+        var inputFields= `
             <div class="recipeDynamicallyAddedPrepInput">
                 <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
                 <button type="button" onclick="removeStep(this)" class="btn btn-secondary" id="recipeRemoveButton">Remove</button>
             </div>
             `;
-            divElement.insertAdjacentHTML("beforeend", inputFields)
-        }
+        divElement.insertAdjacentHTML("beforeend", inputFields)
+    }
 
-        function removeStep(button) {
-            const divElement = document.getElementById("inputFields");
-            divElement.removeChild(button.parentElement);
-        }
+    function removeStep(button) {
+        const divElement = document.getElementById("inputFields");
+        divElement.removeChild(button.parentElement);
+    }
 
-        function addCategory() {
-            const divElement = document.getElementById("categoryInputFields");
-            var inputFields = `
+    function addCategory() {
+        const divElement = document.getElementById("categoryInputFields");
+        var inputFields = `
             <div class="recipeDynamicallyAddedCategoryInput">
                 <input type="text" class="categoryInputFields" id="categoryInputs" name="tag">
                 <button type="button" onclick="removeCategoryInputField(this)" class="btn btn-secondary" id="recipeRemoveCategoryButton">Remove</button>
             </div>
             `;
-            divElement.insertAdjacentHTML("beforeend", inputFields)
-        }
+        divElement.insertAdjacentHTML("beforeend", inputFields)
+    }
 
-        function removeCategoryInputField(button) {
-            const divElement = document.getElementById("categoryInputFields");
-            divElement.removeChild(button.parentElement);
-        }
-    </script>
-
-</div>
+    function removeCategoryInputField(button) {
+        const divElement = document.getElementById("categoryInputFields");
+        divElement.removeChild(button.parentElement);
+    }
+</script>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>

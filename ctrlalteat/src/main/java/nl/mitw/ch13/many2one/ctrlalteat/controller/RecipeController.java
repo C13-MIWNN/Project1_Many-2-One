@@ -70,6 +70,9 @@ public class RecipeController {
     @PostMapping("/recipe/new")
     private String saveRecipe(@ModelAttribute("recipe") Recipe recipeToBeSaved,
                               @RequestParam("imageFile") MultipartFile imageFile,
+                              @RequestParam("ingredients") Long[] ingredients,
+                              @RequestParam("ingredientAmountInput") int[] ingredientAmountInput,
+                              @RequestParam("ingredientUnitInput") String[] units,
                               BindingResult result,
                               Model model) throws IOException {
 
@@ -84,11 +87,27 @@ public class RecipeController {
         recipeToBeSaved.setCategories(categories);
 
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
-        List<RecipeIngredient> recipeIngredientsToBeSaved = recipeToBeSaved.getIngredients();
-        for (RecipeIngredient ingredient : recipeIngredientsToBeSaved) {
-            ingredient.setRecipe(savedRecipe);
-            recipeIngredientRepository.save(ingredient);
+
+
+        for (int i = 0; i < ingredients.length; i++) {
+            Long ingredientId = ingredients[i];
+            Optional<Ingredient> optionalIngredient = ingredientRepository.findById(ingredientId);
+            if (optionalIngredient.isPresent()){
+                Ingredient ingredient = optionalIngredient.get();
+                RecipeIngredient recipeIngredient = new RecipeIngredient();
+                recipeIngredient.setIngredient(ingredient);
+                recipeIngredient.setRecipe(savedRecipe);
+                recipeIngredient.setAmount(ingredientAmountInput[i]);
+                MeasurementUnitTypes unit = MeasurementUnitTypes.valueOf(units[i]);
+                recipeIngredient.setMeasurementUnit(unit);
+
+                recipeIngredientRepository.save(recipeIngredient);
+            }
+
+
         }
+
+
 
         return "redirect:/";
     }
