@@ -30,9 +30,12 @@ public class InitializeController {
     private final CategoryRepository categoryRepository;
     byte[] image;
 
-    private CtrlAltEatUserService ctrlAltEatUserService;
+    private final CtrlAltEatUserService ctrlAltEatUserService;
 
-    public InitializeController(IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
+    public InitializeController(IngredientRepository ingredientRepository,
+                                RecipeIngredientRepository recipeIngredientRepository,
+                                RecipeRepository recipeRepository, CategoryRepository categoryRepository,
+                                CtrlAltEatUserService ctrlAltEatUserService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
         this.recipeRepository = recipeRepository;
