@@ -1,12 +1,7 @@
 body {
     font-family: Verdana, Arial, sans-serif;
     background-color: #AFC8AD;
-    cursor: url(https://cur.cursors-4u.net/food/foo-7/foo620.cur), default;
 }
-
-/*a {*/
-/*    cursor: url(https://cur.cursors-4u.net/food/foo-7/foo620.cur), default;*/
-/*}*/
 
 h1 {
     text-align: center;
@@ -265,6 +260,12 @@ div.recipeWindow {
 
 #ingredientPaddingDiv {
     padding: 10px;
+}
+
+.addRecipeButton {
+    color: black;
+    background-color: darkorange;
+    border-color: black;
 }
 
 

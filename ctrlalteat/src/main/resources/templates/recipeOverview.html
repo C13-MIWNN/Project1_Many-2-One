@@ -10,15 +10,17 @@
 
 <div class="container">
     <h1 id="recipeOverviewHeader">All recipes</h1>
+
+    <button type="button" class="addRecipeButton" onclick="window.location.replace('recipe/new')">
+        Add a new recipe</button><br>
+
     <div class="d-flex flex-wrap">
         <div th:each="recipe : ${allRecipes}">
             <div th:replace="~{fragments/cardTemplate :: cardFragment(${recipe})}"></div>
         </div>
     </div>
 
-    <p>
-        <a th:href="@{/recipe/new}">Add a new recipe</a>
-    </p>
+
 
 </div>
 

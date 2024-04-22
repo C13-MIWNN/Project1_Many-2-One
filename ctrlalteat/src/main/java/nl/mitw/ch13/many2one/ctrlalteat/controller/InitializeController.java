@@ -1,14 +1,14 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
-import nl.mitw.ch13.many2one.ctrlalteat.model.RecipeIngredient;
+import nl.mitw.ch13.many2one.ctrlalteat.model.*;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeIngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
+import nl.mitw.ch13.many2one.ctrlalteat.services.CtrlAltEatUserService;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -30,15 +30,27 @@ public class InitializeController {
     private final CategoryRepository categoryRepository;
     byte[] image;
 
+    private CtrlAltEatUserService ctrlAltEatUserService;
+
     public InitializeController(IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, RecipeRepository recipeRepository, CategoryRepository categoryRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
+        this.ctrlAltEatUserService = ctrlAltEatUserService;
+    }
+
+    @EventListener
+    private void seed(ContextRefreshedEvent event) {
+        if (ctrlAltEatUserService.isNotInitialised()) {
+            initializeDB();
+        }
     }
 
     @GetMapping("/initialize")
     private String initializeDB() {
+        makeUser("Eat", "Eat");
+
         Ingredient onion = makeIngredient("Onion",
                 "A versatile aromatic vegetable used in various cuisines.");
         Ingredient garlic = makeIngredient("Garlic",
@@ -82,6 +94,7 @@ public class InitializeController {
         Category pastaCat = makeCategory("Pasta");
         Category chickenCat = makeCategory("Chicken");
         Category stirFryCat = makeCategory("Stir fry");
+
 
 
         createImage("classic_pasta.jpg");
@@ -275,7 +288,7 @@ this classic Italian appetizer."""
     }
 
     private byte[] makeImageByteArray(String filename) throws IOException {
-        File file = new File("ctrlalteat/src/main/projectDocuments/many2oneimages/" + filename);
+        File file = new File("ctrlalteat/src/main/resources/projectDocuments/many2oneimages/" + filename);
         return Files.readAllBytes(file.toPath());
     }
 
@@ -285,5 +298,13 @@ this classic Italian appetizer."""
         } catch (IOException e) {
             throw new RuntimeException("couldn't read image", e);
         }
+    }
+
+    private CtrlAltEatUser makeUser(String username, String password) {
+        CtrlAltEatUser user = new CtrlAltEatUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        ctrlAltEatUserService.saveUser(user);
+        return user;
     }
 }

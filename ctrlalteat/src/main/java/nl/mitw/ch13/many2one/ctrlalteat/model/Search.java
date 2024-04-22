@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @Auteur Arjan Cnossen
- * Purpose of the class
+ * Handles search requests on the website
  **/
 
 @Service
@@ -22,8 +22,8 @@ public class Search {
         this.searchRepository = searchRepository;
     }
     public List<Recipe> searchRecipes(String keyword) {
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            return searchRepository.search("%" + keyword + "%");
+        if (keyword != null) {
+            return searchRepository.search(keyword + "%");
         }
         return Collections.emptyList();
     }
