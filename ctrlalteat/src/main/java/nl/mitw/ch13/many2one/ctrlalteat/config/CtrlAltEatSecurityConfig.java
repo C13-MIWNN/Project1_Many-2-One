@@ -22,7 +22,8 @@ public class CtrlAltEatSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/recipe", "/recipe/detail/{recipeId}").permitAll()
-                        .requestMatchers("/webjars/**", "/ctrlalteat.css", "/logo_ctrlAltEat.png", "/recipe/image/**").permitAll()
+                        .requestMatchers("/webjars/**", "/ctrlalteat.css", "/logo_ctrlAltEat.png",
+                                "/recipe/image/**", "/search/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll())

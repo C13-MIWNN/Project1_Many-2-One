@@ -1,7 +1,9 @@
 package nl.mitw.ch13.many2one.ctrlalteat.services;
 
+import nl.mitw.ch13.many2one.ctrlalteat.dtos.CtrlAltEatUserFormDTO;
 import nl.mitw.ch13.many2one.ctrlalteat.model.CtrlAltEatUser;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CtrlAltEatUserRepository;
+import nl.mitw.ch13.many2one.ctrlalteat.services.mappers.CtrlAltEatUserMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,21 +31,21 @@ public class CtrlAltEatUserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-//    public boolean userExists(String username) {
-//        return ctrlAltEatUserRepository.findByUsername(username).isPresent();
-//    }
-
     public void saveUser(CtrlAltEatUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         ctrlAltEatUserRepository.save(user);
     }
 
-//    public void saveUser(CtrlAltEatUserFormDTO dto) {
-//        saveUser(CtrlAtEatUserMapper.fromDTO(dto));
-//    }
-
     public boolean isNotInitialised() {
         return ctrlAltEatUserRepository.count() == 0;
+    }
+
+    public boolean userExists(String username) {
+        return ctrlAltEatUserRepository.findByUsername(username).isPresent();
+    }
+
+        public void saveUser(CtrlAltEatUserFormDTO dto) {
+        saveUser(CtrlAltEatUserMapper.fromDTO(dto));
     }
 
 }
