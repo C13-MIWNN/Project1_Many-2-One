@@ -14,8 +14,9 @@ public interface SearchRepository extends JpaRepository<Recipe, Long> {
 
     @Query("SELECT DISTINCT recipe FROM Recipe recipe"
             + " LEFT JOIN recipe.ingredients ingredient"
+            + " LEFT JOIN recipe.categories category"
             + " WHERE recipe.recipeName LIKE %?1%"
             + " OR ingredient.name LIKE %?1%"
-            + " OR recipe.tag LIKE %?1%")
+            + " OR category.categoryName LIKE %?1%")
     List<Recipe> search(String keyword);
 }
