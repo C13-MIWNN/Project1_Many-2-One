@@ -1,5 +1,6 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
+import nl.mitw.ch13.many2one.ctrlalteat.dtos.RecipeFormIngredientDTO;
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.model.*;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
@@ -48,7 +49,8 @@ public class RecipeController {
         model.addAttribute("recipe", new Recipe());
 
 
-        model.addAttribute("allIngredients", ingredientWithoutRecipe());
+        List<Ingredient> ingredients = ingredientRepository.findAll();
+        model.addAttribute("allIngredients", RecipeFormIngredientDTO.convertToRecipeFromIngredient(ingredients));
 
         model.addAttribute("measurementUnitTypes", measurementUnitTypes);
         return "recipeForm";
@@ -77,8 +79,6 @@ public class RecipeController {
         if (!imageFile.isEmpty()) {
             recipeToBeSaved.setImageData(imageFile.getBytes());
         }
-
-
 
         Set<Category> categories = handleCategory(recipeToBeSaved);
         recipeToBeSaved.setCategories(categories);
