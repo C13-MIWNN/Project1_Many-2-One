@@ -262,5 +262,11 @@ div.recipeWindow {
     padding: 10px;
 }
 
+.addRecipeButton {
+    color: black;
+    background-color: darkorange;
+    border-color: black;
+}
+
 
 
