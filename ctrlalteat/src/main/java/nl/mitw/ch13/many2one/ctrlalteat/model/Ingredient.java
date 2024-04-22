@@ -1,8 +1,10 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
 import jakarta.persistence.*;
-import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,30 +14,29 @@ import java.util.Set;
 @Entity
 public class Ingredient {
     @Id @GeneratedValue
-    private Long IngredientId;
-    @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.ALL)
-    private Set<Recipe> recipes;
+    private Long ingredientId;
+
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
+    private List<RecipeIngredient> recipes = new ArrayList<>();
 
     private String name;
     private String description;
-    private MeasurementUnitTypes measurementUnit;
 
-    public Ingredient(Long ingredientId, String name, String description, MeasurementUnitTypes measurementUnit) {
-        IngredientId = ingredientId;
+    public Ingredient(Long ingredientId, String name, String description) {
+        this.ingredientId = ingredientId;
         this.name = name;
         this.description = description;
-        this.measurementUnit = measurementUnit;
     }
 
     public Ingredient() {
     }
 
     public Long getIngredientId() {
-        return IngredientId;
+        return ingredientId;
     }
 
     public void setIngredientId(Long ingredientId) {
-        IngredientId = ingredientId;
+        this.ingredientId = ingredientId;
     }
 
     public String getName() {
@@ -54,16 +55,16 @@ public class Ingredient {
         this.description = description;
     }
 
-    public MeasurementUnitTypes getMeasurementUnit() {
-        return measurementUnit;
-    }
-
-    public void setMeasurementUnit(MeasurementUnitTypes measurementUnit) {
-        this.measurementUnit = measurementUnit;
-    }
-
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public List<RecipeIngredient> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<RecipeIngredient> recipes) {
+        this.recipes = recipes;
     }
 }

@@ -1,10 +1,10 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Category;
-import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
+import nl.mitw.ch13.many2one.ctrlalteat.model.*;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
+import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeIngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +23,14 @@ import java.util.*;
 @Controller
 public class RecipeController {
     private final RecipeRepository recipeRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
     private final List<MeasurementUnitTypes> measurementUnitTypes;
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
+    public RecipeController(RecipeRepository recipeRepository, RecipeIngredientRepository recipeIngredientRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
+        this.recipeIngredientRepository = recipeIngredientRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
         this.measurementUnitTypes = Arrays.asList(MeasurementUnitTypes.values());
@@ -44,9 +46,23 @@ public class RecipeController {
     @GetMapping("/recipe/new")
     private String showRecipeForm(Model model) {
         model.addAttribute("recipe", new Recipe());
-        model.addAttribute("allIngredients", ingredientRepository.findAll());
+
+
+        model.addAttribute("allIngredients", ingredientWithoutRecipe());
+
         model.addAttribute("measurementUnitTypes", measurementUnitTypes);
         return "recipeForm";
+    }
+
+    private List<IngredientWithoutRecipe> ingredientWithoutRecipe() {
+        List<Ingredient> ingredients = ingredientRepository.findAll();
+        List<IngredientWithoutRecipe> ingredientsWithoutRecipes = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            IngredientWithoutRecipe ingredientWithoutRecipes = new IngredientWithoutRecipe(ingredient.getName(),
+                    ingredient.getIngredientId());
+            ingredientsWithoutRecipes.add(ingredientWithoutRecipes);
+        }
+        return ingredientsWithoutRecipes;
     }
 
     @PostMapping("/recipe/new")
@@ -62,10 +78,17 @@ public class RecipeController {
             recipeToBeSaved.setImageData(imageFile.getBytes());
         }
 
+
+
         Set<Category> categories = handleCategory(recipeToBeSaved);
         recipeToBeSaved.setCategories(categories);
 
-        recipeRepository.save(recipeToBeSaved);
+        Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
+        List<RecipeIngredient> recipeIngredientsToBeSaved = recipeToBeSaved.getIngredients();
+        for (RecipeIngredient ingredient : recipeIngredientsToBeSaved) {
+            ingredient.setRecipe(savedRecipe);
+            recipeIngredientRepository.save(ingredient);
+        }
 
         return "redirect:/";
     }

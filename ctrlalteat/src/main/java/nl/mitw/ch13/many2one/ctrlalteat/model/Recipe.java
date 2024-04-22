@@ -3,6 +3,7 @@ package nl.mitw.ch13.many2one.ctrlalteat.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,8 +16,8 @@ import java.util.Set;
 public class Recipe {
     @Id @GeneratedValue
     private Long recipeId;
-    @ManyToMany(cascade = CascadeType.DETACH)
-    private Set<Ingredient> ingredients;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<RecipeIngredient> ingredients = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Category> categories;
 
@@ -105,14 +106,6 @@ public class Recipe {
         this.tag = tag;
     }
 
-    public Set<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public byte[] getImageData() {
         return imageData;
     }
@@ -128,4 +121,13 @@ public class Recipe {
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
+
+    public List<RecipeIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<RecipeIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
 }

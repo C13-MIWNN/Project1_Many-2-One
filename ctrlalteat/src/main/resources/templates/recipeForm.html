@@ -146,9 +146,13 @@
 
 
     <script th:inline="javascript">
+        // console.log(/);
+
         function addIngredient() {
             const divElement = document.getElementById("ingredientInputFields");
-            var allIngredients = /*[[${allIngredients}]]*/ [];
+            // var allIngredients = [{ingredientId: 14, name: "salt"}, {ingredientId: 14, name: "salt"}];
+            let allIngredients = /*[[${allIngredients}]]*/ [];
+
             var allUnits = /*[[${measurementUnitTypes}]]*/ [];
             var ingredientFields = '';
 
