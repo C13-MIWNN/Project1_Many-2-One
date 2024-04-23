@@ -87,18 +87,35 @@ public class InitializeController {
         Ingredient bread = makeIngredient("Bread",
                 "Staple carbohydrate made from flour, water, yeast, and salt.");
 
-        Category breakfastCat = makeCategory("Breakfast");
-        Category lunchCat = makeCategory("Lunch");
-        Category dinnerCat = makeCategory("Dinner");
-        Category appetizerCat = makeCategory("Appetizer");
-        Category mainCourseCat = makeCategory("Main course");
-        Category dessertCat = makeCategory("Dessert");
-        Category veganCat = makeCategory("Vegan");
-        Category pastaCat = makeCategory("Pasta");
-        Category chickenCat = makeCategory("Chicken");
-        Category stirFryCat = makeCategory("Stir fry");
+        createImage("breakfast.png");
+        Category breakfastCat = makeCategory("Breakfast", image);
 
+        createImage("lunch.png");
+        Category lunchCat = makeCategory("Lunch", image);
 
+        createImage("dinner.png");
+        Category dinnerCat = makeCategory("Dinner", image);
+
+        createImage("appetizer.png");
+        Category appetizerCat = makeCategory("Appetizer", image);
+
+        createImage("main_course.png");
+        Category mainCourseCat = makeCategory("Main course", image);
+
+        createImage("dessert.png");
+        Category dessertCat = makeCategory("Dessert", image);
+
+        createImage("focaccia_bread.jpg");
+        Category veganCat = makeCategory("Vegan", image);
+
+        createImage("focaccia_bread.jpg");
+        Category pastaCat = makeCategory("Pasta", image);
+
+        createImage("focaccia_bread.jpg");
+        Category chickenCat = makeCategory("Chicken", image);
+
+        createImage("focaccia_bread.jpg");
+        Category stirFryCat = makeCategory("Stir fry", image);
 
         createImage("classic_pasta.jpg");
         Recipe classicPasta = makeRecipeWithImage("Classic Tomato and Onion Pasta",
@@ -237,9 +254,10 @@ this classic Italian appetizer."""
         return ingredient;
     }
 
-    private Category makeCategory(String categoryName) {
+    private Category makeCategory(String categoryName, byte[] image) {
         Category category = new Category();
         category.setCategoryName(categoryName);
+        category.setImageData(image);
         categoryRepository.save(category);
         return category;
     }
