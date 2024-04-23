@@ -58,6 +58,10 @@ public class Recipe {
         return stringBuilder.toString();
     }
 
+    public int getNoOfPreparationMethodSteps() {
+        return preparationMethodSteps.size();
+    }
+
     public Long getRecipeId() {
         return recipeId;
     }
