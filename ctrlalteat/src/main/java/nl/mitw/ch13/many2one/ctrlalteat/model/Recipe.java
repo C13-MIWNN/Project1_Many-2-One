@@ -18,8 +18,10 @@ public class Recipe {
     private Long recipeId;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<RecipeIngredient> ingredients = new ArrayList<>();
+
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Category> categories;
+
 
     private String recipeName;
     private int preparationTimeInMinutes;

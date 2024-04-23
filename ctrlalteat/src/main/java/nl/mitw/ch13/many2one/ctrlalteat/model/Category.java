@@ -18,6 +18,10 @@ public class Category {
     @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
     private Set<Recipe> recipes;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] imageData;
+
     public Category() {
     }
 
@@ -48,5 +52,13 @@ public class Category {
     @Override
     public String toString() {
         return categoryName;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 }
