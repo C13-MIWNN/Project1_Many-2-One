@@ -9,24 +9,30 @@
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-    <h1 class="recipeDetailTitle" th:text="${recipeToBeShown.recipeName}"></h1>
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-        <div th:replace="~{fragments/cardTemplate :: cardRecipeHeader(${recipeToBeShown})}"></div>
-    </div>
-
-    <div class="recipeIngredientWrapper" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-        <div class="scrollable">
-            <div class="ingredientWindow"> Ingredients
-                <ul>
-                    <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient}"></li>
-                </ul>
-            </div>
-            <div class="recipeWindow" th:text="${recipeToBeShown.buildRecipePreparationMethodString()}"></div>
+    <div id="recipeDetailDiv">
+        <h1 class="recipeDetailTitle" th:text="${recipeToBeShown.recipeName}"></h1>
+        <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <div th:replace="~{fragments/cardTemplate :: cardRecipeHeader(${recipeToBeShown})}"></div>
         </div>
+
+        <div id="recipeInformationContainer">
+            <div class="recipeInformationDiv" id="RecipeInformationServings" th:text="${recipeToBeShown.servings} + ' servings'"></div>
+            <div class="recipeInformationDiv" id="RecipeInformationTime" th:text="${recipeToBeShown.preparationTimeInMinutes} + ' minutes'"></div>
+        </div>
+
+        <div class="recipeIngredientWrapper" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <div class="scrollable">
+                <div class="ingredientWindow"> Ingredients
+                    <ul>
+                        <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient}"></li>
+                    </ul>
+                </div>
+                <div class="recipeWindow" th:text="${recipeToBeShown.buildRecipePreparationMethodString()}"></div>
+            </div>
+        </div>
+
+        <div id="RecipeDetailCategories" th:each="category : ${recipeToBeShown.categories}" th:text="${category}"></div>
     </div>
-
-    <div th:each="category : ${recipeToBeShown.categories}" th:text="${category}"></div>
-
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

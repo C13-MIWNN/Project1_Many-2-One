@@ -61,6 +61,10 @@ h1 {
     padding: 2px;
 }
 
+.d-flex {
+    justify-content: center;
+}
+
 .recipeCard a::before {
     content: "";
     position: absolute;
@@ -268,5 +272,19 @@ div.recipeWindow {
     border-color: black;
 }
 
+/*recipeDetail page css*/
+#recipeInformationContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
+.recipeInformationDiv {
+    padding: 10px;
+}
 
+#RecipeDetailCategories {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
