@@ -56,7 +56,7 @@ public class InitializeController {
 
         Ingredient onion = makeIngredient("Onion",
                 "A versatile aromatic vegetable used in various cuisines.");
-        Ingredient garlic = makeIngredient("Garlic",
+        Ingredient garlic = makeIngredient("Garlic clove",
                 "Adds depth and flavor to dishes, both raw and cooked.");
         Ingredient tomato = makeIngredient("Tomato",
                 "Commonly used in sauces, salads, and as a base.");
@@ -110,6 +110,7 @@ public class InitializeController {
                 makeListIngredients(onion, garlic, oliveOil, pasta, salt, pepper),
                 makeListUnits(MeasurementUnitTypes.Item, MeasurementUnitTypes.Item, MeasurementUnitTypes.milliliter,
                         MeasurementUnitTypes.gram, MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon),
+                makeListAmounts(1, 2, 3, 400, 5, 6),
                 makeSetCategories(pastaCat, dinnerCat, mainCourseCat, veganCat), image);
 
         createImage("roasted_chicken.jpg");
@@ -121,6 +122,7 @@ public class InitializeController {
                 makeListIngredients(chicken, garlic, oliveOil, salt, pepper),
                 makeListUnits(MeasurementUnitTypes.gram, MeasurementUnitTypes.Item, MeasurementUnitTypes.milliliter,
                         MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon),
+                makeListAmounts(300, 2, 5, 1, 1),
                 makeSetCategories(chickenCat, dinnerCat), image);
 
         createImage("fried_rice.jpg");
@@ -134,6 +136,7 @@ public class InitializeController {
                 makeListUnits(MeasurementUnitTypes.Item, MeasurementUnitTypes.Item, MeasurementUnitTypes.gram,
                         MeasurementUnitTypes.gram, MeasurementUnitTypes.milliliter, MeasurementUnitTypes.Teaspoon,
                         MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Item),
+                makeListAmounts(1, 1, 150, 300, 5, 1, 1, 2),
                 makeSetCategories(stirFryCat, dinnerCat, mainCourseCat), image);
 
         createImage("Tomato_sauce.jpg");
@@ -146,6 +149,7 @@ public class InitializeController {
                 makeListIngredients(onion, garlic, tomato, oliveOil, salt, pepper),
                 makeListUnits(MeasurementUnitTypes.Item, MeasurementUnitTypes.Item, MeasurementUnitTypes.gram,
                         MeasurementUnitTypes.milliliter, MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon),
+                makeListAmounts(2, 3, 500, 20, 2, 3),
                 makeSetCategories(pastaCat, dinnerCat, lunchCat), image);
 
         createImage("focaccia_bread.jpg");
@@ -160,6 +164,7 @@ public class InitializeController {
                 makeListUnits(MeasurementUnitTypes.gram, MeasurementUnitTypes.Item, MeasurementUnitTypes.milliliter,
                         MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon,
                         MeasurementUnitTypes.milliliter),
+                makeListAmounts(250, 2, 10, 2, 2, 4, 230),
                 makeSetCategories(breakfastCat, lunchCat, appetizerCat, veganCat), image);
         createImage("bread.jpg");
         Recipe shortLong = makeRecipeWithImage("Bread",
@@ -179,6 +184,10 @@ public class InitializeController {
                         MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.milliliter,
                         MeasurementUnitTypes.gram, MeasurementUnitTypes.Item, MeasurementUnitTypes.milliliter,
                         MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.milliliter),
+                makeListAmounts(500, 1, 20000, 1, 3, 330,
+                        500, 1, 20000, 1, 3, 330,
+                        500, 1, 20000, 1, 3, 330,
+                        500, 1, 20000, 1, 3, 330),
                 makeSetCategories(breakfastCat, lunchCat, dinnerCat, appetizerCat, mainCourseCat, dessertCat), image);
         createImage("bruschetta.jpg");
         Recipe bruschetta = makeRecipeWithImage("Sautéed Garlic Tomato Bruschetta",
@@ -213,6 +222,7 @@ this classic Italian appetizer."""
                 makeListIngredients(garlic, tomato, oliveOil, salt, pepper, bread),
                 makeListUnits(MeasurementUnitTypes.Item, MeasurementUnitTypes.gram, MeasurementUnitTypes.milliliter,
                         MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.Teaspoon, MeasurementUnitTypes.gram),
+                makeListAmounts(2, 100, 5, 1, 1, 200),
                 makeSetCategories(appetizerCat, lunchCat, veganCat), image);
 
         return "redirect:/";
@@ -236,9 +246,9 @@ this classic Italian appetizer."""
 
     private Recipe makeRecipeWithImage(String recipeName, int preparationTimeInMinutes, int servings,
                                        String[] preparationMethodSteps, List<RecipeIngredient> ingredients,
-                                       List<MeasurementUnitTypes> units, Set<Category> categories, byte[] image) {
+                                       List<MeasurementUnitTypes> units,List<Integer> amounts, Set<Category> categories, byte[] image) {
         Recipe recipe = setRecipeVariables(recipeName, preparationTimeInMinutes, servings,
-                preparationMethodSteps, ingredients, units, categories);
+                preparationMethodSteps, ingredients, units, amounts, categories);
         recipe.setImageData(image);
         recipeRepository.save(recipe);
         return recipe;
@@ -248,13 +258,13 @@ this classic Italian appetizer."""
 
     private Recipe setRecipeVariables(String recipeName, int preparationTimeInMinutes, int servings,
                                       String[] preparationMethodSteps, List<RecipeIngredient> ingredients,
-                                      List<MeasurementUnitTypes> units, Set<Category> categories) {
+                                      List<MeasurementUnitTypes> units, List<Integer> amounts, Set<Category> categories) {
         Recipe recipe = new Recipe();
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTimeInMinutes(preparationTimeInMinutes);
         recipe.setServings(servings);
         recipe.setPreparationMethodSteps(List.of(preparationMethodSteps));
-        List<RecipeIngredient> ingredientSet = setRecipeIngredientsVariables(ingredients, units, recipe);
+        List<RecipeIngredient> ingredientSet = setRecipeIngredientsVariables(ingredients, units, amounts, recipe);
         recipe.setIngredients(ingredientSet);
 
         recipe.setCategories(categories);
@@ -263,10 +273,12 @@ this classic Italian appetizer."""
 
     private List<RecipeIngredient> setRecipeIngredientsVariables(List<RecipeIngredient> ingredients,
                                                                 List<MeasurementUnitTypes> units,
+                                                                List<Integer> amounts,
                                                                 Recipe recipe) {
         for (int i = 0; i < ingredients.size(); i++) {
             ingredients.get(i).setRecipe(recipe);
             ingredients.get(i).setMeasurementUnit(units.get(i));
+            ingredients.get(i).setAmount(amounts.get(i));
         }
         return ingredients;
     }
@@ -283,6 +295,14 @@ this classic Italian appetizer."""
 
     private List<MeasurementUnitTypes> makeListUnits(MeasurementUnitTypes... units) {
         return Arrays.asList(units);
+    }
+
+    private List<Integer> makeListAmounts(int... amounts) {
+        ArrayList<Integer> amountList = new ArrayList<>();
+        for (int amount : amounts) {
+            amountList.add(amount);
+        }
+        return amountList;
     }
 
 

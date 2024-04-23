@@ -1,7 +1,6 @@
 package nl.mitw.ch13.many2one.ctrlalteat.dtos;
 
 import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
-import nl.mitw.ch13.many2one.ctrlalteat.model.IngredientWithoutRecipe;
 
 import java.util.ArrayList;
 import java.util.List;

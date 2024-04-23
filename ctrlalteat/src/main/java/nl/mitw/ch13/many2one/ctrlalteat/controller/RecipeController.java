@@ -56,17 +56,6 @@ public class RecipeController {
         return "recipeForm";
     }
 
-    private List<IngredientWithoutRecipe> ingredientWithoutRecipe() {
-        List<Ingredient> ingredients = ingredientRepository.findAll();
-        List<IngredientWithoutRecipe> ingredientsWithoutRecipes = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
-            IngredientWithoutRecipe ingredientWithoutRecipes = new IngredientWithoutRecipe(ingredient.getName(),
-                    ingredient.getIngredientId());
-            ingredientsWithoutRecipes.add(ingredientWithoutRecipes);
-        }
-        return ingredientsWithoutRecipes;
-    }
-
     @PostMapping("/recipe/new")
     private String saveRecipe(@ModelAttribute("recipe") Recipe recipeToBeSaved,
                               @RequestParam("imageFile") MultipartFile imageFile,

@@ -25,6 +25,10 @@ public class RecipeIngredient {
     @ManyToOne
     private Ingredient ingredient;
 
+    private boolean measurementUnitIsItem() {
+        return measurementUnit == MeasurementUnitTypes.Item;
+    }
+
     public void setRecipeIngredientId(Long recipeIngredientId) {
         this.recipeIngredientId = recipeIngredientId;
     }
@@ -67,6 +71,12 @@ public class RecipeIngredient {
 
     @Override
     public String toString() {
-        return String.format("%d %s %s", this.amount, this.measurementUnit, this.ingredient);
+        if (amount > 1 && measurementUnit == MeasurementUnitTypes.Item) {
+            return String.format("%d %s %s", this.amount, "", this.ingredient + "s");
+        } else if (amount <= 1 || measurementUnit == MeasurementUnitTypes.gram ||
+                measurementUnit == MeasurementUnitTypes.milliliter) {
+            return String.format("%d %s %s", this.amount, measurementUnitIsItem() ? "" : this.measurementUnit, this.ingredient);
+        }
+        return String.format("%d %s %s", this.amount, this.measurementUnit + "s", this.ingredient);
     }
 }
