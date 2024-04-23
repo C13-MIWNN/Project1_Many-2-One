@@ -87,22 +87,22 @@ public class InitializeController {
         Ingredient bread = makeIngredient("Bread",
                 "Staple carbohydrate made from flour, water, yeast, and salt.");
 
-        createImage("focaccia_bread.jpg");
+        createImage("breakfast.png");
         Category breakfastCat = makeCategory("Breakfast", image);
 
-        createImage("focaccia_bread.jpg");
+        createImage("lunch.png");
         Category lunchCat = makeCategory("Lunch", image);
 
-        createImage("focaccia_bread.jpg");
+        createImage("dinner.png");
         Category dinnerCat = makeCategory("Dinner", image);
 
-        createImage("focaccia_bread.jpg");
+        createImage("appetizer.png");
         Category appetizerCat = makeCategory("Appetizer", image);
 
-        createImage("focaccia_bread.jpg");
+        createImage("main_course.png");
         Category mainCourseCat = makeCategory("Main course", image);
 
-        createImage("focaccia_bread.jpg");
+        createImage("dessert.png");
         Category dessertCat = makeCategory("Dessert", image);
 
         createImage("focaccia_bread.jpg");
