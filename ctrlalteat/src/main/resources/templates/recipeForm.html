@@ -58,7 +58,7 @@
                             <label for="ingredientField">Ingredients</label>
                         </div>
                         <div class="recipeFormDivMiddle">
-                            <select class="custom-select" data-live-search="true" id="ingredientField" name="ingredients">
+                            <select class="form-select" data-live-search="true" id="ingredientField" name="ingredients">
                                 <option value="" disabled selected>Select ingredient</option>
                                 <option th:each="ingredient : ${allIngredients}"
                                         th:text="${ingredient.name}"
@@ -80,7 +80,7 @@
                             <label for="ingredientUnitField">Measurement Unit</label>
                         </div>
                         <div class="recipeFormDivMiddle">
-                            <select class="custom-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">
+                            <select class="form-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">
                                 <option th:each="unit : ${measurementUnitTypes}"
                                         th:text="${unit}"
                                         th:value="${unit}">
@@ -155,7 +155,7 @@
         var ingredientFields = '';
 
         ingredientFields += '<div id="recipeDynamicallyAddedIngredientInput">';
-        ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientField" name="ingredients">';
+        ingredientFields += '<select class="form-select" data-live-search="true" id="ingredientField" name="ingredients">';
         ingredientFields += '<option value="" disabled selected>Select ingredient</option>'
         for (let i = 0; i < allIngredients.length; i++) {
             var ingredient = allIngredients[i];
@@ -165,7 +165,7 @@
 
         ingredientFields += '<input type="text" class="ingredientAmountInputFields" id="ingredientAmountInputs" name="ingredientAmountInput">'
 
-        ingredientFields += '<select class="custom-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">';
+        ingredientFields += '<select class="form-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">';
         for (let i = 0; i < allUnits.length; i++) {
             var unit = allUnits[i];
             ingredientFields += '<option value=' + unit + ' >' + unit + '</option>';

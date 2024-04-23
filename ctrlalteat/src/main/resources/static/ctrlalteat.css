@@ -266,6 +266,10 @@ div.recipeWindow {
     padding: 10px;
 }
 
+#ingredientUnitField {
+    width: 150px;
+}
+
 .addRecipeButton {
     color: black;
     background-color: darkorange;
