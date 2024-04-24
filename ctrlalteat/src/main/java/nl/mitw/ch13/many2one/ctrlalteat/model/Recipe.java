@@ -60,6 +60,31 @@ public class Recipe {
         return stringBuilder.toString();
     }
 
+    private int getDifficultyInNumbers(Recipe recipe) {
+        int numberOfSteps = recipe.getNoOfPreparationMethodSteps();
+        int difficultyBasedOnSteps = 1;
+        if (numberOfSteps > 3 && numberOfSteps <= 6) {
+            difficultyBasedOnSteps = 2;
+        }
+        else if (numberOfSteps > 6) {
+            difficultyBasedOnSteps = 3;
+        }
+        return difficultyBasedOnSteps;
+    }
+
+    public String getDifficultyLevelInString(Recipe recipe) {
+        int difficultyLevelInNumbers = getDifficultyInNumbers(recipe);
+        String difficultyLevel = "Easy";
+        if (difficultyLevelInNumbers == 2)
+        {
+            difficultyLevel = "Medium" ;
+        }
+        if (difficultyLevelInNumbers == 3) {
+            difficultyLevel = "Hard" ;
+        }
+        return difficultyLevel;
+    }
+
     public int getNoOfPreparationMethodSteps() {
         return preparationMethodSteps.size();
     }
