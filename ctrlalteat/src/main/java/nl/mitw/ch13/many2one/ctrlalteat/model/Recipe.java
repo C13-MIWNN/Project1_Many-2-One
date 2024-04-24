@@ -52,6 +52,9 @@ public class Recipe {
 
     public String buildRecipePreparationMethodString() {
         StringBuilder stringBuilder = new StringBuilder();
+        if (preparationMethodSteps.isEmpty()) {
+            return "Preparation method has not been specified for this recipe.";
+        }
         stringBuilder.append(preparationMethodSteps.get(0));
         for (int i = 1; i < preparationMethodSteps.size(); i++) {
             stringBuilder.append("\n\n");
