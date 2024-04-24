@@ -1,6 +1,7 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import nl.mitw.ch13.many2one.ctrlalteat.dtos.RecipeFormIngredientDTO;
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.model.*;
@@ -50,11 +51,12 @@ public class RecipeController {
 
     @GetMapping("/recipe/new")
     private String showRecipeForm(Model model) {
+        model.addAttribute("recipe", new Recipe());
         return setupIngredientOverview(model);
     }
 
     private String setupIngredientOverview(Model model) {
-        model.addAttribute("recipe", new Recipe());
+
 
         List<Ingredient> ingredients = ingredientRepository.findAll();
         model.addAttribute("allIngredients", RecipeFormIngredientDTO.convertToRecipeFromIngredient(ingredients));
@@ -64,19 +66,19 @@ public class RecipeController {
 
     @PostMapping("/recipe/new")
     private String saveRecipe(@ModelAttribute("recipe") @Valid Recipe recipeToBeSaved,
-                              @RequestParam("imageFile") MultipartFile imageFile,
-                              @RequestParam("ingredients") Long[] ingredients,
-                              @RequestParam("ingredientAmountInput") int[] ingredientAmountInput,
-                              @RequestParam("ingredientUnitInput") String[] units,
                               BindingResult result,
+                              @RequestParam("imageFile") MultipartFile imageFile,
+                              @RequestParam(value = "ingredients", required = false) Long[] ingredients,
+                              @RequestParam(value = "ingredientAmountInput", required = false) int[] ingredientAmountInput,
+                              @RequestParam(value = "ingredientUnitInput", required = false) String[] units,
                               Model model) throws IOException {
 
-//        if (recipeFormService.checkRecipeToBeSavedForInputErrors(recipeToBeSaved, model))
 
 
         if (result.hasErrors()) {
             return setupIngredientOverview(model);
         }
+
 
         if (!imageFile.isEmpty()) {
             recipeToBeSaved.setImageData(imageFile.getBytes());

@@ -41,14 +41,4 @@ public class RecipeFormService {
             }
         }
     }
-
-    public boolean checkRecipeToBeSavedForInputErrors(Recipe recipeToBeSaved, Model model) {
-        try {
-
-        } catch (InvalidParameterException e) {
-            return false;
-        }
-        return false;
-    }
-
 }
