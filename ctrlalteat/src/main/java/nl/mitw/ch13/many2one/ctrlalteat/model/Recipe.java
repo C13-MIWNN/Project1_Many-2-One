@@ -1,6 +1,7 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class Recipe {
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Category> categories;
 
-
+    @NotEmpty(message = "Please fill out this field.")
     private String recipeName;
     private int preparationTimeInMinutes;
     private int servings;

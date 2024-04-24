@@ -1,5 +1,6 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
+import jakarta.validation.Valid;
 import nl.mitw.ch13.many2one.ctrlalteat.dtos.RecipeFormIngredientDTO;
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.model.*;
@@ -7,6 +8,7 @@ import nl.mitw.ch13.many2one.ctrlalteat.repositories.CategoryRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeIngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
+import nl.mitw.ch13.many2one.ctrlalteat.services.RecipeFormService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,13 +29,15 @@ public class RecipeController {
     private final RecipeIngredientRepository recipeIngredientRepository;
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
+    private final RecipeFormService recipeFormService;
     private final List<MeasurementUnitTypes> measurementUnitTypes;
 
-    public RecipeController(RecipeRepository recipeRepository, RecipeIngredientRepository recipeIngredientRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
+    public RecipeController(RecipeRepository recipeRepository, RecipeIngredientRepository recipeIngredientRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository, RecipeFormService recipeFormService) {
         this.recipeRepository = recipeRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
+        this.recipeFormService = recipeFormService;
         this.measurementUnitTypes = Arrays.asList(MeasurementUnitTypes.values());
     }
 
@@ -46,18 +50,20 @@ public class RecipeController {
 
     @GetMapping("/recipe/new")
     private String showRecipeForm(Model model) {
-        model.addAttribute("recipe", new Recipe());
+        return setupIngredientOverview(model);
+    }
 
+    private String setupIngredientOverview(Model model) {
+        model.addAttribute("recipe", new Recipe());
 
         List<Ingredient> ingredients = ingredientRepository.findAll();
         model.addAttribute("allIngredients", RecipeFormIngredientDTO.convertToRecipeFromIngredient(ingredients));
-
         model.addAttribute("measurementUnitTypes", measurementUnitTypes);
         return "recipeForm";
     }
 
     @PostMapping("/recipe/new")
-    private String saveRecipe(@ModelAttribute("recipe") Recipe recipeToBeSaved,
+    private String saveRecipe(@ModelAttribute("recipe") @Valid Recipe recipeToBeSaved,
                               @RequestParam("imageFile") MultipartFile imageFile,
                               @RequestParam("ingredients") Long[] ingredients,
                               @RequestParam("ingredientAmountInput") int[] ingredientAmountInput,
@@ -65,9 +71,13 @@ public class RecipeController {
                               BindingResult result,
                               Model model) throws IOException {
 
+//        if (recipeFormService.checkRecipeToBeSavedForInputErrors(recipeToBeSaved, model))
+
+
         if (result.hasErrors()) {
-            return "recipeForm";
+            return setupIngredientOverview(model);
         }
+
         if (!imageFile.isEmpty()) {
             recipeToBeSaved.setImageData(imageFile.getBytes());
         }
@@ -76,30 +86,13 @@ public class RecipeController {
         recipeToBeSaved.setCategories(categories);
 
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
-
-
-        for (int i = 0; i < ingredients.length; i++) {
-            Long ingredientId = ingredients[i];
-            Optional<Ingredient> optionalIngredient = ingredientRepository.findById(ingredientId);
-            if (optionalIngredient.isPresent()){
-                Ingredient ingredient = optionalIngredient.get();
-                RecipeIngredient recipeIngredient = new RecipeIngredient();
-                recipeIngredient.setIngredient(ingredient);
-                recipeIngredient.setRecipe(savedRecipe);
-                recipeIngredient.setAmount(ingredientAmountInput[i]);
-                MeasurementUnitTypes unit = MeasurementUnitTypes.valueOf(units[i]);
-                recipeIngredient.setMeasurementUnit(unit);
-
-                recipeIngredientRepository.save(recipeIngredient);
-            }
-
-
-        }
-
+        recipeFormService.saveRecipeIngredients(ingredients, ingredientAmountInput, units, savedRecipe);
 
 
         return "redirect:/";
     }
+
+
 
     private Set<Category> handleCategory(Recipe recipeToBeSaved) {
         String[] tags = unpackTags(recipeToBeSaved);

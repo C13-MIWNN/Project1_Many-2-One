@@ -21,6 +21,7 @@
                     </div>
                     <div class="recipeFormDivTop">
                         <input class="recipeFormInputTop" type="text" id="recipeNameField" th:field="*{recipeName}">
+                        <small th:if="${#fields.hasErrors('recipeName')}" th:errors="*{recipeName}" th:class="error"></small>
                     </div>
                 </div>
                 <div class="recipeLabelAndInputTop" id="recipeServingsInput">
