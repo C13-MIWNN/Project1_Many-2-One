@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
-    <title>## Title Here!!##</title>
+    <title>Categories</title>
 </head>
 <body>
 
@@ -21,11 +21,14 @@
 
                 <td><input type="submit" value="Add a new category"></td>
             </tr>
-            <tr th:each="categories : ${allCategories}">
-                <td th:text="${categories.categoryName}"></td>
-            </tr>
         </table>
     </form>
+
+    <div class="d-flex flex-wrap">
+        <div th:each="category : ${allCategories}">
+            <div th:replace="~{fragments/cardTemplate :: cardCategory(${category})}"></div>
+        </div>
+    </div>
 
 </div>
 
