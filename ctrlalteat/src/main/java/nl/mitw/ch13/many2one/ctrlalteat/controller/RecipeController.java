@@ -73,12 +73,9 @@ public class RecipeController {
                               @RequestParam(value = "ingredientUnitInput", required = false) String[] units,
                               Model model) throws IOException {
 
-
-
         if (result.hasErrors()) {
             return setupIngredientOverview(model);
         }
-
 
         if (!imageFile.isEmpty()) {
             recipeToBeSaved.setImageData(imageFile.getBytes());
@@ -89,7 +86,6 @@ public class RecipeController {
 
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
         recipeFormService.saveRecipeIngredients(ingredients, ingredientAmountInput, units, savedRecipe);
-
 
         return "redirect:/";
     }

@@ -20,7 +20,7 @@
                         <label class="recipeFormLabel" for="recipeNameField">Recipe name</label>
                     </div>
                     <div class="recipeFormDivTop">
-                        <input class="recipeFormInputTop" type="text" id="recipeNameField" th:field="*{recipeName}">
+                        <input class="recipeFormInputTop form-control" type="text" id="recipeNameField" th:field="*{recipeName}">
 
                     </div>
                     <div th:if="${#fields.hasErrors('recipeName')}">
@@ -32,7 +32,7 @@
                         <label class="recipeFormLabel" for="recipeServingsField">Servings</label>
                     </div>
                     <div class="recipeFormDivTop">
-                        <input class="recipeFormInputTop" type="text" id="recipeServingsField" th:field="*{servings}">
+                        <input class="recipeFormInputTop form-control" type="text" id="recipeServingsField" th:field="*{servings}">
                     </div>
                 </div>
                 <div class="recipeLabelAndInputTop" id="recipePreparationTimeInput">
@@ -41,7 +41,7 @@
                             minutes</label>
                     </div>
                     <div class="recipeFormDivTop">
-                        <input class="recipeFormInputTop" type="text" id="recipePreparationTimeField"
+                        <input class="recipeFormInputTop form-control" type="text" id="recipePreparationTimeField"
                                th:field="*{preparationTimeInMinutes}">
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                             <label for="ingredientAmountField">Amount</label>
                         </div>
                         <div class="recipeFormDivMiddle">
-                            <input type="text" class="ingredientAmountInputFields" id="ingredientAmountField" name="ingredientAmountInput">
+                            <input type="text" class="ingredientAmountInputFields form-control" id="ingredientAmountField" name="ingredientAmountInput">
                         </div>
                     </div>
                     <div class="ingredientUnit">
@@ -132,7 +132,7 @@
                     </div>
 
                     <div id="categoryInputsDiv">
-                        <input type="text" class="categoryInputFields" id="categoryInputs" name="tag">
+                        <input type="text" class="categoryInputFields form-control" id="categoryInputs" name="tag">
                     </div>
                     <div id="categoryInputFields"></div>
                     <div id="addCategoryFieldButtonDiv">
@@ -154,6 +154,9 @@
 </div>
 
 <script th:inline="javascript">
+    let trashIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">'
+        trashIcon += '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>'
+        trashIcon += '<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></svg>'
 
     function addIngredient() {
         const divElement = document.getElementById("ingredientInputFields");
@@ -170,7 +173,7 @@
         }
         ingredientFields += '</select>';
 
-        ingredientFields += '<input type="text" class="ingredientAmountInputFields" id="ingredientAmountInputs" name="ingredientAmountInput">'
+        ingredientFields += '<input type="text" class="ingredientAmountInputFields form-control" id="ingredientAmountField" name="ingredientAmountInput">'
 
         ingredientFields += '<select class="form-select" data-live-search="true" id="ingredientUnitField" name="ingredientUnitInput">';
         for (let i = 0; i < allUnits.length; i++) {
@@ -179,7 +182,7 @@
         }
         ingredientFields += '</select>';
 
-        ingredientFields += '<button type="button" onclick="removeIngredient(this)" class="btn btn-secondary" id="recipeIngredientRemoveButton">Remove</button>';
+        ingredientFields += '<button type="button" onclick="removeIngredient(this)" class="btn btn-secondary" id="recipeIngredientRemoveButton" title="Remove"><i class="bi bi-trash">' + trashIcon + '</button>';
         ingredientFields += '</div>';
 
         divElement.insertAdjacentHTML("beforeend", ingredientFields)
@@ -195,7 +198,7 @@
         var inputFields= `
             <div class="recipeDynamicallyAddedPrepInput">
                 <textarea name="preparationMethodSteps" id="prepMethodSteps" class="input-fields" cols="40" rows="3"></textarea>
-                <button type="button" onclick="removeStep(this)" class="btn btn-secondary" id="recipeRemoveButton">Remove</button>
+                <button type="button" onclick="removeStep(this)" class="btn btn-secondary" id="recipeRemoveButton" title="Remove"><i class="bi bi-trash">` + trashIcon + `</button>
             </div>
             `;
         divElement.insertAdjacentHTML("beforeend", inputFields)
@@ -210,8 +213,8 @@
         const divElement = document.getElementById("categoryInputFields");
         var inputFields = `
             <div class="recipeDynamicallyAddedCategoryInput">
-                <input type="text" class="categoryInputFields" id="categoryInputs" name="tag">
-                <button type="button" onclick="removeCategoryInputField(this)" class="btn btn-secondary" id="recipeRemoveCategoryButton">Remove</button>
+                <input type="text" class="categoryInputFields form-control" id="categoryInputs" name="tag">
+                <button type="button" onclick="removeCategoryInputField(this)" class="btn btn-secondary" id="recipeRemoveCategoryButton" title="Remove"><i class="bi bi-trash">` + trashIcon + `</button>
             </div>
             `;
         divElement.insertAdjacentHTML("beforeend", inputFields)

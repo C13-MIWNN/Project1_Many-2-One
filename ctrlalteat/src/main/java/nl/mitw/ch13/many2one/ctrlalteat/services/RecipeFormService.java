@@ -19,26 +19,34 @@ public class RecipeFormService {
     RecipeIngredientRepository recipeIngredientRepository;
     IngredientRepository ingredientRepository;
 
-    public RecipeFormService(IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository) {
+    public RecipeFormService(IngredientRepository ingredientRepository,
+                             RecipeIngredientRepository recipeIngredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
     }
 
-    public void saveRecipeIngredients(Long[] ingredients, int[] ingredientAmountInput, String[] units, Recipe savedRecipe) {
-        for (int i = 0; i < ingredients.length; i++) {
-            Long ingredientId = ingredients[i];
+    public void saveRecipeIngredients(Long[] ingredients, int[] ingredientAmountInput, String[] units,
+                                      Recipe savedRecipe) {
+        for (int ingredientIndexNumber = 0; ingredientIndexNumber < ingredients.length; ingredientIndexNumber++) {
+            Long ingredientId = ingredients[ingredientIndexNumber];
             Optional<Ingredient> optionalIngredient = ingredientRepository.findById(ingredientId);
             if (optionalIngredient.isPresent()){
                 Ingredient ingredient = optionalIngredient.get();
                 RecipeIngredient recipeIngredient = new RecipeIngredient();
-                recipeIngredient.setIngredient(ingredient);
-                recipeIngredient.setRecipe(savedRecipe);
-                recipeIngredient.setAmount(ingredientAmountInput[i]);
-                MeasurementUnitTypes unit = MeasurementUnitTypes.valueOf(units[i]);
-                recipeIngredient.setMeasurementUnit(unit);
-
+                setRecipeIngredientValues(ingredientAmountInput, units, savedRecipe, recipeIngredient, ingredient,
+                        ingredientIndexNumber);
                 recipeIngredientRepository.save(recipeIngredient);
             }
         }
+    }
+
+    private static void setRecipeIngredientValues(int[] ingredientAmountInput, String[] units, Recipe savedRecipe,
+                                                  RecipeIngredient recipeIngredient, Ingredient ingredient,
+                                                  int ingredientIndexNumber) {
+        recipeIngredient.setIngredient(ingredient);
+        recipeIngredient.setRecipe(savedRecipe);
+        recipeIngredient.setAmount(ingredientAmountInput[ingredientIndexNumber]);
+        MeasurementUnitTypes unit = MeasurementUnitTypes.valueOf(units[ingredientIndexNumber]);
+        recipeIngredient.setMeasurementUnit(unit);
     }
 }
