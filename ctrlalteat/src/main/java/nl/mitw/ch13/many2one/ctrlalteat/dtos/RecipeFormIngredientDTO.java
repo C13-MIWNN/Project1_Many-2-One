@@ -3,9 +3,11 @@ package nl.mitw.ch13.many2one.ctrlalteat.dtos;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-public class RecipeFormIngredientDTO {
+public class RecipeFormIngredientDTO implements Comparable<RecipeFormIngredientDTO> {
     private Long ingredientId;
     private String name;
 
@@ -16,13 +18,19 @@ public class RecipeFormIngredientDTO {
 
 
     public static List<RecipeFormIngredientDTO> convertToRecipeFromIngredient(List<Ingredient> ingredients) {
-        List<RecipeFormIngredientDTO> RecipeFormIngredients = new ArrayList<>();
+        List<RecipeFormIngredientDTO> recipeFormIngredients = new ArrayList<>();
         for (Ingredient ingredient : ingredients) {
             RecipeFormIngredientDTO recipeFormIngredient = new RecipeFormIngredientDTO(ingredient.getName(),
                     ingredient.getIngredientId());
-            RecipeFormIngredients.add(recipeFormIngredient);
+            recipeFormIngredients.add(recipeFormIngredient);
         }
-        return RecipeFormIngredients;
+        Collections.sort(recipeFormIngredients);
+        return recipeFormIngredients;
+    }
+
+    @Override
+    public int compareTo(RecipeFormIngredientDTO otherIngredient) {
+        return this.name.compareTo(otherIngredient.name);
     }
 
     public Long getIngredientId() {

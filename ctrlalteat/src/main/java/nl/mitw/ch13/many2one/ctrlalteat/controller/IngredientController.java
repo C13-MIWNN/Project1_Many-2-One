@@ -1,5 +1,7 @@
 package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
+import nl.mitw.ch13.many2one.ctrlalteat.dtos.IngredientDTO;
+import nl.mitw.ch13.many2one.ctrlalteat.dtos.RecipeFormIngredientDTO;
 import nl.mitw.ch13.many2one.ctrlalteat.enums.MeasurementUnitTypes;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
@@ -29,7 +31,8 @@ public class IngredientController {
 
     @GetMapping("/ingredient")
     private String showIngredientsOverview(Model model) {
-        model.addAttribute("allIngredients", ingredientRepository.findAll());
+        List<Ingredient> ingredients = ingredientRepository.findAll();
+        model.addAttribute("allIngredients", IngredientDTO.convertToIngredientDTO(ingredients));
         model.addAttribute("newIngredient", new Ingredient());
         model.addAttribute("measurementUnitTypes", measurementUnitTypes);
         return "ingredientOverview";

@@ -8,27 +8,50 @@
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-
     <h1>Overview of all ingredients</h1>
-    <form th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
-        <table>
+    <form id="ingredientInputForm" th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
+        <table class="table" id="IngredientInputTableTable">
             <tr>
                 <th><label for="nameField">Name</label></th>
-                <th><label for="descriptionField">Description</label></th>
-                <th></th>
+                <th class="ingredientInputTable"><label for="caloriesField">Calories</label></th>
+                <th class="ingredientInputTable"><label for="proteinField">Protein per 100 gram</label></th>
+                <th class="ingredientInputTable"><label for="carbField">Carbohydrates per 100 gram</label></th>
+                <th class="ingredientInputTable"><label for="fatsField">Fat per 100 gram</label></th>
             </tr>
             <tr>
                 <td><input type="text" id="nameField" th:field="*{name}"/></td>
-                <td><input type="text" id="descriptionField" th:field="*{description}"/></td>
-
-                <td><input type="submit" value="Add a new ingredient"></td>
-            </tr>
-            <tr th:each="ingredient : ${allIngredients}">
-                <td th:text="${ingredient.name}"></td>
-                <td th:text="${ingredient.description}"></td>]
+                <td class="ingredientInputTable"><input type="text" id="caloriesField" th:field="*{kCal}"/></td>
+                <td class="ingredientInputTable"><input type="text" id="proteinField" th:field="*{protein}"/></td>
+                <td class="ingredientInputTable"><input type="text" id="carbField" th:field="*{carbs}"/></td>
+                <td class="ingredientInputTable"><input type="text" id="fatsField" th:field="*{fats}"/></td>
             </tr>
         </table>
+        <input type="submit" value="Add a new ingredient">
     </form>
+
+    <p>*All nutritional values are per 100g</p>
+
+    <table class="table table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Calories</th>
+                <th scope="col">Protein</th>
+                <th scope="col">Carbohydrates</th>
+                <th scope="col">Fat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ingredient : ${allIngredients}">
+                <td id="ingredientFormIngredientNameTableRow" th:text="${ingredient.name}"></td>
+                <td class="IngredientTableNumbersColumns" th:text="${ingredient.kCal}"></td>
+                <td class="IngredientTableNumbersColumns" th:text="${ingredient.protein}"></td>
+                <td class="IngredientTableNumbersColumns" th:text="${ingredient.carbs}"></td>
+                <td class="IngredientTableNumbersColumns" th:text="${ingredient.fats}"></td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

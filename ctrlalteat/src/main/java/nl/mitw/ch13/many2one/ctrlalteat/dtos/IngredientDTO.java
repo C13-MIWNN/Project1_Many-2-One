@@ -1,43 +1,45 @@
-package nl.mitw.ch13.many2one.ctrlalteat.model;
+package nl.mitw.ch13.many2one.ctrlalteat.dtos;
 
-import jakarta.persistence.*;
+import nl.mitw.ch13.many2one.ctrlalteat.model.Ingredient;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-/**
- * @author Simon Hiemstra
- * Purpose: Reprisents an ingredient that can be saved in the database and used in recipes.
- **/
-@Entity
-public class Ingredient {
-    @Id @GeneratedValue
+public class IngredientDTO implements Comparable<IngredientDTO> {
+
     private Long ingredientId;
-
-    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
-    private List<RecipeIngredient> recipes = new ArrayList<>();
-
     private String name;
-    private String description;
     private String kCal;
     private double protein;
     private double fats;
     private double carbs;
 
-
-    public Ingredient(String name, Long ingredientId, String description, String kCal, double protein, double fats, double carbs) {
-        this.name = name;
+    public IngredientDTO(Long ingredientId, String name, String kCal, double protein, double fats, double carbs) {
         this.ingredientId = ingredientId;
-        this.description = description;
+        this.name = name;
         this.kCal = kCal;
         this.protein = protein;
         this.fats = fats;
         this.carbs = carbs;
     }
 
-    public Ingredient() {
+
+    public static List<IngredientDTO> convertToIngredientDTO(List<Ingredient> ingredients) {
+        List<IngredientDTO> ingredientDTOS = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            IngredientDTO recipeingredientDTO = new IngredientDTO(ingredient.getIngredientId(), ingredient.getName(),
+                    ingredient.getkCal(), ingredient.getProtein(), ingredient.getFats(), ingredient.getCarbs());
+            ingredientDTOS.add(recipeingredientDTO);
+        }
+        Collections.sort(ingredientDTOS);
+        return ingredientDTOS;
+    }
+
+
+    @Override
+    public int compareTo(IngredientDTO otherIngredient) {
+        return this.name.compareTo(otherIngredient.name);
     }
 
     public Long getIngredientId() {
@@ -48,28 +50,12 @@ public class Ingredient {
         this.ingredientId = ingredientId;
     }
 
-    public List<RecipeIngredient> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<RecipeIngredient> recipes) {
-        this.recipes = recipes;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getkCal() {
@@ -102,10 +88,5 @@ public class Ingredient {
 
     public void setCarbs(double carbs) {
         this.carbs = carbs;
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
     }
 }

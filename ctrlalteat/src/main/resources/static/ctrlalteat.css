@@ -310,3 +310,13 @@ div.recipeWindow {
     flex-direction: row;
     justify-content: center;
 }
+
+/*IngredientForm*/
+
+.IngredientTableNumbersColumns{
+    width: 10%;
+}
+
+#ingredientInputForm {
+    padding-bottom: 30px;
+}
