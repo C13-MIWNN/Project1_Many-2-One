@@ -117,6 +117,12 @@ h1 {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+#recipeIngredientHeightWrapper {
+    height: 30%;
+    overflow: hidden;
 }
 
 div.ingredientWindow {
@@ -125,7 +131,7 @@ div.ingredientWindow {
     padding: 10px;
     border: 1px solid #000;
     width: 30vh;
-    max-height: 50vh;
+    max-height: 40vh;
 }
 
 div.recipeWindow {
@@ -135,9 +141,20 @@ div.recipeWindow {
     padding: 10px;
     border: 1px solid #000;
     width: 60vh;
-    max-height: 50vh;
+    max-height: 40vh;
     white-space: pre-wrap;
 }
+
+#categoryButtonsDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+}
+#categoryButtonDiv {
+    padding: 5px;
+}
+
 
 /*recipeForm css*/
 .recipeDetailPageTop {
@@ -295,6 +312,11 @@ div.recipeWindow {
 }
 
 /*recipeDetail page css*/
+
+#recipeDetailDiv {
+    height: 82vh;
+    overflow: hidden;
+}
 #recipeInformationContainer {
     display: flex;
     flex-direction: row;
