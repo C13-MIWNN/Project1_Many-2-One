@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +17,14 @@ import java.util.Set;
 public class Recipe {
 
     private static final int MAX_CHAR_SIZE_RECIPE_NAME = 40;
+
+    public static final int EASY_DIFFICULTY_IN_NUMBERS = 1;
+    public static final int MEDIUM_DIFFICULTY_IN_NUMBERS = 2;
+    public static final int HARD_DIFFICULTY_IN_NUMBERS = 3;
+
+    public static final int LOWER_LIMIT_MEDIUM_DIFFICULTY = 5;
+    public static final int UPPER_LIMIT_MEDIUM_DIFFICULTY = 8;
+    public static final int LOWER_LIMIT_HARD_DIFFICULTY = 9;
 
     @Id @GeneratedValue
     private Long recipeId;
@@ -56,7 +63,6 @@ public class Recipe {
     public Recipe() {
     }
 
-
     public String buildRecipePreparationMethodString() {
         StringBuilder stringBuilder = new StringBuilder();
         if (preparationMethodSteps.isEmpty()) {
@@ -72,12 +78,12 @@ public class Recipe {
 
     private int getDifficultyInNumbers(Recipe recipe) {
         int numberOfSteps = recipe.getNoOfPreparationMethodSteps();
-        int difficultyBasedOnSteps = 1;
-        if (numberOfSteps >= 5 && numberOfSteps <= 8) {
-            difficultyBasedOnSteps = 2;
+        int difficultyBasedOnSteps = EASY_DIFFICULTY_IN_NUMBERS;
+        if (numberOfSteps >= LOWER_LIMIT_MEDIUM_DIFFICULTY && numberOfSteps <= UPPER_LIMIT_MEDIUM_DIFFICULTY) {
+            difficultyBasedOnSteps = MEDIUM_DIFFICULTY_IN_NUMBERS;
         }
-        else if (numberOfSteps >= 9) {
-            difficultyBasedOnSteps = 3;
+        else if (numberOfSteps >= LOWER_LIMIT_HARD_DIFFICULTY) {
+            difficultyBasedOnSteps = HARD_DIFFICULTY_IN_NUMBERS;
         }
         return difficultyBasedOnSteps;
     }
@@ -85,11 +91,11 @@ public class Recipe {
     public String getDifficultyLevelInString(Recipe recipe) {
         int difficultyLevelInNumbers = getDifficultyInNumbers(recipe);
         String difficultyLevel = "Easy";
-        if (difficultyLevelInNumbers == 2)
+        if (difficultyLevelInNumbers == MEDIUM_DIFFICULTY_IN_NUMBERS)
         {
             difficultyLevel = "Medium" ;
         }
-        if (difficultyLevelInNumbers == 3) {
+        if (difficultyLevelInNumbers == HARD_DIFFICULTY_IN_NUMBERS) {
             difficultyLevel = "Hard" ;
         }
         return difficultyLevel;
