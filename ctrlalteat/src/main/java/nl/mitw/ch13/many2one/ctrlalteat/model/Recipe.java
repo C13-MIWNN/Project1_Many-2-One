@@ -99,6 +99,16 @@ public class Recipe {
         return preparationMethodSteps.size();
     }
 
+    public int getNoOfNonEmptyPreparationMethodSteps() {
+        int count = 0;
+        for (String step : preparationMethodSteps) {
+            if (!step.isEmpty()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public Long getRecipeId() {
         return recipeId;
     }
