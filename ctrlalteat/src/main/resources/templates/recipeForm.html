@@ -21,6 +21,10 @@
                     </div>
                     <div class="recipeFormDivTop">
                         <input class="recipeFormInputTop" type="text" id="recipeNameField" th:field="*{recipeName}">
+
+                    </div>
+                    <div th:if="${#fields.hasErrors('recipeName')}">
+                        <small th:errors="*{recipeName}" class="form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="recipeLabelAndInputTop" id="recipeServingsInput">
@@ -65,6 +69,9 @@
                                         th:value="${ingredient.ingredientId}">
                                 </option>
                             </select>
+                        </div>
+                        <div th:if="${#fields.hasErrors('ingredients')}">
+                            <small th:errors="*{ingredients}" class="form-text text-danger"></small>
                         </div>
                     </div>
                     <div class="ingredientAmount">

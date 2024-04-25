@@ -5,52 +5,57 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * @author Arjan Cnossen
- * Purpose: Testing the new function to add a difficulty to every recipe, based on the number of steps and ingredients.
+ * Purpose: Testing the new function to add a difficulty to every recipe, based on the number of steps.
  **/
 
 public class CtrlAltEatRecipeDifficultyTest {
 
     @Test
-    @DisplayName("Difficulty for recipes with a low number of ingredients and steps")
-    void DifficultyForRecipesWithLowNumberOfIngredientsAndSteps() {
+    @DisplayName("Difficulty for recipes without any steps")
+    void DifficultyForRecipesWithJustOneStep () {
 
-        String recipeName = "Chicken soup";
-        String[] preparationMethodSteps = {"Saute onion and garlic.",
-                "Add cooked rice, diced tomatoes, salt, and pepper. ",
-                "Stir in scrambled eggs."};
-        String[] ingredients = {"Saute onion and garlic.",
-                "Add cooked rice, diced tomatoes, salt, and pepper. ",
-                "Stir in scrambled eggs."};
+        String[] preparationMethodSteps = {};
+        Recipe recipe = getRecipe("Nothingness", preparationMethodSteps);
 
-        Recipe recipe = getRecipe(recipeName, preparationMethodSteps, ingredients);
+        String numberOfSteps = recipe.getDifficultyLevelInString(recipe);
+        String expectedNumberOfSteps = "Easy";
 
-        int number = ingredients.length;
-
-        // something with assertEquals? Expected?
-
+        assertEquals(expectedNumberOfSteps, numberOfSteps);
     }
 
-    public int difficultyBasedOnSteps(Recipe recipe) {
-        int numberOfSteps = recipe.getNoOfPreparationMethodSteps();
-        return numberOfSteps;
+    @Test
+    @DisplayName("Difficulty for recipes with 3 steps (one away from medium)")
+    void DifficultForRecipesWithThreeSteps () {
 
+        // use a forloop from now on
+        String[] preparationMethodSteps = {};
+
+        Recipe recipe = getRecipe("Nothingness", preparationMethodSteps);
+
+        String numberOfSteps = recipe.getDifficultyLevelInString(recipe);
+        String expectedNumberOfSteps = "Easy";
+
+        assertEquals(expectedNumberOfSteps, numberOfSteps);
     }
+//
+//    @Test
+//    DisplayName("Difficulty for recipes with 4 steps")
+//    void DifficultyForRecipesWith4Steps () {
+//
+//        String[] preparationMethodSteps = {}
+//    }
+    // randgevallen testen
+    // in recipe zetten, die ik ga testen als public
 
-    private static Recipe getRecipe(String recipeName, String[] preparationMethodSteps, String[] ingredients) {
-
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-
-        List<RecipeIngredient> recipeIngredientList = new ArrayList<>();
-        recipeIngredientList.add(recipeIngredient);
-
+    private static Recipe getRecipe(String recipeName, String[] preparationMethodSteps){
         Recipe recipe = new Recipe();
         recipe.setRecipeName(recipeName);
-        recipe.setPreparationMethodSteps(List.of(preparationMethodSteps));
-        recipe.setIngredients(recipeIngredientList);
+        recipe.setPreparationMethodSteps(Arrays.asList(preparationMethodSteps));
 
         return recipe;
     }
-
 }
