@@ -66,10 +66,10 @@ public class Recipe {
     private int getDifficultyInNumbers(Recipe recipe) {
         int numberOfSteps = recipe.getNoOfPreparationMethodSteps();
         int difficultyBasedOnSteps = 1;
-        if (numberOfSteps > 3 && numberOfSteps <= 6) {
+        if (numberOfSteps >= 5 && numberOfSteps <= 8) {
             difficultyBasedOnSteps = 2;
         }
-        else if (numberOfSteps > 6) {
+        else if (numberOfSteps >= 9) {
             difficultyBasedOnSteps = 3;
         }
         return difficultyBasedOnSteps;
