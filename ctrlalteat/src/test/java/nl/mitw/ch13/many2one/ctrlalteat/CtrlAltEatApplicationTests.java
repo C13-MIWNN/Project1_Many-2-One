@@ -11,10 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CtrlAltEatApplicationTests {
 
 	@Test
-	void contextLoads() {
-	}
-
-	@Test
 	@DisplayName("Number of preparation method steps for recipes without steps")
 	void recipesWithoutSteps() {
 		// Arrange
@@ -27,5 +23,40 @@ class CtrlAltEatApplicationTests {
 		// Assert
 		assertEquals(expectedSteps, actualSteps);
 	}
+
+	@Test
+	@DisplayName("Number of preparation method steps for recipes with several steps")
+	void recipesWithSeveralSteps() {
+		// Arrange
+		Recipe recipe = new Recipe();
+		recipe.getPreparationMethodSteps().add("Step 1: Prepare ingredients");
+		recipe.getPreparationMethodSteps().add("Step 2: Cook ingredients");
+		recipe.getPreparationMethodSteps().add("Step 3: Serve your meal");
+		int expectedSteps = 3;
+
+		// Act
+		int actualSteps = recipe.getNoOfPreparationMethodSteps();
+
+		// Assert
+		assertEquals(expectedSteps, actualSteps);
+	}
+
+	@Test
+	@DisplayName("Number of preparation method steps for recipes with empty steps")
+	void recipesWithEmptySteps() {
+		Recipe recipe = new Recipe();
+		recipe.getPreparationMethodSteps().add(""); // Empty step
+		recipe.getPreparationMethodSteps().add("Step 1: Prepare ingredients");
+		recipe.getPreparationMethodSteps().add(""); // Empty step
+		recipe.getPreparationMethodSteps().add("Step 2: Cook ingredients");
+		int expectedSteps = 2; // there are 2 non-empty steps
+
+		// Act
+		int actualSteps = recipe.getNoOfNonEmptyPreparationMethodSteps();
+
+		// Assert
+		assertEquals(expectedSteps, actualSteps);
+	}
+
 
 }

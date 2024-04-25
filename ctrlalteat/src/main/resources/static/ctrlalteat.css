@@ -161,11 +161,11 @@ div.recipeWindow {
 }
 
 #recipeServingsField {
-    width: 30px;
+    width: 50px;
 }
 
 #recipePreparationTimeField {
-    width: 50px;
+    width: 60px;
 }
 
 .recipeFormDivTop {
@@ -176,10 +176,12 @@ div.recipeWindow {
 .recipeIngredientAmountUnitWrapper {
     display: flex;
     flex-direction: row;
+    padding-left: 20px;
 }
 
 .recipeLabelAndInputTop {
     text-align: center;
+    padding: 20px;
 }
 
 
@@ -197,6 +199,7 @@ div.recipeWindow {
 .recipeDetailPageMiddle {
     display: flex;
     flex-direction: row;
+    padding: 20px;
 }
 
 .recipeLabelAndInputMiddle {
@@ -221,7 +224,6 @@ div.recipeWindow {
 }
 
 #recipeRemoveCategoryButton {
-    transform: translateY(-25%);
     padding-left: 3px;
     --bs-btn-padding-y: .25rem;
     --bs-btn-padding-x: .5rem;
@@ -235,6 +237,9 @@ div.recipeWindow {
     --bs-btn-padding-x: .5rem;
     --bs-btn-font-size: .75rem;
 }
+#ingredientAmountField {
+    width: 150px;
+}
 
 .recipeDynamicallyAddedCategoryInput {
     padding-top: 3px;
@@ -244,6 +249,10 @@ div.recipeWindow {
 
 .categoryInputsDiv {
     padding: 3px;
+}
+
+.categoryInputFields {
+    width: 300px;
 }
 
 #addCategoryFieldButtonDiv {
@@ -260,10 +269,15 @@ div.recipeWindow {
 #addIngredientButtonDiv {
     padding-bottom: 10px;
     padding-top: 10px;
+    padding-left: 20px;
 }
 
 #ingredientPaddingDiv {
     padding: 10px;
+}
+
+#ingredientInputFields {
+    padding-left: 20px;
 }
 
 #ingredientUnitField {
@@ -274,6 +288,10 @@ div.recipeWindow {
     color: black;
     background-color: darkorange;
     border-color: black;
+}
+
+.saveRecipeButton {
+    padding: 20px;
 }
 
 /*recipeDetail page css*/
