@@ -1,7 +1,6 @@
 package nl.mitw.ch13.many2one.ctrlalteat.model;
 
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.SearchRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -17,13 +16,12 @@ public class Search {
 
     private SearchRepository searchRepository;
 
-    @Autowired
     public Search(SearchRepository searchRepository) {
         this.searchRepository = searchRepository;
     }
     public List<Recipe> searchRecipes(String keyword) {
         if (keyword != null) {
-            return searchRepository.search(keyword + "%");
+            return searchRepository.search(keyword);
         }
         return Collections.emptyList();
     }

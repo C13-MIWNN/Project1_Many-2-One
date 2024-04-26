@@ -2,7 +2,6 @@ package nl.mitw.ch13.many2one.ctrlalteat.controller;
 
 import nl.mitw.ch13.many2one.ctrlalteat.model.Recipe;
 import nl.mitw.ch13.many2one.ctrlalteat.model.Search;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,24 +11,22 @@ import java.util.List;
 
 /**
  * @Auteur Arjan Cnossen
- * Purpose of the class
+ * Handle search requests on the website
  **/
+
 @Controller
 public class SearchController {
 
-    private final Search recipeService;
+    private final Search searchService;
 
-    @Autowired
-    public SearchController(Search recipeService) {
-        this.recipeService = recipeService;
+    public SearchController(Search searchService) {
+        this.searchService = searchService;
     }
 
     @GetMapping("/search")
     public String searchRecipes(Model model, @RequestParam("keyword") String keyword) {
-        List<Recipe> recipeList = recipeService.searchRecipes(keyword);
+        List<Recipe> recipeList = searchService.searchRecipes(keyword);
         model.addAttribute("recipeList", recipeList);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("title", "Search Results");
 
         if (recipeList.isEmpty()) {
             return "redirect:/404";
