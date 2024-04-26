@@ -7,6 +7,7 @@ import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeIngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.services.CtrlAltEatUserService;
+import nl.mitw.ch13.many2one.ctrlalteat.services.IngredientImportService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
@@ -28,18 +29,20 @@ public class InitializeController {
     private final RecipeIngredientRepository recipeIngredientRepository;
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
+    private final IngredientImportService ingredientImportService;
     byte[] image;
 
     private final CtrlAltEatUserService ctrlAltEatUserService;
 
     public InitializeController(IngredientRepository ingredientRepository,
                                 RecipeIngredientRepository recipeIngredientRepository,
-                                RecipeRepository recipeRepository, CategoryRepository categoryRepository,
+                                RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientImportService ingredientImportService,
                                 CtrlAltEatUserService ctrlAltEatUserService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
+        this.ingredientImportService = ingredientImportService;
         this.ctrlAltEatUserService = ctrlAltEatUserService;
     }
 
@@ -53,6 +56,9 @@ public class InitializeController {
     @GetMapping("/initialize")
     private String initializeDB() {
         makeUser("Eat", "Eat");
+
+        List<Ingredient> ingredients = ingredientImportService.readCsvFile("ctrlalteat/src/main/resources/projectDocuments/NEVO2023_8.0.csv");
+        ingredientRepository.saveAll(ingredients);
 
         Ingredient onion = makeIngredient("Onion",
                 "A versatile aromatic vegetable used in various cuisines.");

@@ -21,17 +21,22 @@
         </div>
 
         <div class="recipeIngredientWrapper" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-            <div class="scrollable">
-                <div class="ingredientWindow"> Ingredients
-                    <ul>
-                        <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient}"></li>
-                    </ul>
+            <div id="recipeIngredientHeightWrapper">
+                <div class="scrollable">
+                    <div class="ingredientWindow"> Ingredients
+                        <ul>
+                            <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient}"></li>
+                        </ul>
+                    </div>
+                    <div class="recipeWindow" th:text="${recipeToBeShown.buildRecipePreparationMethodString()}"></div>
                 </div>
-                <div class="recipeWindow" th:text="${recipeToBeShown.buildRecipePreparationMethodString()}"></div>
             </div>
         </div>
-
-        <div id="RecipeDetailCategories" th:each="category : ${recipeToBeShown.categories}" th:text="${category}"></div>
+        <div id="categoryButtonsDiv">
+            <div id="categoryButtonDiv" th:each="category : ${recipeToBeShown.categories}">
+                <a th:href="@{/category/{categoryId}(categoryId=${category.categoryName})}" class="btn btn-outline-info btn-sm" th:text="${category}"></a>
+            </div>
+        </div>
     </div>
 </div>
 
