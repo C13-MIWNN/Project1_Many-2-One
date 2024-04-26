@@ -3,6 +3,7 @@ package nl.mitw.ch13.many2one.ctrlalteat.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import nl.mitw.ch13.many2one.ctrlalteat.services.RecipePdfService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,12 @@ public class Recipe {
         }
         return count;
     }
+
+    public byte[] makeRecipePDF() {
+        return RecipePdfService.makeRecipePDF(this);
+    }
+
+
 
     public Long getRecipeId() {
         return recipeId;

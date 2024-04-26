@@ -10,6 +10,7 @@ import nl.mitw.ch13.many2one.ctrlalteat.repositories.IngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeIngredientRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import nl.mitw.ch13.many2one.ctrlalteat.services.RecipeFormService;
+import nl.mitw.ch13.many2one.ctrlalteat.services.RecipePdfService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -91,7 +92,6 @@ public class RecipeController {
     }
 
 
-
     private Set<Category> handleCategory(Recipe recipeToBeSaved) {
         String[] tags = unpackTags(recipeToBeSaved);
         List<Category> categories = categoryRepository.findAll();
@@ -154,6 +154,7 @@ public class RecipeController {
         model.addAttribute("recipeToBeShown", recipe);
         model.addAttribute("recipeImageData", imageData);
 
+
         return "recipeDetails";
     }
 
@@ -200,4 +201,7 @@ public class RecipeController {
 
         return "redirect:/recipe/detail/" + recipeId;
     }
+
+
+
 }

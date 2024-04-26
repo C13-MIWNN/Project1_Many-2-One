@@ -104,6 +104,16 @@ h1 {
     font-weight: bold;
 }
 
+#titleDownloadButtonWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#downloadButtonDiv {
+    padding: 10px;
+}
 .recipeDetailTitle {
   text-align: center;
 }

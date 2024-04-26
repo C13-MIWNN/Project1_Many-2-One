@@ -7,6 +7,7 @@ import nl.mitw.ch13.many2one.ctrlalteat.repositories.RecipeRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -52,5 +53,17 @@ public class ImageController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/recipe/detail/{recipeId}/pdf")
+    public ResponseEntity<byte[]> showRecipeDownload(@PathVariable("recipeId") Long recipeId, Model model) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+        if (recipeOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Recipe recipe = recipeOptional.get();
+
+        byte[] recipePdf = recipe.makeRecipePDF();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(recipePdf);
     }
 }
